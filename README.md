@@ -1,7 +1,7 @@
 <h1 align="center"> CarFleetManagement </h1>
 <h2 align="center">This is company carfleet management system designing project</h2>
 
-<h1 align="center"># Team:</h1>
+<h1 align="center"># Team: CodeCruisers</h1>
 
 <p>
   <h3 align="center"><a href="https://github.com/zdomiter">Zoltán Domiter</a></h3>
