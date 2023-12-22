@@ -448,7 +448,7 @@ ALTER TABLE `insurance`
 ALTER TABLE `maintenance`
   ADD CONSTRAINT `car-main` FOREIGN KEY (`license_plate`) REFERENCES `car` (`license plate`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `main-service` FOREIGN KEY (`service_company`) REFERENCES `service_company` (`name_service_company`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `main-type` FOREIGN KEY (`maintenance_type`) REFERENCES `insurance_type` (`name_insurance_type`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `main-type` FOREIGN KEY (`maintenance_type`) REFERENCES `maintenance_type` (`name_maintenance_type`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Megkötések a táblához `picture`
