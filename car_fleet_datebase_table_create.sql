@@ -201,18 +201,6 @@ CREATE TABLE `role` (
   `name_role` varchar(45) COLLATE utf8_hungarian_ci NOT NULL,
   `description` varchar(100) COLLATE utf8_hungarian_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
-
---
--- A tábla adatainak kiíratása `role`
---
-
-INSERT INTO `role` (`name_role`, `description`) VALUES
-('admin', 'mindenre van jogosultsága kivéve a felhasználó létrehozása'),
-('superadmin', 'mindenre van jogosultsága'),
-('user', 'lekérdezés jellegű funkciók');
-
--- --------------------------------------------------------
-
 --
 -- Tábla szerkezet ehhez a táblához `service_company`
 --
