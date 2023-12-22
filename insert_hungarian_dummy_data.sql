@@ -56,7 +56,7 @@ INSERT INTO `insurance_type` (`name_insurance_type`) VALUES
 ('Kiterjedt biztosítás');
 
 -- Tábla `car` adatok
-INSERT INTO `car` (`license plate`, `make`, `model`, `category`, `fuel`, `doors`, `seats`, `transmission_type`, `mileage`, `service_interval`, `inspection_expiry_date`, `site_name`, `status`, `created_at`, `updated_at`, `enabled`) VALUES
+INSERT INTO `car` (`license_plate`, `make`, `model`, `category`, `fuel`, `doors`, `seats`, `transmission_type`, `mileage`, `service_interval`, `inspection_expiry_date`, `site_name`, `status`, `created_at`, `updated_at`, `enabled`) VALUES
 ('ABC123', 'Toyota', 'Camry', 'Szédán', 'Benzin', 4, 5, 'Automata', 50000, 10000, '2024-12-22', 'Iroda', 1, '2023-12-22', NULL, 1),
 ('XYZ789', 'Honda', 'Civic', 'Szédán', 'Benzin', 4, 5, 'Kézi', 60000, 12000, '2024-12-22', 'Raktár', 1, '2023-12-22', NULL, 1),
 ('DEF456', 'Ford', 'F-150', 'Teherautó', 'Dízel', 2, 3, 'Automata', 70000, 15000, '2024-12-22', 'Iroda', 1, '2023-12-22', NULL, 1),
