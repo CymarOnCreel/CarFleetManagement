@@ -20,9 +20,9 @@ SET time_zone = "+00:00";
 --
 -- Adatbázis: `car_fleet`
 --
-
+CREATE SCHEMA `carfleet_manager` DEFAULT CHARACTER SET utf8 COLLATE utf8_hungarian_ci ;
 -- --------------------------------------------------------
-
+use `carfleet_manager`;
 --
 -- Tábla szerkezet ehhez a táblához `car`
 --
