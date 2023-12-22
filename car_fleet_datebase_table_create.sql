@@ -28,7 +28,7 @@ use `carfleet_manager`;
 --
 
 CREATE TABLE `car` (
-  `license plate` varchar(20) COLLATE utf8_hungarian_ci NOT NULL,
+  `license_plate` varchar(20) COLLATE utf8_hungarian_ci NOT NULL,
   `make` varchar(45) COLLATE utf8_hungarian_ci NOT NULL,
   `model` varchar(45) COLLATE utf8_hungarian_ci NOT NULL,
   `category` varchar(45) COLLATE utf8_hungarian_ci NOT NULL,
@@ -253,8 +253,8 @@ CREATE TABLE `transmission` (
 -- A tábla indexei `car`
 --
 ALTER TABLE `car`
-  ADD PRIMARY KEY (`license plate`),
-  ADD UNIQUE KEY `license plate_UNIQUE` (`license plate`),
+  ADD PRIMARY KEY (`license_plate`),
+  ADD UNIQUE KEY `license_plate_UNIQUE` (`license_plate`),
   ADD KEY `transmission_idx` (`transmission_type`),
   ADD KEY `make_idx` (`make`),
   ADD KEY `model_idx` (`model`),
@@ -428,13 +428,13 @@ ALTER TABLE `employee`
 --
 ALTER TABLE `insurance`
   ADD CONSTRAINT `insurance_type` FOREIGN KEY (`insurance_type`) REFERENCES `insurance_type` (`name_insurance_type`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `license_plate` FOREIGN KEY (`license_plate`) REFERENCES `car` (`license plate`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `license_plate` FOREIGN KEY (`license_plate`) REFERENCES `car` (`license_plate`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Megkötések a táblához `maintenance`
 --
 ALTER TABLE `maintenance`
-  ADD CONSTRAINT `car-main` FOREIGN KEY (`license_plate`) REFERENCES `car` (`license plate`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `car-main` FOREIGN KEY (`license_plate`) REFERENCES `car` (`license_plate`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `main-service` FOREIGN KEY (`service_company`) REFERENCES `service_company` (`name_service_company`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `main-type` FOREIGN KEY (`maintenance_type`) REFERENCES `maintenance_type` (`name_maintenance_type`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
@@ -442,13 +442,13 @@ ALTER TABLE `maintenance`
 -- Megkötések a táblához `picture`
 --
 ALTER TABLE `picture`
-  ADD CONSTRAINT `pic-car` FOREIGN KEY (`license_plate`) REFERENCES `car` (`license plate`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `pic-car` FOREIGN KEY (`license_plate`) REFERENCES `car` (`license_plate`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Megkötések a táblához `reservation`
 --
 ALTER TABLE `reservation`
-  ADD CONSTRAINT `car-reservation` FOREIGN KEY (`license_plate`) REFERENCES `car` (`license plate`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `car-reservation` FOREIGN KEY (`license_plate`) REFERENCES `car` (`license_plate`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `employee-reservation` FOREIGN KEY (`id_employee`) REFERENCES `employee` (`id_employee`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
