@@ -57,18 +57,19 @@
       <ComboBox fx:id="cmbCategory" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
       <ComboBox fx:id="cmbFuel" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
       <ComboBox fx:id="cmbTransmission" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-      <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="11" />
-      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="3" GridPane.rowIndex="4" />
-      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="7" />
-      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="3" GridPane.rowIndex="7" />
-      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="11" />
-      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="3" GridPane.rowIndex="11" />
+      <ComboBox fx:id="cmbSite" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+      <Button fx:id="btnAddMake" mnemonicParsing="false" onAction="#addMake" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+      <Button fx:id="btnUpdateMake" mnemonicParsing="false" onAction="#updateMake" text="Button" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+      <Button fx:id="btnAddModel" mnemonicParsing="false" onAction="#addModel" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+      <Button fx:id="btnUpdateModel" mnemonicParsing="false" onAction="#updateModel" text="Button" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+      <Button fx:id="btnAddCategory" mnemonicParsing="false" onAction="#addCategory" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+      <Button fx:id="btnUpdateCategory" mnemonicParsing="false" onAction="#updateCategory" text="Button" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+      <Button fx:id="btnAddFuel" mnemonicParsing="false" onAction="#addFuel" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+      <Button fx:id="btnUpdateFuel" mnemonicParsing="false" onAction="#updateFuel" text="Button" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+      <Button fx:id="btnAddTransmission" mnemonicParsing="false" onAction="#addTransmission" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+      <Button fx:id="btnAddTransmisson" mnemonicParsing="false" onAction="#updateTransmission" text="Button" GridPane.columnIndex="3" GridPane.rowIndex="7" />
+      <Button fx:id="btnAddSite" mnemonicParsing="false" onAction="#addSite" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="11" />
+      <Button fx:id="btnUpdateSite" mnemonicParsing="false" onAction="#updateSite" text="Button" GridPane.columnIndex="3" GridPane.rowIndex="11" />
+      <Button fx:id="btnSaveNewCar" mnemonicParsing="false" onAction="#saveNewCar" text="Button" GridPane.columnIndex="3" GridPane.rowIndex="13" />
    </children>
 </GridPane>
