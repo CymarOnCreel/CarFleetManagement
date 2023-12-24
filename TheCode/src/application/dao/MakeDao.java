@@ -29,13 +29,13 @@ public class MakeDao implements ICrud<MakeDto> {
 	}
 
 	@Override
-	public void deleteById(Long id) {
+	public void deleteById(Object id) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public MakeDto findById(Long id) {
+	public MakeDto findById(Object id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

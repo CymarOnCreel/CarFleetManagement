@@ -19,13 +19,13 @@ public class PictureDao implements ICrud<PictureDto>{
 	}
 
 	@Override
-	public void deleteById(Long id) {
+	public void deleteById(Object id) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public PictureDto findById(Long id) {
+	public PictureDto findById(Object id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

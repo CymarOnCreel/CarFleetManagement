@@ -19,13 +19,13 @@ public class ReservationDao implements ICrud<ReservationDto>{
 	}
 
 	@Override
-	public void deleteById(Long id) {
+	public void deleteById(Object id) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public ReservationDto findById(Long id) {
+	public ReservationDto findById(Object id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

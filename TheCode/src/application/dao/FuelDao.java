@@ -19,13 +19,13 @@ public class FuelDao implements ICrud<FuelDto>{
 	}
 
 	@Override
-	public void deleteById(Long id) {
+	public void deleteById(Object id) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public FuelDto findById(Long id) {
+	public FuelDto findById(Object id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -48,16 +48,18 @@ public class CarDao implements ICrud<CarDto> {
 		factory.close();
 	}
 
-	public void deleteById(Long id) {
+	public void deleteById(Object id) {
 		entityManager.getTransaction().begin();
 		CarDto carDto = entityManager.find(CarDto.class, id);
-		carDto.deleteCarDto();
-		entityManager.getTransaction().commit();
+		if (carDto!=null) {
+			carDto.deleteCarDto();
+			entityManager.getTransaction().commit();
+		}
 		entityManager.close();
 		factory.close();
 	}
 
-	public CarDto findById(Long id) {
+	public CarDto findById(Object id) {
 		CarDto carDto = entityManager.find(CarDto.class, id);
 		entityManager.close();
 		factory.close();
@@ -73,5 +75,5 @@ public class CarDao implements ICrud<CarDto> {
 		
 		return cars;
 	}
-	
+
 }

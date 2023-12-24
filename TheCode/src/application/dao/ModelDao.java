@@ -19,13 +19,13 @@ public class ModelDao implements ICrud<ModelDto>{
 	}
 
 	@Override
-	public void deleteById(Long id) {
+	public void deleteById(Object id) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public ModelDto findById(Long id) {
+	public ModelDto findById(Object id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

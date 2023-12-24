@@ -7,7 +7,7 @@ public interface ICrud<T> {
 
 	public void save(T obj);
 	public void update(T obj);
-	public void deleteById(Long id);
-	public T findById(Long id);
+	public void deleteById(Object id);
+	public T findById(Object id);
 	public List<T> getAll();
 }

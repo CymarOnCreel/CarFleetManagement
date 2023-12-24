@@ -19,13 +19,13 @@ public class InsuranceDao implements ICrud<InsuranceDto>{
 	}
 
 	@Override
-	public void deleteById(Long id) {
+	public void deleteById(Object id) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public InsuranceDto findById(Long id) {
+	public InsuranceDto findById(Object id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

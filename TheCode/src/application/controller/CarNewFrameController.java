@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import application.dao.CarDao;
 import application.dao.MakeDao;
 import application.dto.MakeDto;
 import javafx.collections.FXCollections;
@@ -184,7 +185,7 @@ public class CarNewFrameController implements Initializable{
     }
     
     public void deleteCar() {
-		
+		new CarDao().deleteById("ABC-888");
 	}
 
 	@Override

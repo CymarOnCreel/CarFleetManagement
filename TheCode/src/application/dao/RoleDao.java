@@ -19,13 +19,13 @@ public class RoleDao implements ICrud<RoleDto>{
 	}
 
 	@Override
-	public void deleteById(Long id) {
+	public void deleteById(Object id) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public RoleDto findById(Long id) {
+	public RoleDto findById(Object id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

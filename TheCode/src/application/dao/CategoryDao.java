@@ -19,13 +19,13 @@ public class CategoryDao implements ICrud<CategoryDto>{
 	}
 
 	@Override
-	public void deleteById(Long id) {
+	public void deleteById(Object id) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public CategoryDto findById(Long id) {
+	public CategoryDto findById(Object id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

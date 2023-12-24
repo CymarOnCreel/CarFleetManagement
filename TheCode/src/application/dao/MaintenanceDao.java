@@ -19,13 +19,13 @@ public class MaintenanceDao implements ICrud<MaintenanceDto>{
 	}
 
 	@Override
-	public void deleteById(Long id) {
+	public void deleteById(Object id) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public MaintenanceDto findById(Long id) {
+	public MaintenanceDto findById(Object id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -19,13 +19,13 @@ public class SiteDao implements ICrud<SiteDto>{
 	}
 
 	@Override
-	public void deleteById(Long id) {
+	public void deleteById(Object id) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public SiteDto findById(Long id) {
+	public SiteDto findById(Object id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

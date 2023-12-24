@@ -19,13 +19,13 @@ public class TransmissionDao implements ICrud<TransmissionDto>{
 	}
 
 	@Override
-	public void deleteById(Long id) {
+	public void deleteById(Object id) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public TransmissionDto findById(Long id) {
+	public TransmissionDto findById(Object id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -19,13 +19,13 @@ public class EmployeeDao implements ICrud<EmployeeDto>{
 	}
 
 	@Override
-	public void deleteById(Long id) {
+	public void deleteById(Object id) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public EmployeeDto findById(Long id) {
+	public EmployeeDto findById(Object id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -19,13 +19,13 @@ public class ServiceCompanyDao implements ICrud<ServiceCompanyDto>{
 	}
 
 	@Override
-	public void deleteById(Long id) {
+	public void deleteById(Object id) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public ServiceCompanyDto findById(Long id) {
+	public ServiceCompanyDto findById(Object id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
