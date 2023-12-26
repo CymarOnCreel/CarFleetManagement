@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Polygon?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1200.0" prefWidth="1900.0" style="-fx-background-color: #1F363C;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.MainFrameController">
+	<children>
+		<Polygon fill="#159991" layoutX="1715.0" layoutY="123.0" points="-931.0, -123.00003051757812, 185.0, 861.5, 185.0, -123.0" stroke="#159991" strokeType="INSIDE" />
+		<Polygon fill="#159991" layoutX="1788.0" layoutY="432.0" points="-720.333251953125, 551.0, 112.0, 552.5, -1004.0, -447.6666564941406" stroke="#159991" strokeType="OUTSIDE" />
+		<ImageView fitHeight="363.0" fitWidth="488.0" x="-24.0" y="-125.0">
+			<image>
+				<Image url="@../pictures/carfleet-removebg-preview.png" />
+			</image>
+		</ImageView>
+		<ImageView fitHeight="690.0" fitWidth="1307.0" layoutX="52.0" layoutY="-121.0" x="508.0" y="366.0">
+			<image>
+				<Image url="@../pictures/suv-removebg-preview.png" />
+			</image>
+		</ImageView>
+		<ImageView fitHeight="104.0" fitWidth="172.0" layoutX="13.0" layoutY="-34.0" x="212.0" y="838.0">
+			<image>
+				<Image url="@../pictures/letöltés.png" />
+			</image>
+		</ImageView>
+		<Rectangle arcHeight="22.0" arcWidth="22.0" fill="#18968e" height="175.0" layoutX="-126.0" layoutY="-34.0" stroke="BLACK" strokeType="INSIDE" width="1881.0" x="126.0" y="1032.0" />
+
+		<Text fill="WHITE" layoutX="25.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Only the journey matters, leave the car to us!" textAlignment="CENTER" wrappingWidth="359.32293701171875" x="119.0" y="282.0">
+			<font>
+				<Font size="64.0" />
+			</font>
+		</Text>
+		<Text fill="WHITE" layoutX="23.0" layoutY="-4.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Get a car wherever and whenever you need it with your IOS and Android device." textAlignment="CENTER" wrappingWidth="366.0" x="116.0" y="725.0">
+			<font>
+				<Font size="24.0" />
+			</font>
+		</Text>
+		<Button fx:id="home" layoutX="831.0" layoutY="40.0" mnemonicParsing="false" prefHeight="103.0" prefWidth="217.0" style="-fx-background-color: #159991;" text="HOME" textFill="WHITE">
+			<font>
+				<Font size="38.0" />
+			</font>
+		</Button>
+		<MenuButton fx:id="reservation" layoutX="1024.0" layoutY="40.0" mnemonicParsing="false" prefHeight="103.0" prefWidth="366.0" style="-fx-background-color: #159991;" styleClass="custom-menu-button" stylesheets="@../util/application.css" text="RESERVATION" textAlignment="CENTER" textFill="WHITE">
+			<font>
+				<Font size="38.0" />
+			</font>
+			<items>
+				<MenuItem fx:id="listUserReservation" mnemonicParsing="false" styleClass="menu-item" text="List My Reservations" />
+				<MenuItem fx:id="newReservation" mnemonicParsing="false" styleClass="menu-item" text="New Reservation" />
+			</items>
+		</MenuButton>
+		<MenuButton fx:id="cars" layoutX="1365.0" layoutY="40.0" mnemonicParsing="false" prefHeight="103.0" prefWidth="196.0" style="-fx-background-color: #159991;" styleClass="custom-menu-button" stylesheets="@../util/application.css" text="CARS" textFill="WHITE">
+			<font>
+				<Font size="38.0" />
+			</font>
+			<items>
+				<MenuItem fx:id="addNewCar" mnemonicParsing="false" styleClass="menu-item" text="Add New Car" />
+				<MenuItem fx:id="addCarMaintenance" mnemonicParsing="false" styleClass="menu-item" text="Add Car Maintenance" />
+			</items>
+		</MenuButton>
+		<MenuButton fx:id="profile" layoutX="1570.0" layoutY="40.0" mnemonicParsing="false" prefHeight="103.0" prefWidth="315.0" style="-fx-background-color: #000000; -fx-background-radius: 30;" styleClass="custom-menu-button" text="PROFILE" textFill="WHITE">
+			<font>
+				<Font size="38.0" />
+			</font>
+			<items>
+				<MenuItem fx:id="login" mnemonicParsing="false" styleClass="menu-item" text="Login" />
+				<MenuItem fx:id="logout" mnemonicParsing="false" styleClass="menu-item" text="Logout" />
+				<MenuItem fx:id="changePassword" mnemonicParsing="false" styleClass="menu-item" text="Change Password" />
+				<MenuItem fx:id="registration" mnemonicParsing="false" styleClass="menu-item" text="Registration" />
+			</items>
+		</MenuButton>
+		<Button fx:id="search" layoutX="1388.0" layoutY="1028.0" mnemonicParsing="false" prefHeight="125.0" prefWidth="439.0" style="-fx-background-color: #000000; -fx-background-radius: 30;" text="SEARCH" textFill="WHITE">
+			<font>
+				<Font name="System Bold" size="40.0" />
+			</font>
+
+		</Button>
+	</children>
+</AnchorPane>

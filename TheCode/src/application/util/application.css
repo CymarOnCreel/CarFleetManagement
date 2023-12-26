@@ -1,3 +1,13 @@
 .backGroundColor{
 	-fx-background-color: linear-gradient(#33ccff, #99ffcc);
+	}
+.custom-menu-button .menu-item {
+    -fx-font-size: 30.0;
+
+}
+
+.custom-menu-button .menu-item:hover {
+     -fx-background-color: #159991;
+     -fx-text-fill: white;
+    
 }
