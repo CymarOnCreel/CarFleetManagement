@@ -1,5 +1,6 @@
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
+SET time_zone = "+00:00";
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -12,6 +13,7 @@ USE `carfleet_manager`;
 CREATE TABLE `car` (
   `license_plate` varchar(20) COLLATE utf8_hungarian_ci NOT NULL,
   `make` varchar(45) COLLATE utf8_hungarian_ci NOT NULL,
+  `model` varchar(45) COLLATE utf8_hungarian_ci DEFAULT NULL,
   `category` varchar(45) COLLATE utf8_hungarian_ci NOT NULL,
   `fuel` varchar(45) COLLATE utf8_hungarian_ci NOT NULL,
   `doors` int(11) NOT NULL,
@@ -27,8 +29,14 @@ CREATE TABLE `car` (
   `enabled` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
 
+CREATE TABLE `car_picture` (
+  `picture_path` varchar(200) COLLATE utf8_hungarian_ci NOT NULL,
+  `license_plate` varchar(20) COLLATE utf8_hungarian_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
+
 CREATE TABLE `category` (
-  `name_category` varchar(45) COLLATE utf8_hungarian_ci NOT NULL
+  `name_category` varchar(45) COLLATE utf8_hungarian_ci NOT NULL,
+  `picture_path_category` varchar(45) COLLATE utf8_hungarian_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
 
 CREATE TABLE `employee` (
@@ -83,17 +91,13 @@ CREATE TABLE `maintenance_type` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
 
 CREATE TABLE `make` (
-  `name_make` varchar(45) COLLATE utf8_hungarian_ci NOT NULL
+  `name_make` varchar(45) COLLATE utf8_hungarian_ci NOT NULL,
+  `picture_path_make` varchar(200) COLLATE utf8_hungarian_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
 
 CREATE TABLE `model` (
   `name_model` varchar(45) COLLATE utf8_hungarian_ci NOT NULL,
   `make` varchar(45) COLLATE utf8_hungarian_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
-
-CREATE TABLE `picture` (
-  `picture_path` varchar(200) COLLATE utf8_hungarian_ci NOT NULL,
-  `license_plate` varchar(20) COLLATE utf8_hungarian_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
 
 CREATE TABLE `reservation` (
@@ -147,7 +151,13 @@ ALTER TABLE `car`
   ADD KEY `transmission_idx` (`transmission_type`),
   ADD KEY `make_idx` (`make`),
   ADD KEY `category_idx` (`category`),
-  ADD KEY `engine_idx` (`fuel`);
+  ADD KEY `engine_idx` (`fuel`),
+  ADD KEY `model` (`model`);
+
+ALTER TABLE `car_picture`
+  ADD PRIMARY KEY (`picture_path`),
+  ADD UNIQUE KEY `picture_path_UNIQUE` (`picture_path`),
+  ADD KEY `pic-car` (`license_plate`);
 
 ALTER TABLE `category`
   ADD PRIMARY KEY (`name_category`),
@@ -192,11 +202,6 @@ ALTER TABLE `model`
   ADD UNIQUE KEY `name_model_UNIQUE` (`name_model`),
   ADD KEY `make-model` (`make`);
 
-ALTER TABLE `picture`
-  ADD PRIMARY KEY (`picture_path`),
-  ADD UNIQUE KEY `picture_path_UNIQUE` (`picture_path`),
-  ADD KEY `pic-car` (`license_plate`);
-
 ALTER TABLE `reservation`
   ADD PRIMARY KEY (`id_reservation`),
   ADD UNIQUE KEY `id_reservation_UNIQUE` (`id_reservation`),
@@ -237,7 +242,11 @@ ALTER TABLE `car`
   ADD CONSTRAINT `category` FOREIGN KEY (`category`) REFERENCES `category` (`name_category`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fuel` FOREIGN KEY (`fuel`) REFERENCES `fuel` (`fuel_type`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `make` FOREIGN KEY (`make`) REFERENCES `make` (`name_make`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `model` FOREIGN KEY (`model`) REFERENCES `model` (`name_model`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `transmission` FOREIGN KEY (`transmission_type`) REFERENCES `transmission` (`transmission_type`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER TABLE `car_picture`
+  ADD CONSTRAINT `pic-car` FOREIGN KEY (`license_plate`) REFERENCES `car` (`license_plate`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 ALTER TABLE `employee`
   ADD CONSTRAINT `role` FOREIGN KEY (`role_name`) REFERENCES `role` (`name_role`) ON DELETE NO ACTION ON UPDATE NO ACTION;
@@ -253,9 +262,6 @@ ALTER TABLE `maintenance`
 
 ALTER TABLE `model`
   ADD CONSTRAINT `make-model` FOREIGN KEY (`make`) REFERENCES `make` (`name_make`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
-ALTER TABLE `picture`
-  ADD CONSTRAINT `pic-car` FOREIGN KEY (`license_plate`) REFERENCES `car` (`license_plate`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 ALTER TABLE `reservation`
   ADD CONSTRAINT `car-reservation` FOREIGN KEY (`license_plate`) REFERENCES `car` (`license_plate`) ON DELETE NO ACTION ON UPDATE NO ACTION,
