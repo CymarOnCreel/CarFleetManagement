@@ -56,9 +56,9 @@ INSERT INTO `car` (`license_plate`, `make`, `model`,`category`, `fuel`, `doors`,
 ('XYZ789', 'Honda', 'Civic', 'Szédán', 'Benzin', 4, 5, 'Kézi', 60000, 12000, '2024-12-22', 'Raktár', 1, '2023-12-22', NULL, 1);
 
 INSERT INTO `employee` (`id_employee`, `last_name`, `first_name`, `email`, `password`, `driver_license`, `role_name`, `created_at`, `updated_at`, `enabled`) VALUES
-(1, 'Teszt', 'Elek', 'teszt.elek@pelda.com', 'jelszo123', 'DL12345', 'admin', '2023-12-22', NULL, 1),
-(2, 'Nap', 'Pali', 'nap.pali@pelda.com', 'jelszo456', 'DL67890', 'user', '2023-12-22', NULL, 1),
-(3, 'Super', 'admin', 'super.admin@pelda.com', 'superadmin', 'DL67890', 'superadmin', '2023-12-22', NULL, 1);
+(1, 'Teszt', 'Elek', 'teszt.elek@pelda.com', 'cd1782eaa0babbad3736b8821720c55f961c7416', 'DL12345', 'admin', '2023-12-22', NULL, 1), -- jelszo123
+(2, 'Nap', 'Pali', 'nap.pali@pelda.com', '77807704eef190e89d39ba68a3db1b4a0e4021ff', 'DL67890', 'user', '2023-12-22', NULL, 1), -- jelszo456
+(3, 'Super', 'admin', 'super.admin@pelda.com', '889a3a791b3875cfae413574b53da4bb8a90d53e', 'DL67890', 'superadmin', '2023-12-22', NULL, 1); -- superadmin
 
 INSERT INTO `insurance` (`id_insurance`, `license_plate`, `insurance_type`, `insurer_name`, `price`, `expire_date`, `pay_period`, `created_at`, `updated_at`, `enabled`) VALUES
 (1, 'ABC123', 'Kötelező felelőségbiztosítás', 'BiztosítóCég1', 500, '2024-12-31', 'Éves', '2023-12-22', NULL, 1),
