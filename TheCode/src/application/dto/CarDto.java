@@ -18,6 +18,9 @@ public class CarDto {
 	@Column(name="make")
 	private String make;
 	
+	@Column(name="model")
+	private String model;
+	
 	@Column(name="category")
 	private String category;
 
@@ -57,11 +60,12 @@ public class CarDto {
 	@Column(name="enabled")
 	private int enabled;
 
-	public CarDto(String licensePlate, String make, String category, String fuel, int doors, int seats,
+	public CarDto(String licensePlate, String make, String model, String category, String fuel, int doors, int seats,
 			String transmissionType, int mileage, int serviceInterval, LocalDate inspectionExpiryDate, String siteName,
 			String status, boolean enabled) {
 		this.licensePlate = licensePlate;
 		this.make = make;
+		this.model = model;
 		this.category = category;
 		this.fuel = fuel;
 		this.doors = doors;
@@ -86,6 +90,10 @@ public class CarDto {
 
 	public String getMake() {
 		return make;
+	}
+	
+	public String getModel() {
+		return model;
 	}
 
 	public String getCategory() {
@@ -143,17 +151,18 @@ public class CarDto {
 
 	@Override
 	public String toString() {
-		return "CarDto [licensePlate=" + licensePlate + ", make=" + make + ", category=" + category + ", fuel=" + fuel
-				+ ", doors=" + doors + ", seats=" + seats + ", transmissionType=" + transmissionType + ", mileage="
-				+ mileage + ", serviceInterval=" + serviceInterval + ", inspectionExpiryDate=" + inspectionExpiryDate
-				+ ", siteName=" + siteName + ", status=" + status + ", createdAt=" + createdAt + ", updatedAt="
-				+ updatedAt + ", enabled=" + enabled + "]";
+		return "CarDto [licensePlate=" + licensePlate + ", make=" + make + ", model=" + model + ", category=" + category
+				+ ", fuel=" + fuel + ", doors=" + doors + ", seats=" + seats + ", transmissionType=" + transmissionType
+				+ ", mileage=" + mileage + ", serviceInterval=" + serviceInterval + ", inspectionExpiryDate="
+				+ inspectionExpiryDate + ", siteName=" + siteName + ", status=" + status + ", createdAt=" + createdAt
+				+ ", updatedAt=" + updatedAt + ", enabled=" + enabled + "]";
 	}
 	
-	public void updateCarDto(String make, String category, String fuel, int doors, int seats,
+	public void updateCarDto(String make, String model, String category, String fuel, int doors, int seats,
 			String transmissionType, int mileage, int serviceInterval, LocalDate inspectionExpiryDate, String siteName,
 			String status, boolean enabled) {
 		this.make = make;
+		this.model = model;
 		this.category = category;
 		this.fuel = fuel;
 		this.doors = doors;

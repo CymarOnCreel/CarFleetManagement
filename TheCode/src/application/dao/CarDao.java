@@ -31,6 +31,7 @@ public class CarDao implements ICrud<CarDto> {
 		CarDto carDto = entityManager.find(CarDto.class, obj.getLicensePlate());
 		if (carDto!=null) {
 			carDto.updateCarDto(obj.getMake(),
+					obj.getModel(),
 					obj.getCategory(),
 					obj.getFuel(),
 					obj.getDoors(),
