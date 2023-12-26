@@ -17,17 +17,17 @@
 		<Polygon fill="#159991" layoutX="1788.0" layoutY="432.0" points="-720.333251953125, 551.0, 112.0, 552.5, -1004.0, -447.6666564941406" stroke="#159991" strokeType="OUTSIDE" />
 		<ImageView fitHeight="363.0" fitWidth="488.0" x="-24.0" y="-125.0">
 			<image>
-				<Image url="@../pictures/carfleet-removebg-preview.png" />
+				<Image url="@../../../../../../../pictures/carfleet-removebg-preview.png" />
 			</image>
 		</ImageView>
 		<ImageView fitHeight="690.0" fitWidth="1307.0" layoutX="52.0" layoutY="-121.0" x="508.0" y="366.0">
 			<image>
-				<Image url="@../pictures/suv-removebg-preview.png" />
+				<Image url="@../../../../../../../pictures/suv-removebg-preview.png" />
 			</image>
 		</ImageView>
 		<ImageView fitHeight="104.0" fitWidth="172.0" layoutX="13.0" layoutY="-34.0" x="212.0" y="838.0">
 			<image>
-				<Image url="@../pictures/letöltés.png" />
+				<Image url="@../../../../../../../pictures/letöltés.png" />
 			</image>
 		</ImageView>
 		<Rectangle arcHeight="22.0" arcWidth="22.0" fill="#18968e" height="175.0" layoutX="-126.0" layoutY="-34.0" stroke="BLACK" strokeType="INSIDE" width="1881.0" x="126.0" y="1032.0" />
@@ -42,27 +42,27 @@
 				<Font size="24.0" />
 			</font>
 		</Text>
-		<Button fx:id="home" layoutX="831.0" layoutY="40.0" mnemonicParsing="false" prefHeight="103.0" prefWidth="217.0" style="-fx-background-color: #159991;" text="HOME" textFill="WHITE">
+		<Button fx:id="home" layoutX="831.0" layoutY="40.0" mnemonicParsing="false" prefHeight="103.0" prefWidth="164.0" style="-fx-background-color: #159991;" text="HOME" textFill="WHITE">
 			<font>
 				<Font size="38.0" />
 			</font>
 		</Button>
-		<MenuButton fx:id="reservation" layoutX="1024.0" layoutY="40.0" mnemonicParsing="false" prefHeight="103.0" prefWidth="366.0" style="-fx-background-color: #159991;" styleClass="custom-menu-button" stylesheets="@../util/application.css" text="RESERVATION" textAlignment="CENTER" textFill="WHITE">
+		<MenuButton fx:id="reservation" layoutX="996.0" layoutY="40.0" mnemonicParsing="false" prefHeight="103.0" prefWidth="353.0" style="-fx-background-color: #159991;" styleClass="custom-menu-button" stylesheets="@../../../../../../../util/application.css" text="RESERVATION" textAlignment="CENTER" textFill="WHITE">
 			<font>
 				<Font size="38.0" />
 			</font>
 			<items>
-				<MenuItem fx:id="listUserReservation" mnemonicParsing="false" styleClass="menu-item" text="List My Reservations" />
-				<MenuItem fx:id="newReservation" mnemonicParsing="false" styleClass="menu-item" text="New Reservation" />
+				<MenuItem fx:id="listUserReservation" mnemonicParsing="false" onAction="#listAllReservationOfUser" styleClass="menu-item" text="List My Reservations" />
+				<MenuItem fx:id="newReservation" mnemonicParsing="false" onAction="#createNewCarReservation" styleClass="menu-item" text="New Reservation" />
 			</items>
 		</MenuButton>
-		<MenuButton fx:id="cars" layoutX="1365.0" layoutY="40.0" mnemonicParsing="false" prefHeight="103.0" prefWidth="196.0" style="-fx-background-color: #159991;" styleClass="custom-menu-button" stylesheets="@../util/application.css" text="CARS" textFill="WHITE">
+		<MenuButton fx:id="cars" layoutX="1360.0" layoutY="40.0" mnemonicParsing="false" prefHeight="103.0" prefWidth="201.0" style="-fx-background-color: #159991;" styleClass="custom-menu-button" stylesheets="@../../../../../../../util/application.css" text="CARS" textFill="WHITE">
 			<font>
 				<Font size="38.0" />
 			</font>
 			<items>
-				<MenuItem fx:id="addNewCar" mnemonicParsing="false" styleClass="menu-item" text="Add New Car" />
-				<MenuItem fx:id="addCarMaintenance" mnemonicParsing="false" styleClass="menu-item" text="Add Car Maintenance" />
+				<MenuItem fx:id="addNewCar" mnemonicParsing="false" onAction="#addNewCarToDatabase" styleClass="menu-item" text="Add New Car" />
+				<MenuItem fx:id="addCarMaintenance" mnemonicParsing="false" onAction="#reserveCarForMaintenance" styleClass="menu-item" text="Add Car Maintenance" />
 			</items>
 		</MenuButton>
 		<MenuButton fx:id="profile" layoutX="1570.0" layoutY="40.0" mnemonicParsing="false" prefHeight="103.0" prefWidth="315.0" style="-fx-background-color: #000000; -fx-background-radius: 30;" styleClass="custom-menu-button" text="PROFILE" textFill="WHITE">
@@ -70,10 +70,10 @@
 				<Font size="38.0" />
 			</font>
 			<items>
-				<MenuItem fx:id="login" mnemonicParsing="false" styleClass="menu-item" text="Login" />
-				<MenuItem fx:id="logout" mnemonicParsing="false" styleClass="menu-item" text="Logout" />
-				<MenuItem fx:id="changePassword" mnemonicParsing="false" styleClass="menu-item" text="Change Password" />
-				<MenuItem fx:id="registration" mnemonicParsing="false" styleClass="menu-item" text="Registration" />
+				<MenuItem fx:id="login" mnemonicParsing="false" onAction="#login" styleClass="menu-item" text="Login" />
+				<MenuItem fx:id="logout" mnemonicParsing="false" onAction="#logout" styleClass="menu-item" text="Logout" />
+				<MenuItem fx:id="changePassword" mnemonicParsing="false" onAction="#changeUserPassword" styleClass="menu-item" text="Change Password" />
+				<MenuItem fx:id="registration" mnemonicParsing="false" onAction="#registerNewUser" styleClass="menu-item" text="Registration" />
 			</items>
 		</MenuButton>
 		<Button fx:id="search" layoutX="1388.0" layoutY="1028.0" mnemonicParsing="false" prefHeight="125.0" prefWidth="439.0" style="-fx-background-color: #000000; -fx-background-radius: 30;" text="SEARCH" textFill="WHITE">
