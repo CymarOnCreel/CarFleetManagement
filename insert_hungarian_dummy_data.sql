@@ -49,11 +49,11 @@ INSERT INTO `transmission` (`transmission_type`) VALUES
 ('Automata'),
 ('Kézi');
 
-INSERT INTO `car` (`license_plate`, `make`, `category`, `fuel`, `doors`, `seats`, `transmission_type`, `mileage`, `service_interval`, `inspection_expiry_date`, `site_name`, `status`, `created_at`, `updated_at`, `enabled`) VALUES
-('ABC123', 'Toyota', 'Szédán', 'Benzin', 4, 5, 'Automata', 50000, 10000, '2024-12-22', 'Iroda', 1, '2023-12-22', NULL, 1),
-('DEF456', 'Ford', 'Teherautó', 'Dízel', 2, 3, 'Automata', 70000, 15000, '2024-12-22', 'Iroda', 1, '2023-12-22', NULL, 1),
-('GHI789', 'Chevrolet', 'Teherautó', 'Benzin', 2, 3, 'Kézi', 80000, 18000, '2024-12-22', 'Raktár', 1, '2023-12-22', NULL, 1),
-('XYZ789', 'Honda', 'Szédán', 'Benzin', 4, 5, 'Kézi', 60000, 12000, '2024-12-22', 'Raktár', 1, '2023-12-22', NULL, 1);
+INSERT INTO `car` (`license_plate`, `make`, `model`,`category`, `fuel`, `doors`, `seats`, `transmission_type`, `mileage`, `service_interval`, `inspection_expiry_date`, `site_name`, `status`, `created_at`, `updated_at`, `enabled`) VALUES
+('ABC123', 'Toyota', 'Camry', 'Szédán', 'Benzin', 4, 5, 'Automata', 50000, 10000, '2024-12-22', 'Iroda', 1, '2023-12-22', NULL, 1),
+('DEF456', 'Ford', 'F-150', 'Teherautó', 'Dízel', 2, 3, 'Automata', 70000, 15000, '2024-12-22', 'Iroda', 1, '2023-12-22', NULL, 1),
+('GHI789', 'Chevrolet', 'Silverado', 'Teherautó', 'Benzin', 2, 3, 'Kézi', 80000, 18000, '2024-12-22', 'Raktár', 1, '2023-12-22', NULL, 1),
+('XYZ789', 'Honda', 'Civic', 'Szédán', 'Benzin', 4, 5, 'Kézi', 60000, 12000, '2024-12-22', 'Raktár', 1, '2023-12-22', NULL, 1);
 
 INSERT INTO `employee` (`id_employee`, `last_name`, `first_name`, `email`, `password`, `driver_license`, `role_name`, `created_at`, `updated_at`, `enabled`) VALUES
 (1, 'Teszt', 'Elek', 'teszt.elek@pelda.com', 'jelszo123', 'DL12345', 'admin', '2023-12-22', NULL, 1),
