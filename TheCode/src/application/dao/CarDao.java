@@ -5,12 +5,12 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import application.dto.CarDto;
-
 
 
 public class CarDao implements ICrud<CarDto> {
@@ -75,6 +75,21 @@ public class CarDao implements ICrud<CarDto> {
 		List<CarDto> cars = entityManager.createQuery(criteriaQuery).getResultList();
 		
 		return cars;
+	}
+	
+	public boolean isCarExist(String licensePlate) {
+	    CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+	    CriteriaQuery<Long> criteriaQuery = criteriaBuilder.createQuery(Long.class);
+	    Root<CarDto> from = criteriaQuery.from(CarDto.class);
+
+	    criteriaQuery.select(criteriaBuilder.count(from))
+	        .where(criteriaBuilder.equal(from.get("licensePlate"), licensePlate.toUpperCase()));
+
+	    TypedQuery<Long> typedQuery = entityManager.createQuery(criteriaQuery);
+
+	    Long count = typedQuery.getSingleResult();
+
+	    return count > 0;
 	}
 
 }

@@ -29,4 +29,10 @@ public class AlertMessage {
 		a.setTitle("Hiányzó adat!!!");
 		a.show();
 	}
+
+	public void carExistAlert() {
+		Alert a = new Alert(AlertType.NONE, "Ez a rendszám már létezik az adatbázisban!", ButtonType.OK);
+		a.setTitle("Dupla adat!!!");
+		a.show();
+	}
 }
