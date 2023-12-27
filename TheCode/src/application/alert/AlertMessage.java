@@ -23,5 +23,10 @@ public class AlertMessage {
 		a.setTitle("Hiányzó adat!!!");
 		a.show();
 	}
-
+	
+	public void emptyNameTextFieldAlert() {
+		Alert a = new Alert(AlertType.NONE, "Nem adott meg egy érvényes nevet!", ButtonType.OK);
+		a.setTitle("Hiányzó adat!!!");
+		a.show();
+	}
 }
