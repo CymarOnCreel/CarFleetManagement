@@ -2,26 +2,37 @@ package application.dao;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
+import application.dto.EmployeeDto;
 import application.dto.ReservationDto;
 
-public class ReservationDao implements ICrud<ReservationDto>{
+public class ReservationDao implements ICrud<ReservationDto> {
+
+	EntityManagerFactory factory = Persistence.createEntityManagerFactory("carfleet_manager");
+	EntityManager entityManager = factory.createEntityManager();
 
 	@Override
 	public void save(ReservationDto obj) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void update(ReservationDto obj) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void deleteById(Object id) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -32,8 +43,21 @@ public class ReservationDao implements ICrud<ReservationDto>{
 
 	@Override
 	public List<ReservationDto> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		CriteriaBuilder criteriaBuilder=entityManager.getCriteriaBuilder();
+		CriteriaQuery<ReservationDto> criteriaQuery=criteriaBuilder.createQuery(ReservationDto.class);
+		Root<ReservationDto> root=criteriaQuery.from(ReservationDto.class);
+		criteriaQuery.select(root);
+		List<ReservationDto> reservations=entityManager.createQuery(criteriaQuery).getResultList();
+		return reservations;
+	}
+	
+	public List<ReservationDto> getReservationsByUserId(Long userId){
+		CriteriaBuilder criteriaBuilder=entityManager.getCriteriaBuilder();
+		CriteriaQuery<ReservationDto> criteriaQuery=criteriaBuilder.createQuery(ReservationDto.class);
+		Root<ReservationDto> root=criteriaQuery.from(ReservationDto.class);
+		criteriaQuery.where(criteriaBuilder.equal(root.get("employee"), userId));
+		List<ReservationDto> reservations=entityManager.createQuery(criteriaQuery).getResultList();
+		return reservations;
 	}
 
 }

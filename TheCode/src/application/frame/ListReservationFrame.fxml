@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.ListReservationsFrameController">
+	<children>
+		<DatePicker fx:id="intervalStartDate" layoutX="162.0" layoutY="46.0" />
+		<DatePicker fx:id="intervalEndDate" layoutX="561.0" layoutY="46.0" />
+		<Label layoutX="31.0" layoutY="50.0" prefHeight="25.0" prefWidth="123.0" text="From" />
+		<Label layoutX="402.0" layoutY="46.0" prefHeight="25.0" prefWidth="137.0" text="To" />
+		<Button fx:id="search" layoutX="839.0" layoutY="46.0" mnemonicParsing="false" onAction="#getAllReservationsBetweenDates" text="Search" />
+		<TableView fx:id="reservationsTable" layoutX="400.0" layoutY="200.0" visible="false" />
+		<Button fx:id="closeWindow" layoutX="878.0" layoutY="775.0" mnemonicParsing="false" onAction="#closeWindow" prefHeight="44.0" prefWidth="146.0" text="EXIT" />
+	</children>
+</AnchorPane>

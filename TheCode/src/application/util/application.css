@@ -11,3 +11,19 @@
      -fx-text-fill: white;
     
 }
+
+.my-table {
+    -fx-alignment: CENTER;
+}
+.my-table .column-header, .my-table .column-header-background {
+    -fx-background-color: #159991;
+    -fx-text-fill: white;
+}
+
+.my-table .column-header .label {
+    -fx-alignment: CENTER;
+}
+
+.my-table .row-cell:odd {
+    -fx-background-color: #f4f4f4;
+}

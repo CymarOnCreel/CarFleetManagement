@@ -6,10 +6,10 @@
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://192.168.1.10:3307/carfleet_manager?useSSL=false" />
             <property name="javax.persistence.jdbc.user" value="dominik" />
-            <property name="javax.persistence.jdbc.password" value="Dominik@1sql" />
-      <!-- <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/carfleet_manager?useSSL=false" />
+            <property name="javax.persistence.jdbc.password" value="Dominik@1sql" />  
+   <!--    <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/carfleet_manager?useSSL=false" />
             <property name="javax.persistence.jdbc.user" value="root" />
-            <property name="javax.persistence.jdbc.password" value="" /> --> 
+            <property name="javax.persistence.jdbc.password" value="" />  --> 
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.format_sql" value="true" />

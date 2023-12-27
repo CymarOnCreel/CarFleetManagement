@@ -29,5 +29,4 @@ public class AlertMessage {
 		a.setTitle("Hiányzó adat!!!");
 		a.show();
 	}
-
 }
