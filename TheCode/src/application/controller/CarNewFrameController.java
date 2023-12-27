@@ -1,7 +1,6 @@
 package application.controller;
 
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -176,9 +175,9 @@ public class CarNewFrameController implements Initializable{
             try {
             	String makeName = result.get();
             	if (!makeName.isEmpty()) {
-            		MakeDto newMake = new MakeDto(makeName, null);
-            		MakeDao makeDao = new MakeDao();
-            		makeDao.save(newMake);
+//            		MakeDto newMake = new MakeDto(makeName, null);
+//            		MakeDao makeDao = new MakeDao();
+//            		makeDao.save(newMake);
                     cmbMake.setValue(makeName);
 				}else {
 					new AlertMessage().emptyNameTextFieldAlert();
@@ -450,7 +449,12 @@ public class CarNewFrameController implements Initializable{
 		    			dpInspectionExpiryDate.getValue(), 
 		    			cmbSite.getValue(), "1", true);
 		    	CarDao carDao = new CarDao();
-		    	carDao.save(newCar);
+		    	if (!carDao.isCarExist(tfLicensePlate.getText())) {
+		    		carDao.save(newCar);
+				}else {
+					new AlertMessage().carExistAlert();
+				}
+		    	
 			} catch (Exception e) {
 				new AlertMessage().saveToDatabaseAlert();
 			}
