@@ -13,7 +13,9 @@ import application.dto.EmployeeDto;
 import application.dto.ReservationDto;
 
 public class ReservationDao implements ICrud<ReservationDto> {
-
+	 public void setEntityManager(EntityManager entityManager) {
+	        this.entityManager = entityManager;
+	    }
 	EntityManagerFactory factory = Persistence.createEntityManagerFactory("carfleet_manager");
 	EntityManager entityManager = factory.createEntityManager();
 
@@ -25,7 +27,8 @@ public class ReservationDao implements ICrud<ReservationDto> {
 
 	@Override
 	public void update(ReservationDto obj) {
-		// TODO Auto-generated method stub
+		entityManager.getTransaction().begin();
+		
 
 	}
 
@@ -37,8 +40,12 @@ public class ReservationDao implements ICrud<ReservationDto> {
 
 	@Override
 	public ReservationDto findById(Object id) {
-		// TODO Auto-generated method stub
-		return null;
+	entityManager.getTransaction().begin();
+	ReservationDto reservationById=entityManager.find(ReservationDto.class, id);
+	System.out.println(reservationById.toStringWithNames());
+	entityManager.getTransaction().commit();
+	entityManager.close();
+	return reservationById;
 	}
 
 	@Override
@@ -60,4 +67,12 @@ public class ReservationDao implements ICrud<ReservationDto> {
 		return reservations;
 	}
 
+	public List <ReservationDto> getReservationsByCarLicencePlate(String licencePlate){
+		CriteriaBuilder criteriaBuilder=entityManager.getCriteriaBuilder();
+		CriteriaQuery<ReservationDto> criteriaQuery= criteriaBuilder.createQuery(ReservationDto.class);
+		Root<ReservationDto> root=criteriaQuery.from(ReservationDto.class);
+		criteriaQuery.where(criteriaBuilder.equal(root.get("car"), licencePlate));
+		List<ReservationDto>reservations=entityManager.createQuery(criteriaQuery).getResultList();
+		return reservations;
+	}
 }

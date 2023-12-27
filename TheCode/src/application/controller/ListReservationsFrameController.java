@@ -1,9 +1,9 @@
 package application.controller;
 
-import java.text.SimpleDateFormat;
+import java.io.IOException;
 import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,13 +15,20 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Control;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.Region;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 public class ListReservationsFrameController {
 	@FXML
@@ -48,32 +55,43 @@ public class ListReservationsFrameController {
 
 	@FXML
 	void getAllReservationsBetweenDates(ActionEvent event) {
-		// TO-DO create method to list all reservationsByUser in a table format
-		// add datefilter
-
-		LocalDate localStartDate = intervalStartDate.getValue(); //
-		LocalDate localEndDate = intervalEndDate.getValue(); 
+		LocalDate localStartDate = intervalStartDate.getValue();
+		LocalDate localEndDate = intervalEndDate.getValue();
 		ReservationDao reservationDao = new ReservationDao();
-		List<ReservationDto> reservations = reservationDao.getReservationsByUserId(1l);// get user id here
+		List<ReservationDto> reservations = reservationDao.getReservationsByUserId(1L); // get user id here
 		List<ReservationDto> reservationsFilteredByDate;
 		if (localStartDate != null && localEndDate != null) {
-		Date startDate = Date.from(localStartDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-		Date endDate = Date.from(localEndDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+			LocalDateTime startDate = localStartDate.atStartOfDay();
+			LocalDateTime endDate = localEndDate.atTime(23, 59, 59); 
 			reservationsFilteredByDate = reservations.stream()
-			    .filter(date -> date.getStartDate().after(startDate) || date.getStartDate().equals(startDate))
-			    .filter(date -> date.getEndDate().before(endDate) || date.getEndDate().equals(endDate))
-			    .collect(Collectors.toList());		}
-		else {
-			reservationsFilteredByDate=reservations;
+					.filter(reservation -> reservation.getStartDate().isAfter(startDate)
+							|| reservation.getStartDate().isEqual(startDate))
+					.filter(reservation -> reservation.getEndDate().isBefore(endDate)
+							|| reservation.getEndDate().isEqual(endDate))
+					.collect(Collectors.toList());
+		} else {
+			reservationsFilteredByDate = reservations;
 		}
 		ObservableList<ReservationDto> reservationData = FXCollections.observableList(reservationsFilteredByDate);
 		reservationsTable.setItems(reservationData);
-		addColumns();
-		reservationsTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+		for (ReservationDto reservationDto : reservationData) {
+			System.out.println(reservationDto.toStringWithNames());
+		}
 
-		styleTableView();
+	
+		addColumns();
+		setupTableClickEvent();
+		double rowHeight = 30.0; 
+		double tableHeight = Math.min(reservationData.size() + 1, 10) * rowHeight;
+		System.out.println(reservationData.size());
+		System.out.println(tableHeight);
+		reservationsTable.setPrefHeight(tableHeight);
+		reservationsTable.setMaxHeight(tableHeight);
+		System.out.println(reservationsTable.getPrefHeight()+" pref "+reservationsTable.getMaxHeight()+" max");
 		reservationsTable.setVisible(true);
 		reservationsTable.setManaged(true);
+
+	
 	}
 
 	@SuppressWarnings("unchecked")
@@ -87,25 +105,77 @@ public class ListReservationsFrameController {
 		TableColumn<ReservationDto, String> plateColumn = new TableColumn<>("Car");
 		plateColumn.setCellValueFactory(
 				cellData -> new SimpleStringProperty(cellData.getValue().getCar().getLicensePlate()));
-		TableColumn<ReservationDto, Date> startDateColumn=new TableColumn<>("Start Date");
-		 startDateColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getStartDate()));
-		    startDateColumn.setCellFactory(col -> new TableCell<ReservationDto, Date>() {
-		        private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 
-		        @Override
-		        protected void updateItem(Date date, boolean empty) {
-		            super.updateItem(date, empty);
-		            if (empty || date == null) {
-		                setText(null);
-		            } else {
-		                setText(sdf.format(date));
-		            }
-		        }
-		    });
+		TableColumn<ReservationDto, LocalDateTime> startDateColumn = new TableColumn<>("Start Date");
+		startDateColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getStartDate()));
+		startDateColumn.setCellFactory(col -> new TableCell<ReservationDto, LocalDateTime>() {
+			private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+			@Override
+			protected void updateItem(LocalDateTime date, boolean empty) {
+				super.updateItem(date, empty);
+				if (empty || date == null) {
+					setText(null);
+				} else {
+					setText(formatter.format(date));
+				}
+			}
+		});
+		
 		reservationsTable.getColumns().addAll(idColumn, nameColumn, plateColumn, startDateColumn);
+	    reservationsTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+		for (TableColumn<ReservationDto, ?> column : reservationsTable.getColumns()) {
+			column.setPrefWidth(computeColumnWidth(column));
+		}
+
 	}
 
-	private void styleTableView() {
-		reservationsTable.setStyle("-fx-font-size: 14px;");
-		reservationsTable.getStyleClass().add("my-table");
+	private <T> double computeColumnWidth(TableColumn<ReservationDto, T> column) {
+		double maxWidth = 0.0;
+
+		for (ReservationDto item : reservationsTable.getItems()) {
+			TableCell<ReservationDto, T> cell = column.getCellFactory().call(column);
+			if (cell != null) {
+				Callback<TableColumn<ReservationDto, T>, TableCell<ReservationDto, T>> cellFactory = column
+						.getCellFactory();
+				TableCell<ReservationDto, T> currentCell = cellFactory.call(column);
+				currentCell.itemProperty().setValue((T) item);
+
+				Text text = new Text(String.valueOf(currentCell.getText()));
+				double cellWidth = text.getBoundsInLocal().getWidth()+5;
+				maxWidth = Math.max(maxWidth, cellWidth);
+				
+			}
+		}
+
+		return maxWidth + 10.0;
+	}
+	private void setupTableClickEvent() {
+		reservationsTable.setOnMouseClicked(mouseEvent -> {
+			if (mouseEvent.getClickCount() == 1) {
+				ReservationDto selectedReservation = reservationsTable.getSelectionModel().getSelectedItem();
+				if (selectedReservation != null) {
+					openDetailsView(selectedReservation);
+				}
+			}
+		});
+	}
+
+	private void openDetailsView(ReservationDto reservation) {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/frame/ReservationDetailsFrame.fxml"));
+		Parent root;
+		try {
+			root = loader.load();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return;
+		}
+
+		ReservationDetailsController detailsController = loader.getController();
+		detailsController.initialize(reservation);
+
+		Stage detailsStage = new Stage();
+		detailsStage.setScene(new Scene(root));
+		detailsStage.setTitle("Reservation Details");
+		detailsStage.show();
 	}
 }
