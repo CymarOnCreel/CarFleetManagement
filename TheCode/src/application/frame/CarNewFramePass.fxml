@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.Polygon?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1200.0" prefWidth="1900.0" style="-fx-background-color: #1F363C;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.MainFrameController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1200.0" prefWidth="1900.0" style="-fx-background-color: #1F363C;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.CarNewFrameController">
 	<children>
 		<Polygon fill="#159991" layoutX="1715.0" layoutY="123.0" points="-931.0, -123.00003051757812, 185.0, 861.5, 185.0, -123.0" stroke="#159991" strokeType="INSIDE" />
 		<Polygon fill="#159991" layoutX="1788.0" layoutY="432.0" points="-720.333251953125, 551.0, 112.0, 552.5, -1004.0, -447.6666564941406" stroke="#159991" strokeType="OUTSIDE" />
@@ -22,7 +22,7 @@
 				<Font size="38.0" />
 			</font>
 		</Button>
-		<MenuButton fx:id="reservation" layoutX="996.0" layoutY="40.0" mnemonicParsing="false" prefHeight="103.0" prefWidth="353.0" style="-fx-background-color: #159991;" styleClass="custom-menu-button" stylesheets="@../../../../../../../util/application.css" text="RESERVATION" textAlignment="CENTER" textFill="WHITE">
+		<MenuButton fx:id="reservation" layoutX="996.0" layoutY="40.0" mnemonicParsing="false" prefHeight="103.0" prefWidth="353.0" style="-fx-background-color: #159991;" styleClass="custom-menu-button" stylesheets="@../util/application.css" text="RESERVATION" textAlignment="CENTER" textFill="WHITE">
 			<font>
 				<Font size="38.0" />
 			</font>
@@ -53,7 +53,7 @@
 		</MenuButton>
       <ImageView fitHeight="363.0" fitWidth="488.0" layoutX="-29.0" layoutY="-125.0">
          <image>
-            <Image url="@../../../../../../carfleet-removebg-preview%20(1).png" />
+            <Image url="@../pictures/carfleet-removebg-preview.png" />
          </image>
       </ImageView>
       <Label layoutX="118.0" layoutY="199.0" prefHeight="73.0" prefWidth="207.0" text="Rendszám:" textFill="WHITE">
@@ -72,12 +72,12 @@
       <Button fx:id="btnUpdateMake" layoutX="580.0" layoutY="285.0" mnemonicParsing="false" onAction="#updateMake" text="Update" />
       <ImageView fitHeight="467.0" fitWidth="732.0" layoutX="1111.0" layoutY="209.0" preserveRatio="true">
          <image>
-            <Image url="@../../../../../../../OneDrive/Asztali%20gép/weboldal/CarNewframePicture/1_qYUvh-EtES8dtgKiBRiLsA.png" />
+            <Image url="@../pictures/CarNewframePicture/1_qYUvh-EtES8dtgKiBRiLsA.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="152.0" fitWidth="237.0" layoutX="1376.0" layoutY="608.0">
          <image>
-            <Image url="@../../../../../../../OneDrive/Asztali%20gép/weboldal/CarNewframePicture/nyitva-tartas-vagy-nyitvatartas-removebg-preview.png" />
+            <Image url="@../pictures/CarNewframePicture/nyitva-tartas-vagy-nyitvatartas-removebg-preview.png" />
          </image>
       </ImageView>
       <Label layoutX="136.0" layoutY="333.0" text="Modell:" textFill="WHITE">
@@ -87,7 +87,7 @@
       </Label>
       <ImageView fitHeight="315.0" fitWidth="399.0" layoutX="1315.0" layoutY="666.0">
          <image>
-            <Image url="@../../../../../../../OneDrive/Asztali%20gép/weboldal/CarNewframePicture/nyitvatartas-tabla-egyedi-TDE70312-fekete-feher-kreta-hatas-removebg-preview.png" />
+            <Image url="@../pictures/CarNewframePicture/nyitvatartas-tabla-egyedi-TDE70312-fekete-feher-kreta-hatas-removebg-preview.png" />
          </image>
       </ImageView>
       <ComboBox fx:id="cmbModel" disable="true" layoutX="339.0" layoutY="344.0" prefWidth="150.0" />
@@ -131,7 +131,7 @@
       <Button fx:id="btnAddTransmisson" layoutX="579.0" layoutY="618.0" mnemonicParsing="false" onAction="#updateTransmission" text="Update" />
       <ImageView fitHeight="254.0" fitWidth="315.0" layoutX="107.0" layoutY="642.0">
          <image>
-            <Image url="@../../../../../../../OneDrive/Asztali%20gép/weboldal/CarNewframePicture/8701388-removebg-preview.png" />
+            <Image url="@../pictures/CarNewframePicture/8701388-removebg-preview.png" />
          </image>
       </ImageView>
       <Label layoutX="227.0" layoutY="867.0" text="Kilóméteróra állás:" textFill="WHITE">
@@ -167,12 +167,12 @@
       </Button>
       <ImageView fitHeight="159.0" fitWidth="164.0" layoutX="106.0" layoutY="1016.0">
          <image>
-            <Image url="@../../../../../../../OneDrive/Asztali%20gép/weboldal/CarNewframePicture/5935741-removebg-preview.png" />
+            <Image url="@../pictures/CarNewframePicture/5935741-removebg-preview.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="103.0" fitWidth="99.0" layoutX="677.0" layoutY="906.0">
+      <ImageView fitHeight="103.0" fitWidth="99.0" layoutX="707.0" layoutY="865.0">
          <image>
-            <Image url="@../../../../../../../OneDrive/Asztali%20gép/weboldal/CarNewframePicture/google-maps-logo-removebg-preview.png" />
+            <Image url="@../pictures/CarNewframePicture/google-maps-logo-removebg-preview.png" />
          </image>
       </ImageView>
 	</children>

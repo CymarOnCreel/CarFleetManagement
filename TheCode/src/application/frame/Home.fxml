@@ -11,23 +11,23 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1200.0" prefWidth="1900.0" style="-fx-background-color: #1F363C;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.MainFrameController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1200.0" prefWidth="1900.0" style="-fx-background-color: #1F363C;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.MainFrameController">
 	<children>
 		<Polygon fill="#159991" layoutX="1715.0" layoutY="123.0" points="-931.0, -123.00003051757812, 185.0, 861.5, 185.0, -123.0" stroke="#159991" strokeType="INSIDE" />
 		<Polygon fill="#159991" layoutX="1788.0" layoutY="432.0" points="-720.333251953125, 551.0, 112.0, 552.5, -1004.0, -447.6666564941406" stroke="#159991" strokeType="OUTSIDE" />
 		<ImageView fitHeight="363.0" fitWidth="488.0" x="-24.0" y="-125.0">
 			<image>
-				<Image url="@../../../../../../../pictures/carfleet-removebg-preview.png" />
+				<Image url="@../pictures/carfleet-removebg-preview.png" />
 			</image>
 		</ImageView>
 		<ImageView fitHeight="690.0" fitWidth="1307.0" layoutX="52.0" layoutY="-121.0" x="508.0" y="366.0">
 			<image>
-				<Image url="@../../../../../../../pictures/suv-removebg-preview.png" />
+				<Image url="@../pictures/suv-removebg-preview.png" />
 			</image>
 		</ImageView>
 		<ImageView fitHeight="104.0" fitWidth="172.0" layoutX="13.0" layoutY="-34.0" x="212.0" y="838.0">
 			<image>
-				<Image url="@../../../../../../../pictures/letöltés.png" />
+				<Image url="@../pictures/letöltés.png" />
 			</image>
 		</ImageView>
 		<Rectangle arcHeight="22.0" arcWidth="22.0" fill="#18968e" height="175.0" layoutX="-126.0" layoutY="-34.0" stroke="BLACK" strokeType="INSIDE" width="1881.0" x="126.0" y="1032.0" />

@@ -12,7 +12,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			GridPane root = (GridPane) FXMLLoader.load(getClass().getResource("frame/CarNewFrame.fxml"));
+			AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("frame/CarNewFramePass.fxml"));
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("util/application.css").toExternalForm());
 			primaryStage.setScene(scene);
