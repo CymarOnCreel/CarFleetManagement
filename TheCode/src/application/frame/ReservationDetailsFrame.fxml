@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="373.0" prefWidth="604.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.ReservationDetailsController">
+
+    <Label layoutX="40.0" layoutY="52.0" text="Employee Name:" />
+    <TextField fx:id="employeeNameField" disable="true" editable="false" layoutX="160.0" layoutY="48.0" />
+
+    <Label layoutX="40.0" layoutY="84.0" text="Car:" />
+    <TextField fx:id="carField" disable="true" editable="false" layoutX="160.0" layoutY="80.0" />
+
+    <Label layoutX="40.0" layoutY="116.0" text="Start Date:" />
+    <DatePicker fx:id="startDateField" layoutX="429.0" layoutY="112.0" prefHeight="25.0" prefWidth="113.0" />
+
+    <Label layoutX="40.0" layoutY="148.0" text="End Date:" />
+    <DatePicker fx:id="endDateField" layoutX="429.0" layoutY="144.0" prefHeight="25.0" prefWidth="113.0" />
+
+    <Label layoutX="45.0" layoutY="187.0" text="Description:" />
+    <TextField fx:id="descriptionField" layoutX="160.0" layoutY="183.0" />
+
+    <Button fx:id="update" layoutX="76.0" layoutY="268.0" onAction="#updateReservation" text="Save" />
+   <Button fx:id="changeCar" layoutX="373.0" layoutY="80.0" mnemonicParsing="false" onAction="#changeCar" prefHeight="25.0" prefWidth="169.0" text="Change Car" />
+   <Button fx:id="close" layoutX="384.0" layoutY="255.0" onAction="#close" text="Close" />
+   <Button fx:id="cancelReservation" layoutX="195.0" layoutY="256.0" onAction="#setReservationDeleted" text="Cancel reservation" />
+   <TextField fx:id="showStartDate" disable="true" editable="false" layoutX="160.0" layoutY="112.0" />
+   <TextField fx:id="showEndDate" disable="true" editable="false" layoutX="160.0" layoutY="144.0" />
+   <Label layoutX="333.0" layoutY="116.0" text="New Start Date:" />
+   <Label layoutX="335.0" layoutY="148.0" text="New End Date:" />
+</AnchorPane>

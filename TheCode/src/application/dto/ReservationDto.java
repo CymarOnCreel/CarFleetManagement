@@ -1,6 +1,6 @@
 package application.dto;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,8 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "reservation")
@@ -31,23 +29,19 @@ public class ReservationDto {
 	private CarDto car;
 
 	@Column(name = "start_date_time", nullable = false)
-	@Temporal(TemporalType.DATE)
-	private Date startDate;
+	private LocalDateTime startDate;
 	
 	@Column(name = "end_date_time", nullable = false)
-	@Temporal(TemporalType.DATE)
-	private Date endDate;
+	private LocalDateTime endDate;
 	
     @Column(name = "description", length = 100)
 	private String description;
 	
     @Column(name = "created_at", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
     @Column(name = "updated_at")
-    @Temporal(TemporalType.DATE)
-    private Date updatedAt;
+    private LocalDateTime updatedAt;
 
 
 
@@ -57,8 +51,8 @@ public class ReservationDto {
 
 	
 
-	public ReservationDto(int id, EmployeeDto employee, CarDto car, Date startDate, Date endDate, String description,
-			Date createdAt, Date updatedAt) {
+	public ReservationDto(int id, EmployeeDto employee, CarDto car, LocalDateTime startDate, LocalDateTime endDate, String description,
+			LocalDateTime createdAt, LocalDateTime updatedAt) {
 		super();
 		this.id = id;
 		this.employee = employee;
@@ -108,19 +102,19 @@ public class ReservationDto {
 		this.car = car;
 	}
 
-	public Date getStartDate() {
+	public LocalDateTime getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(Date startDate) {
+	public void setStartDate(LocalDateTime startDate) {
 		this.startDate = startDate;
 	}
 
-	public Date getEndDate() {
+	public LocalDateTime getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(Date endDate) {
+	public void setEndDate(LocalDateTime endDate) {
 		this.endDate = endDate;
 	}
 
@@ -132,19 +126,19 @@ public class ReservationDto {
 		this.description = description;
 	}
 
-	public Date getCreatedAt() {
+	public LocalDateTime getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(Date createdAt) {
+	public void setCreatedAt(LocalDateTime createdAt) {
 		this.createdAt = createdAt;
 	}
 
-	public Date getUpdatedAt() {
+	public LocalDateTime getUpdatedAt() {
 		return updatedAt;
 	}
 
-	public void setUpdatedAt(Date updatedAt) {
+	public void setUpdatedAt(LocalDateTime updatedAt) {
 		this.updatedAt = updatedAt;
 	}
 

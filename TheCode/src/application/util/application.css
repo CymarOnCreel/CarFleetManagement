@@ -3,7 +3,6 @@
 	}
 .custom-menu-button .menu-item {
     -fx-font-size: 30.0;
-
 }
 
 .custom-menu-button .menu-item:hover {
@@ -12,12 +11,15 @@
     
 }
 
-.my-table {
+.my-table .table-cell{
     -fx-alignment: CENTER;
+    -fx-font-size:14.0px;
 }
 .my-table .column-header, .my-table .column-header-background {
     -fx-background-color: #159991;
     -fx-text-fill: white;
+    -fx-font-size:16.0px;
+    -fx-font-weight:bold;
 }
 
 .my-table .column-header .label {
