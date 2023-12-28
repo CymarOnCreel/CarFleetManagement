@@ -5,7 +5,9 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import application.dto.MakeDto;
 
 public class MakeDao implements ICrud<MakeDto> {
@@ -24,26 +26,44 @@ public class MakeDao implements ICrud<MakeDto> {
 	
 	@Override
 	public void update(MakeDto obj) {
-		// TODO Auto-generated method stub
-		
+		entityManager.getTransaction().begin();
+		MakeDto makeDto = entityManager.find(MakeDto.class,obj.getNameMake());
+		if (makeDto!=null) {
+			makeDto.updateMakeDto(obj.getPicturePathMake()
+			);
+		}
+		entityManager.getTransaction().commit();
+		entityManager.close();
+		factory.close();
 	}
 
 	@Override
 	public void deleteById(Object id) {
-		// TODO Auto-generated method stub
-		
+		entityManager.getTransaction().begin();
+		MakeDto makeDto = entityManager.find(MakeDto.class, id);
+		if (makeDto!=null) {
+			makeDto.deleteMakeDto();
+			entityManager.getTransaction().commit();
+		}
+		entityManager.close();
+		factory.close();
 	}
 
 	@Override
 	public MakeDto findById(Object id) {
-		// TODO Auto-generated method stub
-		return null;
+		MakeDto makeDto = entityManager.find(MakeDto.class, id);
+		entityManager.close();
+		factory.close();
+		return makeDto;
 	}
 
 	@Override
 	public List<MakeDto> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<MakeDto> criteriaQuery = criteriaBuilder.createQuery(MakeDto.class);
+		Root<MakeDto> root = criteriaQuery.from(MakeDto.class);
+		criteriaQuery.select(root);
+		List<MakeDto> make = entityManager.createQuery(criteriaQuery).getResultList();
+		return make;
 	}
-
 }

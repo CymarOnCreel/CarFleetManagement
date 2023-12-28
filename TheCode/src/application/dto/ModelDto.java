@@ -1,20 +1,21 @@
 package application.dto;
 
+import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "model")
-
+@Table(name="model")
 public class ModelDto {
 
-	@Column(name = "name_model")
+	@Column(name="name_model")
 	@Id
 	private String nameModel;
-
-	@Column(name = "make")
+	
+	@Column(name="make")
 	private String make;
 
 	public ModelDto(String nameModel, String make) {
@@ -23,6 +24,7 @@ public class ModelDto {
 	}
 
 	public ModelDto() {
+		
 	}
 
 	public String getNameModel() {
@@ -33,13 +35,17 @@ public class ModelDto {
 		return make;
 	}
 
-	public void setNameModel(String nameModel) {
-		this.nameModel = nameModel;
-	}
-
 	@Override
 	public String toString() {
 		return "ModelDto [nameModel=" + nameModel + ", make=" + make + "]";
 	}
+	
+	public void updateModelDto(String make) {
+		this.make = make;
+	}
 
+	public void deleteModelDto() {
+		int enabled = 0;
+		LocalDate updatedAt = LocalDate.now();
+	}
 }
