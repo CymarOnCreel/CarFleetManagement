@@ -1,4 +1,4 @@
-package test;
+package test.testDao;
 
 import static org.junit.Assert.assertNotNull;
 
