@@ -17,6 +17,7 @@ public class MakeDto {
 	
 	@Column(name="picture_path_make")
 	private String picturePathMake;
+	
 	public MakeDto(String nameMake, String picturePathMake) {
 		this.nameMake = nameMake;
 		this.picturePathMake = picturePathMake;
