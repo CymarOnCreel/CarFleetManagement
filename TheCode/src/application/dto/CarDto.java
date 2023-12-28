@@ -181,7 +181,4 @@ public class CarDto {
 		enabled = 0;
 		updatedAt = LocalDate.now();
 	}
-	
-	
-
 }
