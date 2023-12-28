@@ -78,14 +78,14 @@ INSERT INTO `maintenance` (`id_maintenance`, `license_plate`, `maintenance_type`
 (3, 'DEF456', 'Gumikerekek forgatása', 'AutoCare', '2023-12-25', 72000, 'Gumik forgatása egyenletes kopás érdekében', 40, '2023-12-22', NULL),
 (4, 'GHI789', 'Motorkarbantartás', 'Speedy Repairs', '2023-12-26', 82000, 'Teljes motorkarbantartás', 120, '2023-12-22', NULL);
 
-INSERT INTO `reservation` (`id_reservation`, `id_employee`, `license_plate`, `start_date_time`, `end_date_time`, `description`, `created_at`, `updated_at`) VALUES
-(1, 1, 'ABC123', '2023-12-23 08:00:00', '2023-12-23 17:00:00', 'Ügyfél találkozó', '2023-12-22', NULL),
-(2, 2, 'XYZ789', '2023-12-24 10:30:00', '2023-12-24 15:30:00', 'Bevásárlás', '2023-12-22', NULL),
-(3, 1, 'DEF456', '2023-12-25 14:00:00', '2023-12-25 18:00:00', 'Raktárból áruátvétel', '2023-12-22', NULL),
-(4, 2, 'GHI789', '2023-12-26 09:00:00', '2023-12-26 16:00:00', 'Városi kirándulás', '2023-12-22', NULL),
-(5, 1, 'ABC123', '2023-12-27 11:30:00', '2023-12-27 14:30:00', 'Rövid üzleti út', '2023-12-22', NULL),
-(6, 2, 'XYZ789', '2023-12-28 13:00:00', '2023-12-28 18:00:00', 'Iskolai esemény', '2023-12-22', NULL),
-(7, 1, 'DEF456', '2023-12-29 08:30:00', '2023-12-29 12:30:00', 'Orvosi vizsgálat', '2023-12-22', NULL),
-(8, 2, 'GHI789', '2023-12-30 15:00:00', '2023-12-30 17:30:00', 'Ünnepi vásárlás', '2023-12-22', NULL),
-(9, 1, 'ABC123', '2023-12-31 10:00:00', '2023-12-31 16:00:00', 'Hétvégi kirándulás', '2023-12-22', NULL),
-(10, 2, 'XYZ789', '2024-01-01 12:30:00', '2024-01-01 20:00:00', 'Szilveszteri buli', '2023-12-22', NULL);
+INSERT INTO `reservation` (`id_reservation`, `id_employee`, `license_plate`, `start_date_time`, `end_date_time`, `description`, `created_at`, `updated_at`, `is_deleted`) VALUES
+(1, 1, 'ABC123', '2023-12-23 08:00:00', '2023-12-23 17:00:00', 'Ügyfél találkozó', '2023-12-22', NULL,1),
+(2, 2, 'XYZ789', '2023-12-24 10:30:00', '2023-12-24 15:30:00', 'Bevásárlás', '2023-12-22', NULL,1),
+(3, 1, 'DEF456', '2023-12-25 14:00:00', '2023-12-25 18:00:00', 'Raktárból áruátvétel', '2023-12-22', NULL,0),
+(4, 2, 'GHI789', '2023-12-26 09:00:00', '2023-12-26 16:00:00', 'Városi kirándulás', '2023-12-22', NULL,1),
+(5, 1, 'ABC123', '2023-12-27 11:30:00', '2023-12-27 14:30:00', 'Rövid üzleti út', '2023-12-22', NULL,0),
+(6, 2, 'XYZ789', '2023-12-28 13:00:00', '2023-12-28 18:00:00', 'Iskolai esemény', '2023-12-22', NULL,1),
+(7, 1, 'DEF456', '2023-12-29 08:30:00', '2023-12-29 12:30:00', 'Orvosi vizsgálat', '2023-12-22', NULL,1),
+(8, 2, 'GHI789', '2023-12-30 15:00:00', '2023-12-30 17:30:00', 'Ünnepi vásárlás', '2023-12-22', NULL,1),
+(9, 1, 'ABC123', '2023-12-31 10:00:00', '2023-12-31 16:00:00', 'Hétvégi kirándulás', '2023-12-22', NULL,1),
+(10, 2, 'XYZ789', '2024-01-01 12:30:00', '2024-01-01 20:00:00', 'Szilveszteri buli', '2023-12-22', NULL,1);
