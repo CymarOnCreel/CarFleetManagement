@@ -24,13 +24,13 @@ public class MakeDao implements ICrud<MakeDto> {
 		factory.close();
 	}
 	
+	
 	@Override
 	public void update(MakeDto obj) {
 		entityManager.getTransaction().begin();
-		MakeDto makeDto = entityManager.find(MakeDto.class,obj.getNameMake());
+		MakeDto makeDto = entityManager.find(MakeDto.class, obj.getNameMake());
 		if (makeDto!=null) {
-			makeDto.updateMakeDto(obj.getPicturePathMake()
-			);
+			makeDto.updateMakeDto(obj.getPicturePathMake());
 		}
 		entityManager.getTransaction().commit();
 		entityManager.close();

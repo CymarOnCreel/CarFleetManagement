@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -12,8 +13,9 @@ import javax.persistence.Table;
 @Table(name = "reservation")
 public class ReservationDto {
 
-	@Column(name="id_reservation")
+	
 	@Id
+	@Column(name="id_reservation")
 	private int idReservation;
 	
 	@Column(name="id_employee")
@@ -36,17 +38,19 @@ public class ReservationDto {
 	
 	@Column(name="updated_at")
 	private LocalDate updatedAt;
+	
+	@Column(name="deleted")
+	private int deleted;
 
-	public ReservationDto(int idReservation, int idEmployee, String licensePlate, LocalDateTime startDateTime,
-			LocalDateTime endDateTime, String description, LocalDate createdAt, LocalDate updatedAt) {
-		this.idReservation = idReservation;
+	public ReservationDto(int idEmployee, String licensePlate, LocalDateTime startDateTime,
+			LocalDateTime endDateTime, String description) {
 		this.idEmployee = idEmployee;
 		this.licensePlate = licensePlate;
 		this.startDateTime = startDateTime;
 		this.endDateTime = endDateTime;
 		this.description = description;
-		this.createdAt = createdAt;
-		this.updatedAt = updatedAt;
+		this.createdAt = LocalDate.now();
+		this.deleted = 0;
 	}
 
 	public ReservationDto() {
@@ -84,6 +88,10 @@ public class ReservationDto {
 	public LocalDate getUpdatedAt() {
 		return updatedAt;
 	}
+	
+	public boolean isDeleted() {
+		return deleted==1 ? true:false;
+	}
 
 	@Override
 	public String toString() {
@@ -93,19 +101,18 @@ public class ReservationDto {
 	}
 	
 	public void updateReservationDto(int idEmployee, String licensePlate, LocalDateTime startDateTime,
-			LocalDateTime endDateTime, String description, LocalDate createdAt, LocalDate updatedAt) {
+			LocalDateTime endDateTime, String description) {
 		this.idEmployee = idEmployee;
 		this.licensePlate = licensePlate;
 		this.startDateTime = startDateTime;
 		this.endDateTime = endDateTime;
 		this.description = description;
-		this.createdAt = createdAt;
-		this.updatedAt = updatedAt;
+		this.updatedAt = LocalDate.now();
 	}
 
 	public void deleteReservationDto() {
-		int enabled = 0;
-		LocalDate updatedAt = LocalDate.now();
+		this.deleted = 1;
+		this.updatedAt = LocalDate.now();
 	}
 	
 	

@@ -34,10 +34,7 @@ public class ReservationDao implements ICrud<ReservationDto>{
 					obj.getLicensePlate(),
 					obj.getStartDateTime(),
 					obj.getEndDateTime(),
-					obj.getDescription(),
-					obj.getCreatedAt(),
-					obj.getUpdatedAt()
-			);
+					obj.getDescription());
 		}
 		entityManager.getTransaction().commit();
 		entityManager.close();
@@ -72,5 +69,14 @@ public class ReservationDao implements ICrud<ReservationDto>{
 		criteriaQuery.select(root);
 		List<ReservationDto> reservation = entityManager.createQuery(criteriaQuery).getResultList();
 		return reservation;
+	}
+	
+	public List<ReservationDto> getReservationsByUserId(Long userId){
+		CriteriaBuilder criteriaBuilder=entityManager.getCriteriaBuilder();
+		CriteriaQuery<ReservationDto> criteriaQuery=criteriaBuilder.createQuery(ReservationDto.class);
+		Root<ReservationDto> root=criteriaQuery.from(ReservationDto.class);
+		criteriaQuery.where(criteriaBuilder.equal(root.get("employee"), userId));
+		List<ReservationDto> reservations=entityManager.createQuery(criteriaQuery).getResultList();
+		return reservations;
 	}
 }
