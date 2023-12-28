@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import application.dao.ReservationDao;
 import application.dto.ReservationDto;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -119,9 +120,11 @@ public class ListReservationsFrameController {
 					setText(formatter.format(date));
 				}
 			}
+			
 		});
-		
-		reservationsTable.getColumns().addAll(idColumn, nameColumn, plateColumn, startDateColumn);
+		TableColumn<ReservationDto,String> statusColumn=new TableColumn<>("Status");
+		statusColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().isDeletedToString()));
+		reservationsTable.getColumns().addAll(idColumn, nameColumn, plateColumn, startDateColumn, statusColumn);
 	    reservationsTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 		for (TableColumn<ReservationDto, ?> column : reservationsTable.getColumns()) {
 			column.setPrefWidth(computeColumnWidth(column));

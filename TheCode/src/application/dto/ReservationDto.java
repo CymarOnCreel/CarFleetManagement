@@ -42,6 +42,12 @@ public class ReservationDto {
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+    
+    @Column(name="is_deleted")
+    private boolean isDeleted;
+
+
+
 
 
 
@@ -52,7 +58,7 @@ public class ReservationDto {
 	
 
 	public ReservationDto(int id, EmployeeDto employee, CarDto car, LocalDateTime startDate, LocalDateTime endDate, String description,
-			LocalDateTime createdAt, LocalDateTime updatedAt) {
+			LocalDateTime createdAt, LocalDateTime updatedAt, boolean isDeleted) {
 		super();
 		this.id = id;
 		this.employee = employee;
@@ -62,7 +68,11 @@ public class ReservationDto {
 		this.description = description;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
+		this.isDeleted=isDeleted;
 	}
+
+
+
 
 
 
@@ -70,8 +80,9 @@ public class ReservationDto {
 	public String toString() {
 		return "ReservationDto [id=" + id + ", employee=" + employee + ", car=" + car + ", startDate=" + startDate
 				+ ", endDate=" + endDate + ", description=" + description + ", createdAt=" + createdAt + ", updatedAt="
-				+ updatedAt + "]";
+				+ updatedAt + ", isDeleted=" + isDeleted + "]";
 	}
+
 
 
 	public String toStringWithNames() {
@@ -142,7 +153,20 @@ public class ReservationDto {
 		this.updatedAt = updatedAt;
 	}
 
-    
+	public boolean isDeleted() {
+		return isDeleted;
+	}
+
+
+
+	public void setDeleted(boolean isDeleted) {
+		this.isDeleted = isDeleted;
+	}
+	
+	public String isDeletedToString() {
+		return isDeleted ? "törölve":"aktív";
+	}
+
 	
 
 }
