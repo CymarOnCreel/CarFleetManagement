@@ -109,7 +109,7 @@ CREATE TABLE `reservation` (
   `description` varchar(100) COLLATE utf8_hungarian_ci DEFAULT NULL,
   `created_at` date NOT NULL,
   `updated_at` date DEFAULT NULL,
-  `is_deleted` tinyint(1) DEFAULT 1
+  `is_deleted` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
 
 CREATE TABLE `role` (
