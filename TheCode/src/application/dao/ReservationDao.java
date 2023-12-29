@@ -8,7 +8,6 @@ import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-
 import application.dto.ReservationDto;
 
 public class ReservationDao implements ICrud<ReservationDto> {
@@ -21,21 +20,34 @@ public class ReservationDao implements ICrud<ReservationDto> {
 
 	@Override
 	public void save(ReservationDto obj) {
-		// TODO Auto-generated method stub
-
+		entityManager.getTransaction().begin();
+		entityManager.persist(obj);
+		entityManager.getTransaction().commit();
+		entityManager.close();
+		factory.close();
+		
 	}
 
 	@Override
 	public void update(ReservationDto obj) {
 		entityManager.getTransaction().begin();
-
+		ReservationDto reservationDto = entityManager.find(ReservationDto.class,obj.getIdReservation());
+		if (reservationDto!=null) {
+			reservationDto.updateReservationDto(obj.getIdEmployee(),
+					obj.getLicensePlate(),
+					obj.getStartDateTime(),
+					obj.getEndDateTime(),
+					obj.getDescription());
+		}
+		entityManager.getTransaction().commit();
+		entityManager.close();
+		factory.close();	
 	}
 
 	@Override
 	public void deleteById(Object id) {
 		entityManager.getTransaction().begin();
 		ReservationDto reservationById=entityManager.find(ReservationDto.class, id);
-		System.out.println(reservationById.toStringWithNames());
 		if (reservationById != null) {
 			reservationById.deleteReservation();
 			entityManager.merge(reservationById);
@@ -43,16 +55,15 @@ public class ReservationDao implements ICrud<ReservationDto> {
 		};
 		entityManager.close();
 		factory.close();
-
 	}
 
 	@Override
 	public ReservationDto findById(Object id) {
-		entityManager.getTransaction().begin();
-		ReservationDto reservationById = entityManager.find(ReservationDto.class, id);
-		entityManager.getTransaction().commit();
+
+		ReservationDto reservationDto = entityManager.find(ReservationDto.class, id);
 		entityManager.close();
-		return reservationById;
+		factory.close();
+		return reservationDto;
 	}
 
 	@Override
@@ -63,6 +74,7 @@ public class ReservationDao implements ICrud<ReservationDto> {
 		criteriaQuery.select(root);
 		List<ReservationDto> reservations = entityManager.createQuery(criteriaQuery).getResultList();
 		return reservations;
+
 	}
 
 	public List<ReservationDto> getReservationsByUserId(Long userId) {
@@ -82,5 +94,4 @@ public class ReservationDao implements ICrud<ReservationDto> {
 		List<ReservationDto> reservations = entityManager.createQuery(criteriaQuery).getResultList();
 		return reservations;
 	}
-
 }

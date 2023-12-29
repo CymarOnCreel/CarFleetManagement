@@ -13,6 +13,7 @@ import javax.persistence.criteria.Root;
 import application.dto.CarDto;
 
 
+
 public class CarDao implements ICrud<CarDto> {
 	
 	EntityManagerFactory factory = Persistence.createEntityManagerFactory("carfleet_manager");
@@ -73,7 +74,6 @@ public class CarDao implements ICrud<CarDto> {
 		Root<CarDto> root = criteriaQuery.from(CarDto.class);
 		criteriaQuery.select(root);
 		List<CarDto> cars = entityManager.createQuery(criteriaQuery).getResultList();
-		
 		return cars;
 	}
 	
