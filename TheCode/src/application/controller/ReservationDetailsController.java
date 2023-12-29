@@ -90,11 +90,11 @@ public class ReservationDetailsController {
 
 	public void initialize(ReservationDto reservation) {
 		this.reservation=reservation;
-		reservationId = reservation.getId();
+		reservationId = reservation.getIdReservation();
 		employeeNameField.setText(reservation.getEmployee().getLastName());
 		carField.setText(reservation.getCar().getLicensePlate());
-		showStartDate.setText(reservation.getStartDate().toString());
-		showEndDate.setText(reservation.getEndDate().toString());
+		showStartDate.setText(reservation.getStartDateTime().toString());
+		showEndDate.setText(reservation.getEndDateTime().toString());
 		descriptionField.setText(reservation.getDescription());
 		if (reservation.isDeleted()) {
 			setAllOptionsDisabledIfReservationIsDeleted();
@@ -109,9 +109,9 @@ public class ReservationDetailsController {
 			@Override
 			public void updateItem(LocalDate item, boolean empty) {
 				super.updateItem(item, empty);
-				if (reservation.getStartDate() != null && reservation.getEndDate() != null) {
-					LocalDate startDate = reservation.getStartDate().toLocalDate();
-					LocalDate endDate = reservation.getEndDate().toLocalDate();
+				if (reservation.getStartDateTime() != null && reservation.getEndDateTime() != null) {
+					LocalDate startDate = reservation.getStartDateTime().toLocalDate();
+					LocalDate endDate = reservation.getEndDateTime().toLocalDate();
 					if (!item.isBefore(startDate) && !item.isAfter(endDate)) {
 						setDisable(true);
 						setStyle("-fx-background-color: #ff0000;");

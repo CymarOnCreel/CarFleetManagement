@@ -121,10 +121,10 @@ public class ListReservationsFrameController implements Initializable {
 			LocalDateTime startDate = localStartDate.atStartOfDay();
 			LocalDateTime endDate = localEndDate.atTime(23, 59, 59);
 			reservationsFilteredByDate = reservations.stream()
-					.filter(reservation -> reservation.getStartDate().isAfter(startDate)
-							|| reservation.getStartDate().isEqual(startDate))
-					.filter(reservation -> reservation.getEndDate().isBefore(endDate)
-							|| reservation.getEndDate().isEqual(endDate))
+					.filter(reservation -> reservation.getStartDateTime().isAfter(startDate)
+							|| reservation.getStartDateTime().isEqual(startDate))
+					.filter(reservation -> reservation.getEndDateTime().isBefore(endDate)
+							|| reservation.getEndDateTime().isEqual(endDate))
 					.collect(Collectors.toList());
 		} else {
 			reservationsFilteredByDate = reservations;
@@ -138,7 +138,7 @@ public class ListReservationsFrameController implements Initializable {
 	private void addColumns() {
 		reservationsTable.getColumns().clear();
 		TableColumn<ReservationDto, Integer> idColumn = new TableColumn<>("Reservation ID");
-		idColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getId()));
+		idColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getIdReservation()));
 		TableColumn<ReservationDto, String> nameColumn = new TableColumn<>("Employee Name");
 		nameColumn.setCellValueFactory(
 				cellData -> new SimpleStringProperty(cellData.getValue().getEmployee().getLastName()));
@@ -146,7 +146,7 @@ public class ListReservationsFrameController implements Initializable {
 		plateColumn.setCellValueFactory(
 				cellData -> new SimpleStringProperty(cellData.getValue().getCar().getLicensePlate()));
 		TableColumn<ReservationDto, LocalDateTime> startDateColumn = new TableColumn<>("Start Date");
-		startDateColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getStartDate()));
+		startDateColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getStartDateTime()));
 		startDateColumn.setCellFactory(col -> new TableCell<ReservationDto, LocalDateTime>() {
 			private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 

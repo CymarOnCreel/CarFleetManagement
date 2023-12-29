@@ -33,8 +33,8 @@ public class ReservationDao implements ICrud<ReservationDto> {
 		entityManager.getTransaction().begin();
 		ReservationDto reservationDto = entityManager.find(ReservationDto.class,obj.getIdReservation());
 		if (reservationDto!=null) {
-			reservationDto.updateReservationDto(obj.getIdEmployee(),
-					obj.getLicensePlate(),
+			reservationDto.updateReservationDto(obj.getEmployee(),
+					obj.getCar(),
 					obj.getStartDateTime(),
 					obj.getEndDateTime(),
 					obj.getDescription());
