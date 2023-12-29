@@ -1,15 +1,16 @@
 package application.controller;
 
 import java.io.IOException;
+import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.stream.Collectors;
-
 import application.dao.ReservationDao;
 import application.dto.ReservationDto;
-import javafx.beans.property.SimpleBooleanProperty;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -17,21 +18,21 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Control;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
-public class ListReservationsFrameController {
+public class ListReservationsFrameController implements Initializable {
 	@FXML
 	private Button closeWindow;
 
@@ -46,6 +47,49 @@ public class ListReservationsFrameController {
 
 	@FXML
 	private Button search;
+	private ReservationDao reservationDao;
+	List<ReservationDto> reservations;
+	private ObservableList<ReservationDto> reservationData = FXCollections.observableArrayList();
+
+	public ListReservationsFrameController() {
+		this.reservationDao = new ReservationDao();
+	}
+//	Long loggedInEmployeeId = SessionManager.getInstance().getLoggedInEmployeeId();
+	private Long userId=2L;
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		setTable();
+
+	}
+
+	public void setTable() {
+		Platform.runLater(() -> {
+			System.out.println("settable");
+			clearTable();
+			updateTableView(getAllReservationsOfUserBetweenDates(userId));
+		});
+	}
+
+	public void updateTableView(List<ReservationDto> filteredReservations) {
+		System.out.println("updatetableview");
+		populateTableView(filteredReservations);
+		updateColumnWidths();
+		initializeTableView();
+	}
+	private void populateTableView(List<ReservationDto> reservations) {
+		reservationData.clear();
+		reservationData.addAll(reservations);
+	
+		reservationsTable.setItems(reservationData);
+		System.out.println(reservationsTable.getItems().toString()+" table is empty");
+	}
+	private void initializeTableView() {
+		addColumns();
+		setupTableClickEvent();
+		setTableHeight();
+		reservationsTable.setVisible(true);
+
+	}
 
 	@FXML
 	public void closeWindow(ActionEvent event) {
@@ -54,16 +98,28 @@ public class ListReservationsFrameController {
 		stage.close();
 	}
 
+
 	@FXML
-	void getAllReservationsBetweenDates(ActionEvent event) {
+	public void handleSearchButton(ActionEvent event) {
+		clearTable();
+		updateTableView(getAllReservationsOfUserBetweenDates(userId));
+	}
+
+	public void clearTable() {
+		reservationData.clear();
+		reservationsTable.getItems().clear();
+		reservationsTable.refresh();
+	}
+
+	public List<ReservationDto> getAllReservationsOfUserBetweenDates(Long userId) {
 		LocalDate localStartDate = intervalStartDate.getValue();
 		LocalDate localEndDate = intervalEndDate.getValue();
-		ReservationDao reservationDao = new ReservationDao();
-		List<ReservationDto> reservations = reservationDao.getReservationsByUserId(1L); // get user id here
+		reservations = reservationDao.getReservationsByUserId(userId); // get user id here with
+																	// loggedInEmployeeId
 		List<ReservationDto> reservationsFilteredByDate;
 		if (localStartDate != null && localEndDate != null) {
 			LocalDateTime startDate = localStartDate.atStartOfDay();
-			LocalDateTime endDate = localEndDate.atTime(23, 59, 59); 
+			LocalDateTime endDate = localEndDate.atTime(23, 59, 59);
 			reservationsFilteredByDate = reservations.stream()
 					.filter(reservation -> reservation.getStartDate().isAfter(startDate)
 							|| reservation.getStartDate().isEqual(startDate))
@@ -73,27 +129,10 @@ public class ListReservationsFrameController {
 		} else {
 			reservationsFilteredByDate = reservations;
 		}
-		ObservableList<ReservationDto> reservationData = FXCollections.observableList(reservationsFilteredByDate);
-		reservationsTable.setItems(reservationData);
-		for (ReservationDto reservationDto : reservationData) {
-			System.out.println(reservationDto.toStringWithNames());
-		}
-
-	
-		addColumns();
-		setupTableClickEvent();
-		double rowHeight = 30.0; 
-		double tableHeight = Math.min(reservationData.size() + 1, 10) * rowHeight;
-		System.out.println(reservationData.size());
-		System.out.println(tableHeight);
-		reservationsTable.setPrefHeight(tableHeight);
-		reservationsTable.setMaxHeight(tableHeight);
-		System.out.println(reservationsTable.getPrefHeight()+" pref "+reservationsTable.getMaxHeight()+" max");
-		reservationsTable.setVisible(true);
-		reservationsTable.setManaged(true);
-
-	
+		return reservationsFilteredByDate;
 	}
+
+
 
 	@SuppressWarnings("unchecked")
 	private void addColumns() {
@@ -120,16 +159,26 @@ public class ListReservationsFrameController {
 					setText(formatter.format(date));
 				}
 			}
-			
+
 		});
-		TableColumn<ReservationDto,String> statusColumn=new TableColumn<>("Status");
+		TableColumn<ReservationDto, String> statusColumn = new TableColumn<>("Status");
 		statusColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().isDeletedToString()));
 		reservationsTable.getColumns().addAll(idColumn, nameColumn, plateColumn, startDateColumn, statusColumn);
-	    reservationsTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+		reservationsTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+	}
+
+	private void setTableHeight() {
+		double rowHeight = 30.0;
+		double tableHeight = Math.min(reservationsTable.getItems().size() + 1, 10) * rowHeight;
+		reservationsTable.setPrefHeight(tableHeight);
+		reservationsTable.setMaxHeight(tableHeight);
+	}
+
+	private void updateColumnWidths() {
 		for (TableColumn<ReservationDto, ?> column : reservationsTable.getColumns()) {
 			column.setPrefWidth(computeColumnWidth(column));
 		}
-
 	}
 
 	private <T> double computeColumnWidth(TableColumn<ReservationDto, T> column) {
@@ -144,14 +193,16 @@ public class ListReservationsFrameController {
 				currentCell.itemProperty().setValue((T) item);
 
 				Text text = new Text(String.valueOf(currentCell.getText()));
-				double cellWidth = text.getBoundsInLocal().getWidth()+5;
+				double cellWidth = text.getBoundsInLocal().getWidth() + 5;
 				maxWidth = Math.max(maxWidth, cellWidth);
-				
+
 			}
 		}
 
 		return maxWidth + 10.0;
 	}
+// Go to Reservation details
+
 	private void setupTableClickEvent() {
 		reservationsTable.setOnMouseClicked(mouseEvent -> {
 			if (mouseEvent.getClickCount() == 1) {
@@ -174,11 +225,15 @@ public class ListReservationsFrameController {
 		}
 
 		ReservationDetailsController detailsController = loader.getController();
+		detailsController.setReservationListController(this);
 		detailsController.initialize(reservation);
 
 		Stage detailsStage = new Stage();
 		detailsStage.setScene(new Scene(root));
 		detailsStage.setTitle("Reservation Details");
-		detailsStage.show();
+		detailsStage.initModality(Modality.APPLICATION_MODAL);
+		detailsStage.showAndWait();
+
 	}
+
 }
