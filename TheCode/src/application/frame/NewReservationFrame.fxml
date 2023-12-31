@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="816.0" prefWidth="1118.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.NewReservationController">
+   <children>
+      <Button fx:id="search" layoutX="942.0" layoutY="59.0" mnemonicParsing="false" onAction="#setCarPickerTable" prefHeight="58.0" prefWidth="126.0" text="SEARCH" />
+      <Button fx:id="close" layoutX="916.0" layoutY="689.0" mnemonicParsing="false" onAction="#close" prefHeight="58.0" prefWidth="126.0" text="CLOSE" />
+      <DatePicker fx:id="startDate" layoutX="115.0" layoutY="21.0" />
+      <DatePicker fx:id="endDate" layoutX="120.0" layoutY="75.0" />
+      <Label layoutX="14.0" layoutY="25.0" prefHeight="17.0" prefWidth="88.0" text="Start Date*" />
+      <Label layoutX="12.0" layoutY="79.0" prefHeight="17.0" prefWidth="88.0" text="End Date*" />
+      <Label layoutX="335.0" layoutY="25.0" prefHeight="17.0" prefWidth="88.0" text="Car Brand" />
+      <Label layoutX="320.0" layoutY="79.0" prefHeight="17.0" prefWidth="88.0" text="Car Category" />
+      <Label layoutX="604.0" layoutY="25.0" text="Transmisson" />
+      <Label layoutX="602.0" layoutY="71.0" text="Seat Number" />
+      <Label layoutX="880.0" layoutY="25.0" text="FuelType" />
+      <ChoiceBox fx:id="carBrand" layoutX="423.0" layoutY="21.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="carModel" layoutX="423.0" layoutY="75.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="transmissionType" layoutX="702.0" layoutY="21.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="numberOfSeats" layoutX="709.0" layoutY="67.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="fuelType" layoutX="942.0" layoutY="21.0" prefWidth="150.0" />
+      <Label layoutX="115.0" layoutY="46.0" prefHeight="17.0" prefWidth="150.0" text="Required" />
+      <Label layoutX="115.0" layoutY="109.0" prefHeight="17.0" prefWidth="150.0" text="Required" />
+      <TableView fx:id="availabelCarsTable" layoutX="45.0" layoutY="208.0" prefHeight="452.0" prefWidth="1025.0" />
+   </children>
+</AnchorPane>
