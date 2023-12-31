@@ -123,8 +123,8 @@ public class EmployeeDto {
 	}
 	
 	public void deleteEmployeeDto() {
-		int enabled = 0;
-		LocalDate updatedAt = LocalDate.now();
+		enabled = true;
+		updatedAt = LocalDate.now();
 	}
 	
 	

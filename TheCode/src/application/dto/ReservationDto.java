@@ -46,13 +46,13 @@ public class ReservationDto {
     private LocalDateTime updatedAt;
 
     @Column(name = "is_deleted")
-    private boolean isDeleted;
+    private boolean deleted;
 
 
 	
 
 	public ReservationDto(int id, EmployeeDto employee, CarDto car, LocalDateTime startDate, LocalDateTime endDate, String description,
-			LocalDateTime createdAt, LocalDateTime updatedAt, boolean isDeleted) {
+			LocalDateTime createdAt, LocalDateTime updatedAt, boolean deleted) {
 		super();
 		this.idReservation = id;
 		this.employee = employee;
@@ -62,7 +62,7 @@ public class ReservationDto {
 		this.description = description;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
-		this.isDeleted=isDeleted;
+		this.deleted=deleted;
 	}
 	
 	public ReservationDto() {
@@ -72,7 +72,7 @@ public class ReservationDto {
 	public String toString() {
 		return "ReservationDto [id=" + idReservation + ", employee=" + employee + ", car=" + car + ", startDate=" + startDateTime
 				+ ", endDate=" + endDateTime + ", description=" + description + ", createdAt=" + createdAt + ", updatedAt="
-				+ updatedAt + ", isDeleted=" + isDeleted + "]";
+				+ updatedAt + ", isDeleted=" + deleted + "]";
 	}
 
 	public int getIdReservation() {
@@ -156,12 +156,12 @@ public class ReservationDto {
 
 
 	public boolean isDeleted() {
-		return isDeleted;
+		return deleted;
 	}
 
 
 	public void setDeleted(boolean isDeleted) {
-		this.isDeleted = isDeleted;
+		this.deleted = isDeleted;
 	}
 
 
@@ -176,11 +176,11 @@ public class ReservationDto {
 	}
 
 	public void deleteReservation() {
-		this.isDeleted = true;
+		this.deleted = true;
 		this.updatedAt = LocalDateTime.now();
 	}
 	
 	public String isDeletedToString() {
-		return isDeleted ? "törölve":"aktív";
+		return deleted ? "törölve":"aktív";
 	}
 }
