@@ -8,6 +8,7 @@ import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+
 import application.dto.ReservationDto;
 
 public class ReservationDao implements ICrud<ReservationDto> {
@@ -25,34 +26,32 @@ public class ReservationDao implements ICrud<ReservationDto> {
 		entityManager.getTransaction().commit();
 		entityManager.close();
 		factory.close();
-		
+
 	}
 
 	@Override
 	public void update(ReservationDto obj) {
 		entityManager.getTransaction().begin();
-		ReservationDto reservationDto = entityManager.find(ReservationDto.class,obj.getIdReservation());
-		if (reservationDto!=null) {
-			reservationDto.updateReservationDto(obj.getEmployee(),
-					obj.getCar(),
-					obj.getStartDateTime(),
-					obj.getEndDateTime(),
-					obj.getDescription());
+		ReservationDto reservationDto = entityManager.find(ReservationDto.class, obj.getIdReservation());
+		if (reservationDto != null) {
+			reservationDto.updateReservationDto(obj.getEmployee(), obj.getCar(), obj.getStartDateTime(),
+					obj.getEndDateTime(), obj.getDescription());
 		}
 		entityManager.getTransaction().commit();
 		entityManager.close();
-		factory.close();	
+		factory.close();
 	}
 
 	@Override
 	public void deleteById(Object id) {
 		entityManager.getTransaction().begin();
-		ReservationDto reservationById=entityManager.find(ReservationDto.class, id);
+		ReservationDto reservationById = entityManager.find(ReservationDto.class, id);
 		if (reservationById != null) {
 			reservationById.deleteReservation();
 			entityManager.merge(reservationById);
 			entityManager.getTransaction().commit();
-		};
+		}
+		;
 		entityManager.close();
 		factory.close();
 	}
@@ -94,4 +93,11 @@ public class ReservationDao implements ICrud<ReservationDto> {
 		List<ReservationDto> reservations = entityManager.createQuery(criteriaQuery).getResultList();
 		return reservations;
 	}
+//
+//	public List<ReservationDto> getReservationsBetweenDates(LocalDate startDate, LocalDate endDate) {
+//		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+//		CriteriaQuery<ReservationDto> criteriaQuery = criteriaBuilder.createQuery(ReservationDto.class);
+//		Root <ReservationDto> root=criteriaQuery.from(ReservationDto.class);
+//		criteriaQuery.where(criteriaBuilder.is)
+//	}
 }

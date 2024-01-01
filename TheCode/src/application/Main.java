@@ -8,8 +8,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class Main extends Application {
+
+	private static Stage primaryStage;
+
 	@Override
 	public void start(Stage primaryStage) {
+		this.primaryStage = primaryStage;
 		try {
 			AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("frame/Home.fxml"));
 			Scene scene = new Scene(root);
@@ -28,5 +32,9 @@ public class Main extends Application {
 	public static void main(String[] args) {
 		launch(args);
 
+	}
+
+	public static Stage getPrimaryStage() {
+		return primaryStage;
 	}
 }

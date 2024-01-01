@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import application.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -77,6 +78,7 @@ public class MainFrameController implements Initializable {
 	stage.setTitle("New Reservation");
 	stage.setScene(scene);
 	stage.initModality(Modality.APPLICATION_MODAL);
+	stage.initOwner(Main.getPrimaryStage());
 	stage.showAndWait();
 	}
 
