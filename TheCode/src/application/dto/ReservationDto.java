@@ -1,6 +1,5 @@
 package application.dto;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -64,7 +63,18 @@ public class ReservationDto {
 		this.updatedAt = updatedAt;
 		this.deleted=deleted;
 	}
-	
+	public ReservationDto(EmployeeDto employee, CarDto car, LocalDateTime startDate, LocalDateTime endDate, String description,
+			LocalDateTime createdAt, LocalDateTime updatedAt, boolean deleted) {
+		super();
+		this.employee = employee;
+		this.car = car;
+		this.startDateTime = startDate;
+		this.endDateTime = endDate;
+		this.description = description;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+		this.deleted=deleted;
+	}
 	public ReservationDto() {
 		super();
 	}

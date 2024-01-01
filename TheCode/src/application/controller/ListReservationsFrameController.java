@@ -64,14 +64,12 @@ public class ListReservationsFrameController implements Initializable {
 
 	public void setTable() {
 		Platform.runLater(() -> {
-			System.out.println("settable");
 			clearTable();
 			updateTableView(getAllReservationsOfUserBetweenDates(userId));
 		});
 	}
 
 	public void updateTableView(List<ReservationDto> filteredReservations) {
-		System.out.println("updatetableview");
 		populateTableView(filteredReservations);
 		updateColumnWidths();
 		initializeTableView();
@@ -81,7 +79,6 @@ public class ListReservationsFrameController implements Initializable {
 		reservationData.addAll(reservations);
 	
 		reservationsTable.setItems(reservationData);
-		System.out.println(reservationsTable.getItems().toString()+" table is empty");
 	}
 	private void initializeTableView() {
 		addColumns();
