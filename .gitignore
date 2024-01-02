@@ -2,3 +2,5 @@
 TheCode/src/META-INF/persistence.xml
 TheCode/src/application/Main.java
 TheCode/src/application/Main.java
+TheCode/src/application/dto/ReservationDto.java
+TheCode/src/test/testDao/TestReservationDaoNew.java
