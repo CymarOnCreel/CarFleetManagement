@@ -13,7 +13,7 @@
 		<DatePicker fx:id="intervalEndDate" layoutX="561.0" layoutY="46.0" />
 		<Label layoutX="31.0" layoutY="50.0" prefHeight="25.0" prefWidth="123.0" text="From" />
 		<Label layoutX="402.0" layoutY="46.0" prefHeight="25.0" prefWidth="137.0" text="To" />
-		<Button fx:id="search" layoutX="839.0" layoutY="46.0" mnemonicParsing="false" onAction="#getAllReservationsBetweenDates" text="Search" />
+		<Button fx:id="search" layoutX="839.0" layoutY="46.0" mnemonicParsing="false" onAction="#handleSearchButton" text="Search" />
 		<TableView fx:id="reservationsTable" layoutX="59.0" layoutY="135.0" prefHeight="580.0" prefWidth="921.0" styleClass="my-table" visible="false">
    </TableView>
 		<Button fx:id="closeWindow" layoutX="878.0" layoutY="775.0" mnemonicParsing="false" onAction="#closeWindow" prefHeight="44.0" prefWidth="146.0" text="EXIT" />

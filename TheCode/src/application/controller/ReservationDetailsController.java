@@ -1,8 +1,9 @@
 package application.controller;
 
 import java.time.LocalDate;
-import java.time.ZoneId;
 
+import application.alert.AlertMessage;
+import application.dao.ReservationDao;
 import application.dto.ReservationDto;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -46,6 +47,17 @@ public class ReservationDetailsController {
 	private TextField showStartDate;
 	@FXML
 	private TextField showEndDate;
+	private ReservationDao reservationDao;
+	private int reservationId;
+	private ListReservationsFrameController listFrameController;
+ private ReservationDto reservation;
+	public void setReservationListController(ListReservationsFrameController listFrameController) {
+		this.listFrameController = listFrameController;
+	}
+
+	public ReservationDetailsController() {
+		this.reservationDao = new ReservationDao();
+	}
 
 	@FXML
 	void changeCar(ActionEvent event) {
@@ -53,7 +65,7 @@ public class ReservationDetailsController {
 	}
 
 	@FXML
-	void close(ActionEvent event) {
+	public void close(ActionEvent event) {
 		Node source = (Node) event.getSource();
 		Stage stage = (Stage) source.getScene().getWindow();
 		stage.close();
@@ -61,6 +73,13 @@ public class ReservationDetailsController {
 
 	@FXML
 	void setReservationDeleted(ActionEvent event) {
+		System.out.println(reservationId);
+		reservationDao.deleteById(reservationId);
+		new AlertMessage().showConfirmationAlertMessage("Foglalás törlés", "A foglalást sikeresen törölted");
+	    reservation.setDeleted(true);
+		Stage stage = (Stage) close.getScene().getWindow();
+	    stage.close(); 
+		listFrameController.setTable();
 
 	}
 
@@ -70,14 +89,19 @@ public class ReservationDetailsController {
 	}
 
 	public void initialize(ReservationDto reservation) {
+		this.reservation=reservation;
+		reservationId = reservation.getIdReservation();
 		employeeNameField.setText(reservation.getEmployee().getLastName());
 		carField.setText(reservation.getCar().getLicensePlate());
-		showStartDate.setText(reservation.getStartDate().toString());
-		showEndDate.setText(reservation.getEndDate().toString());
+		showStartDate.setText(reservation.getStartDateTime().toString());
+		showEndDate.setText(reservation.getEndDateTime().toString());
 		descriptionField.setText(reservation.getDescription());
-		
-		startDateField.setDayCellFactory(createDayCellFactory(reservation));
-		endDateField.setDayCellFactory(createDayCellFactory(reservation));
+		if (reservation.isDeleted()) {
+			setAllOptionsDisabledIfReservationIsDeleted();
+		} else {
+			startDateField.setDayCellFactory(createDayCellFactory(reservation));
+			endDateField.setDayCellFactory(createDayCellFactory(reservation));
+		}
 	}
 
 	private Callback<DatePicker, DateCell> createDayCellFactory(ReservationDto reservation) {
@@ -85,9 +109,9 @@ public class ReservationDetailsController {
 			@Override
 			public void updateItem(LocalDate item, boolean empty) {
 				super.updateItem(item, empty);
-				if (reservation.getStartDate() != null && reservation.getEndDate() != null) {
-					LocalDate startDate = reservation.getStartDate().toLocalDate();
-					LocalDate endDate = reservation.getEndDate().toLocalDate();
+				if (reservation.getStartDateTime() != null && reservation.getEndDateTime() != null) {
+					LocalDate startDate = reservation.getStartDateTime().toLocalDate();
+					LocalDate endDate = reservation.getEndDateTime().toLocalDate();
 					if (!item.isBefore(startDate) && !item.isAfter(endDate)) {
 						setDisable(true);
 						setStyle("-fx-background-color: #ff0000;");
@@ -97,4 +121,12 @@ public class ReservationDetailsController {
 		};
 	}
 
+	private void setAllOptionsDisabledIfReservationIsDeleted() {
+		endDateField.setDisable(true);
+		startDateField.setDisable(true);
+		descriptionField.setDisable(true);
+		update.setDisable(true);
+		cancelReservation.setDisable(true);
+		changeCar.setDisable(true);
+	}
 }

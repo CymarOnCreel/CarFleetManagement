@@ -35,4 +35,15 @@ public class AlertMessage {
 		a.setTitle("Dupla adat!!!");
 		a.show();
 	}
+	
+	public void showConfirmationAlertMessage(String title,String message) {
+		Alert a = new Alert(AlertType.NONE, message, ButtonType.OK);
+		a.setTitle(title);
+		a.show();
+	}
+	public void requiredFieldsEmpty(String title, String message) {
+		Alert a =new Alert(AlertType.NONE, message, ButtonType.CLOSE);
+		a.setTitle(title);
+		a.show();
+	}
 }

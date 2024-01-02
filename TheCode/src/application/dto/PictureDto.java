@@ -16,7 +16,6 @@ public class PictureDto {
 	private String picturePath;
 	
 	@Column(name = "license_plate")
-	
 	private String licensePlate;
 
 	public PictureDto(String picturePath, String licensePlate) {

@@ -10,8 +10,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import application.dto.PictureDto;
 
-public class PictureDao implements ICrud<PictureDto>{
-	
+public class PictureDao implements ICrud<PictureDto> {
+
 	EntityManagerFactory factory = Persistence.createEntityManagerFactory("carfleet_manager");
 	EntityManager entityManager = factory.createEntityManager();
 
@@ -22,16 +22,15 @@ public class PictureDao implements ICrud<PictureDto>{
 		entityManager.getTransaction().commit();
 		entityManager.close();
 		factory.close();
-		
+
 	}
 
 	@Override
 	public void update(PictureDto obj) {
 		entityManager.getTransaction().begin();
-		PictureDto pictureDto = entityManager.find(PictureDto.class,obj.getPicturePath());
-		if (pictureDto!=null) {
-			pictureDto.updatePictureDto(obj.getLicensePlate()
-			);
+		PictureDto pictureDto = entityManager.find(PictureDto.class, obj.getPicturePath());
+		if (pictureDto != null) {
+			pictureDto.updatePictureDto(obj.getLicensePlate());
 		}
 		entityManager.getTransaction().commit();
 		entityManager.close();
@@ -42,7 +41,7 @@ public class PictureDao implements ICrud<PictureDto>{
 	public void deleteById(Object id) {
 		entityManager.getTransaction().begin();
 		PictureDto pictureDto = entityManager.find(PictureDto.class, id);
-		if (pictureDto!=null) {
+		if (pictureDto != null) {
 			pictureDto.deletePictureDto();
 			entityManager.getTransaction().commit();
 		}
@@ -66,5 +65,14 @@ public class PictureDao implements ICrud<PictureDto>{
 		criteriaQuery.select(root);
 		List<PictureDto> picture = entityManager.createQuery(criteriaQuery).getResultList();
 		return picture;
+	}
+
+	public PictureDto findImageByLicensePlate(String licensePlate) {
+		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<PictureDto> criteriaQuery = criteriaBuilder.createQuery(PictureDto.class);
+		Root<PictureDto> root = criteriaQuery.from(PictureDto.class);
+		criteriaQuery.where(criteriaBuilder.equal(root.get("licensePlate"), licensePlate));
+		List<PictureDto> pictures = entityManager.createQuery(criteriaQuery).getResultList();
+		return pictures.isEmpty() ? null : pictures.get(0);
 	}
 }

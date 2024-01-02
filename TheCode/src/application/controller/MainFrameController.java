@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import application.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -68,9 +69,17 @@ public class MainFrameController implements Initializable {
 	}
 
 	@FXML
-	void createNewCarReservation(ActionEvent event) {
-		// TO-DO create Scene + methods for user to make a car reservation for a period
-		// of time
+	void createNewCarReservation(ActionEvent event) throws IOException {
+	FXMLLoader loader=new FXMLLoader(getClass().getResource("/application/frame/NewReservationFrame.fxml"));
+	AnchorPane root= (AnchorPane)loader.load();
+	Scene scene=new Scene(root);
+	scene.getStylesheets().add(getClass().getResource("/application/util/application.css").toExternalForm());
+	Stage stage=new Stage();
+	stage.setTitle("New Reservation");
+	stage.setScene(scene);
+	stage.initModality(Modality.APPLICATION_MODAL);
+	stage.initOwner(Main.getPrimaryStage());
+	stage.showAndWait();
 	}
 
 	@FXML

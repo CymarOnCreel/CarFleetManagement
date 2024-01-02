@@ -29,3 +29,14 @@
 .my-table .row-cell:odd {
     -fx-background-color: #f4f4f4;
 }
+
+.round-button {
+    -fx-background-color: transparent;
+    -fx-background-radius: 50%;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+}
+
+.round-button .image-view {
+    -fx-clip-shape: circle;
+}
