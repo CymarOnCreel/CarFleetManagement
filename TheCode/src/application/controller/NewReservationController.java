@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -30,23 +29,20 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -109,13 +105,13 @@ public class NewReservationController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		 setUpDatePickers();
-		    setUpDaoObjects();
-		    Platform.runLater(() -> {
-		        setUpChoiceBoxeDataAvailebleBetweenDates();
-		        setCancelButtonsImage();
-		    });
-		    setUpListeners();
+		setUpDatePickers();
+		setUpDaoObjects();
+		Platform.runLater(() -> {
+			setUpChoiceBoxeDataAvailebleBetweenDates();
+			setCancelButtonsImage();
+		});
+		setUpListeners();
 
 	}
 
@@ -331,8 +327,7 @@ public class NewReservationController implements Initializable {
 	}
 
 	private List<CarDto> filterCarsByCategory(List<CarDto> cars, String selectedCategory) {
-		return cars.stream().filter(car -> car.getCategory().equals(selectedCategory))
-				.collect(Collectors.toList());
+		return cars.stream().filter(car -> car.getCategory().equals(selectedCategory)).collect(Collectors.toList());
 	}
 
 	private void updateTransmissionChoiceBoxData() {
@@ -355,8 +350,7 @@ public class NewReservationController implements Initializable {
 	}
 
 	private List<CarDto> filterCarsByFuelType(List<CarDto> cars, String selectedFuelType) {
-		return cars.stream().filter(car -> car.getFuel().equals(selectedFuelType))
-				.collect(Collectors.toList());
+		return cars.stream().filter(car -> car.getFuel().equals(selectedFuelType)).collect(Collectors.toList());
 	}
 
 	private void updateSeatsChoiceBoxData() {
@@ -367,8 +361,7 @@ public class NewReservationController implements Initializable {
 	}
 
 	private List<CarDto> filterCarsByseats(List<CarDto> cars, Integer selecTedSeatsNumber) {
-		return cars.stream().filter(car -> car.getSeats() == (selecTedSeatsNumber))
-				.collect(Collectors.toList());
+		return cars.stream().filter(car -> car.getSeats() == (selecTedSeatsNumber)).collect(Collectors.toList());
 	}
 
 	private <T> void updateChoiceBox(List<CarDto> cars, ChoiceBox<T> choiceBox, Function<CarDto, T> mapper) {
@@ -379,7 +372,8 @@ public class NewReservationController implements Initializable {
 	private void updateFilteredListOfReservationsBetweenDates() {
 		LocalDate startDatePicked = startDate.getValue();
 		LocalDate endDatePicked = endDate.getValue();
-		if(filteredReservations!=null)	filteredReservations.removeAll();
+		if (filteredReservations != null)
+			filteredReservations.removeAll();
 		filteredReservations = listOfReservations
 				.filtered(reservation -> isReservationBetweenDates(reservation, startDatePicked, endDatePicked));
 	}
@@ -426,53 +420,35 @@ public class NewReservationController implements Initializable {
 			if (mouseEvent.getClickCount() == 1) {
 				CarDto carChoosen = availabelCarsTable.getSelectionModel().getSelectedItem();
 				if (carChoosen != null) {
-					showDescriptionInputRequest(carChoosen);
+					showSaveFramePage(carChoosen);
 				}
 			}
 		});
 
 	}
 
-	private void showDescriptionInputRequest(CarDto carChoosen) {
-		TextInputDialog dialog = new TextInputDialog();
-		dialog.setTitle("Reservation description");
-		dialog.setHeaderText(
-				"Please enter the description for the " + carChoosen.getLicensePlate() + "'s car reservation: ");
-		ButtonType saveButtonType = new ButtonType("Save", ButtonBar.ButtonData.OK_DONE);
-		ButtonType closeButtonType = new ButtonType("Close", ButtonBar.ButtonData.CANCEL_CLOSE);
-		dialog.getDialogPane().getButtonTypes().setAll(saveButtonType, closeButtonType);
-		TextField descriptionField = new TextField();
-		descriptionField.setPromptText("");
-		dialog.getDialogPane().setContent(descriptionField);
-		Node saveButton = dialog.getDialogPane().lookupButton(saveButtonType);
-		saveButton.setDisable(true);
-		descriptionField.textProperty().addListener((observable, oldValue, newValue) -> {
-			saveButton.setDisable(newValue.trim().isEmpty());
-		});
-		Platform.runLater(descriptionField::requestFocus);
-		dialog.setResultConverter(dialogButton -> {
-			if (dialogButton == saveButtonType) {
-				return descriptionField.getText();
-			}
-			return null;
-		});
-		Optional<String> result = dialog.showAndWait();
-		result.ifPresent(description -> {
-			saveReservation(carChoosen, description);
-			new AlertMessage().showConfirmationAlertMessage("Reservation succesfull",
-					"Reservation succesfull for:\n " + carChoosen.getLicensePlate() + " car \nat the interval of \n"
-							+ startDate.getValue() + "  \n " + endDate.getValue());
-			
-		});
-		returnToMainPage();
-	}
+	private void showSaveFramePage(CarDto carChosen) {
+		try {
+			FXMLLoader loader = new FXMLLoader(
+					getClass().getResource("/application/frame/SaveNewReservationFrame.fxml"));
+			AnchorPane root = (AnchorPane) loader.load();
+			Scene scene = new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("/application/util/application.css").toExternalForm());
+			Stage saveReservationStage = new Stage();
+			saveReservationStage.setTitle("Save reservation");
+			saveReservationStage.initModality(Modality.APPLICATION_MODAL);
+			SaveNewReservationFrameController saveReservationController = loader.getController();
+			System.out.println(saveReservationController.toString());
+			saveReservationController.setMainStage(saveReservationStage);
+			saveReservationController.setDataForStage(carChosen, startDate.getValue().atStartOfDay(),
+					endDate.getValue().atStartOfDay());
+			saveReservationStage.setScene(scene);
+			saveReservationStage.showAndWait();
+			refreshTableData();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
-	private void saveReservation(CarDto carChoosen, String description) {
-		EmployeeDao empDao = new EmployeeDao();
-		EmployeeDto employee = empDao.findById(1);
-		ReservationDto reservationTosave = new ReservationDto(employee, carChoosen, startDate.getValue().atStartOfDay(),
-				endDate.getValue().atStartOfDay(), description, LocalDateTime.now(), LocalDateTime.now(), false);
-		reservationDao.save(reservationTosave);
 	}
 
 	@SuppressWarnings({ "rawtypes", "unused" })
@@ -544,6 +520,7 @@ public class NewReservationController implements Initializable {
 	private boolean isDatePicked(DatePicker date) {
 		return date.getValue() != null;
 	}
+
 	private void updateCarsListOutsideOfDates() {
 		currentFilteredCarsList = listOfCars.stream()
 				.filter(car -> !filteredReservations.stream()
@@ -630,11 +607,20 @@ public class NewReservationController implements Initializable {
 		button.setGraphic(buttonImageView);
 	}
 
-	private void returnToMainPage() {
-		 Stage stage = (Stage) startDate.getScene().getWindow();
-		 stage.close();
+	public void refreshTableData() {
+		listOfReservations = FXCollections.observableArrayList(reservationDao.getAll());
+		listOfCars = FXCollections.observableArrayList(carDao.getAll());
+		updateFilteredListOfReservationsBetweenDates();
+		updateCarsListOutsideOfDates();
+		setUpChoiceBoxeDataAvailebleBetweenDates();
+		Platform.runLater(() -> {
+			populateTableView(currentFilteredCarsList);
+			updateColumnWidths();
+			initializeTableView();
+		});
 	}
-}// To-DO
+}
+// To-DO
 // start date can start only after or same day as presentday -- DONE
 // end-date can only be start day or after it --- DONE
 // populate choiceboxes depending on date chossen. --Done
