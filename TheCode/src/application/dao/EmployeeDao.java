@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -74,5 +75,17 @@ public class EmployeeDao implements ICrud<EmployeeDto>{
 		criteriaQuery.select(root);
 		List<EmployeeDto> employee = entityManager.createQuery(criteriaQuery).getResultList();
 		return employee;
+	}
+	
+	public Long validateEmployeeByEmailAndPasswordLong(String email, String password) {
+		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+		CriteriaQuery criteriaQuery = criteriaBuilder.createQuery(Long.class);
+		Root<EmployeeDto> from = criteriaQuery.from(EmployeeDto.class);
+		CriteriaQuery<Long> canLogin = criteriaQuery.select(criteriaBuilder.count(from)).where(criteriaBuilder.and(criteriaBuilder.equal(from.get("email"), email),
+			    criteriaBuilder.equal(from.get("password"), password)));
+			  
+			  TypedQuery<Long> typedQuery = entityManager.createQuery(canLogin);
+			  Long result = typedQuery.getSingleResult();
+			  return result;
 	}
 }
