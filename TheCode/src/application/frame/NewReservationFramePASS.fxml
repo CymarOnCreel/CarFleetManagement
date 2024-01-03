@@ -37,22 +37,22 @@
       <Button fx:id="clearFuelChoiceButton" layoutX="1078.0" layoutY="23.0" mnemonicParsing="false" onAction="#clearFuelChoice" prefHeight="25.0" prefWidth="25.0" styleClass="round-button" />
       <ImageView fitHeight="123.0" fitWidth="242.0" layoutX="236.0" layoutY="99.0">
          <image>
-            <Image url="@../az%20új%20fxmlhez%20képek/mx-5-roadster-1080-x-580-removebg-preview.png" />
+            <Image url="https://github.com/CymarOnCreel/CarFleetManagement/blob/main/TheCode/src/application/pictures/CarReservation%20k%C3%A9pek/mx-5-roadster-1080-x-580-removebg-preview.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="123.0" fitWidth="242.0" layoutX="672.0" layoutY="80.0">
          <image>
-            <Image url="@../az%20új%20fxmlhez%20képek/sl_245106151_bmw-3-2018-side-view_4x-removebg-preview.png" />
+            <Image url="https://github.com/CymarOnCreel/CarFleetManagement/blob/main/TheCode/src/application/pictures/CarReservation%20k%C3%A9pek/sl_245106151_bmw-3-2018-side-view_4x-removebg-preview.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="674.0" layoutY="645.0">
          <image>
-            <Image url="@../az%20új%20fxmlhez%20képek/201895001jpg_omrzhw1x-removebg-preview.png" />
+            <Image url="https://github.com/CymarOnCreel/CarFleetManagement/blob/main/TheCode/src/application/pictures/CarReservation%20k%C3%A9pek/201895001jpg_omrzhw1x-removebg-preview.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="133.0" fitWidth="259.0" layoutX="209.0" layoutY="655.0">
          <image>
-            <Image url="@../az%20új%20fxmlhez%20képek/kija-removebg-preview.png" />
+            <Image url="https://github.com/CymarOnCreel/CarFleetManagement/blob/main/TheCode/src/application/pictures/CarReservation%20k%C3%A9pek/kija-removebg-preview.png" />
          </image>
       </ImageView>
 	</children>
