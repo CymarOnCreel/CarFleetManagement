@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<GridPane prefWidth="365.0" style="-fx-background-color: #1F363C;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.LoginController">
+   <rowConstraints>
+      <RowConstraints minHeight="10.0" prefHeight="30.0" />
+      <RowConstraints maxHeight="42.0" minHeight="10.0" prefHeight="42.0" />
+      <RowConstraints maxHeight="42.0" minHeight="10.0" prefHeight="42.0" />
+      <RowConstraints maxHeight="47.0" minHeight="10.0" prefHeight="47.0" />
+      <RowConstraints maxHeight="44.0" minHeight="10.0" prefHeight="41.0" />
+      <RowConstraints maxHeight="69.0" minHeight="0.0" prefHeight="41.0" />
+      <RowConstraints maxHeight="111.0" minHeight="10.0" prefHeight="93.0" />
+      <RowConstraints maxHeight="55.0" minHeight="10.0" prefHeight="29.0" />
+   </rowConstraints>
+   <columnConstraints>
+      <ColumnConstraints maxWidth="95.0" minWidth="10.0" prefWidth="38.0" />
+      <ColumnConstraints maxWidth="319.0" minWidth="10.0" prefWidth="292.0" />
+      <ColumnConstraints maxWidth="171.0" minWidth="8.0" prefWidth="35.0" />
+   </columnConstraints>
+   <children>
+      <Label fx:id="lblEmailAdress" alignment="CENTER" contentDisplay="CENTER" lineSpacing="5.0" prefHeight="32.0" prefWidth="292.0" text="Email Address" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <font>
+            <Font name="Arial Bold" size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="tfEmailAddress" prefHeight="47.0" prefWidth="292.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <Label fx:id="lblPassword" alignment="CENTER" lineSpacing="5.0" prefHeight="39.0" prefWidth="292.0" text="Password" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <PasswordField fx:id="pfPassword" prefHeight="42.0" prefWidth="292.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <Button fx:id="btnSignin" lineSpacing="5.0" mnemonicParsing="false" onAction="#signin" prefHeight="60.0" prefWidth="110.0" text="SIGN IN" GridPane.columnIndex="1" GridPane.rowIndex="6">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+         <children>
+            <Button fx:id="btnSignUp" layoutX="182.0" layoutY="17.0" lineSpacing="5.0" mnemonicParsing="false" onAction="#signUp" prefHeight="60.0" prefWidth="110.0" text="SIGN UP">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+   </children>
+</GridPane>
