@@ -25,7 +25,7 @@ public class RoleDao implements ICrud<RoleDto>{
 		
 	}
 
-	@Override
+	
 	public void update(RoleDto obj) {
 		entityManager.getTransaction().begin();
 		RoleDto roleDto = entityManager.find(RoleDto.class, obj.getNameRole());

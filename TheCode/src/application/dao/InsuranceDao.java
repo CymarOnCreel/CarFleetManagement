@@ -25,7 +25,7 @@ public class InsuranceDao implements ICrud<InsuranceDto>{
 		
 	}
 
-	@Override
+	
 	public void update(InsuranceDto obj) {
 		entityManager.getTransaction().begin();
 		InsuranceDto insuranceDto = entityManager.find(InsuranceDto.class, obj.getInsuranceId());

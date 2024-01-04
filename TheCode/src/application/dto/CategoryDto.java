@@ -37,7 +37,7 @@ public class CategoryDto {
 
 	@Override
 	public String toString() {
-		return "CategoryDto [nameCategory=" + nameCategory + ", picturePathCategory=" + picturePathCategory + "]";
+		return nameCategory;
 	}
 
 	public void updateCategoryDto(String nameCategory, String picturePathCategory) {

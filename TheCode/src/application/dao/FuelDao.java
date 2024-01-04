@@ -7,7 +7,10 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.CriteriaUpdate;
 import javax.persistence.criteria.Root;
+
+import application.dto.CarDto;
 import application.dto.FuelDto;
 
 public class FuelDao implements ICrud<FuelDto>{
@@ -25,18 +28,6 @@ public class FuelDao implements ICrud<FuelDto>{
 		
 	}
 
-	@Override
-	public void update(FuelDto obj) {
-		entityManager.getTransaction().begin();
-		FuelDto fuelDto = entityManager.find(FuelDto.class, obj.getFuelType());
-		if (fuelDto!=null) {
-			fuelDto.updateFuelDto(obj.getFuelType()
-			);
-		}
-		entityManager.getTransaction().commit();
-		entityManager.close();
-		factory.close();
-	}
 
 	@Override
 	public void deleteById(Object id) {
@@ -67,4 +58,30 @@ public class FuelDao implements ICrud<FuelDto>{
 		List<FuelDto> fuel = entityManager.createQuery(criteriaQuery).getResultList();
 		return fuel;
 	}
+	
+	
+	public void update(FuelDto oldObj, FuelDto newObj) {
+	    FuelDto oldDto = entityManager.find(FuelDto.class, oldObj.getFuelType());
+	    if (oldDto != null) {
+	        entityManager.getTransaction().begin();
+	        entityManager.persist(newObj);
+	        entityManager.getTransaction().commit();
+
+	        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+	        CriteriaUpdate<CarDto> update = criteriaBuilder.createCriteriaUpdate(CarDto.class);
+	        Root<CarDto> root = update.from(CarDto.class);
+	        update.set("fuel", newObj.getFuelType()); 
+	        update.where(criteriaBuilder.equal(root.get("fuel"), oldDto.getFuelType()));
+	        
+	        entityManager.getTransaction().begin();
+	        entityManager.createQuery(update).executeUpdate();
+	        entityManager.remove(oldDto);
+	        entityManager.getTransaction().commit();
+	        entityManager.close();
+		    factory.close();
+	    }
+
+	
+	}
+	
 }

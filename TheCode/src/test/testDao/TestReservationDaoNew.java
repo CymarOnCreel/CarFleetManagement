@@ -19,7 +19,10 @@ public class TestReservationDaoNew {
 
 	@Test
 	public void testSave() {
-		ReservationDto testDto = new ReservationDto(1, "ABC123", LocalDateTime.now(), LocalDateTime.now(), "foglalás");
+		
+		
+		ReservationDto testDto = new ReservationDto(1, "ABC123", LocalDateTime.now(), LocalDateTime.now(), 
+				"foglalás", LocalDateTime.now(), LocalDateTime.now(), false);
 		ReservationDao testDaoSave = new ReservationDao();
 		testDaoSave.save(testDto);
 		

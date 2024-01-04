@@ -25,7 +25,7 @@ public class PictureDao implements ICrud<PictureDto> {
 
 	}
 
-	@Override
+	
 	public void update(PictureDto obj) {
 		entityManager.getTransaction().begin();
 		PictureDto pictureDto = entityManager.find(PictureDto.class, obj.getPicturePath());

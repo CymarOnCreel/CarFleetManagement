@@ -37,7 +37,7 @@ public class ModelDto {
 
 	@Override
 	public String toString() {
-		return "ModelDto [nameModel=" + nameModel + ", make=" + make + "]";
+		return nameModel;
 	}
 	
 	public void updateModelDto(String make) {

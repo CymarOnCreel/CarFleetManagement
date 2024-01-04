@@ -102,10 +102,7 @@ public class SiteDto {
 
 	@Override
 	public String toString() {
-		return "SiteDto [nameSite=" + nameSite + ", location=" + location + ", capacity=" + capacity
-				+ ", contactPerson=" + contactPerson + ", contactEmail=" + contactEmail + ", contactPhone="
-				+ contactPhone + ", description=" + description + ", createdAt=" + createdAt + ", updatedAt="
-				+ updatedAt + ", enabled=" + enabled + "]";
+		return nameSite;
 	}
 	
 	public void updateSiteDto(String location, int capacity, String contactPerson, String contactEmail,

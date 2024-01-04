@@ -25,7 +25,7 @@ public class ServiceCompanyDao implements ICrud<ServiceCompanyDto>{
 		
 	}
 
-	@Override
+	
 	public void update(ServiceCompanyDto obj) {
 		entityManager.getTransaction().begin();
 		ServiceCompanyDto serviceCompanyDto = entityManager.find(ServiceCompanyDto.class,obj.getNameServiceCompany());

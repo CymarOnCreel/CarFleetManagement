@@ -7,7 +7,10 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.CriteriaUpdate;
 import javax.persistence.criteria.Root;
+
+import application.dto.CarDto;
 import application.dto.TransmissionDto;
 
 public class TransmissionDao implements ICrud<TransmissionDto>{
@@ -25,17 +28,27 @@ public class TransmissionDao implements ICrud<TransmissionDto>{
 		
 	}
 
-	@Override
-	public void update(TransmissionDto obj) {
-		entityManager.getTransaction().begin();
-		TransmissionDto transmissionDto = entityManager.find(TransmissionDto.class,obj.getTransmissionType());
-		if (transmissionDto!=null) {
-			transmissionDto.updateTransmissionDto(obj.getTransmissionType()
-			);
-		}
-		entityManager.getTransaction().commit();
-		entityManager.close();
-		factory.close();
+	
+	public void update(TransmissionDto oldObj, TransmissionDto newObj) {
+		TransmissionDto oldDto = entityManager.find(TransmissionDto.class, oldObj.getTransmissionType());
+	    if (oldDto != null) {
+	        entityManager.getTransaction().begin();
+	        entityManager.persist(newObj);
+	        entityManager.getTransaction().commit();
+
+	        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+	        CriteriaUpdate<CarDto> update = criteriaBuilder.createCriteriaUpdate(CarDto.class);
+	        Root<CarDto> root = update.from(CarDto.class);
+	        update.set("transmissionType", newObj.getTransmissionType()); 
+	        update.where(criteriaBuilder.equal(root.get("transmissionType"), oldDto.getTransmissionType()));
+	        
+	        entityManager.getTransaction().begin();
+	        entityManager.createQuery(update).executeUpdate();
+	        entityManager.remove(oldDto);
+	        entityManager.getTransaction().commit();
+	        entityManager.close();
+		    factory.close();
+	    }
 	}
 
 	@Override

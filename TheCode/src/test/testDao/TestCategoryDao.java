@@ -2,6 +2,7 @@ package test.testDao;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -10,8 +11,13 @@ import javax.persistence.Persistence;
 
 import org.junit.jupiter.api.Test;
 
+import application.dao.CarDao;
 import application.dao.CategoryDao;
+import application.dto.CarDto;
 import application.dto.CategoryDto;
+import application.dto.MakeDto;
+import application.dto.ModelDto;
+import application.dto.SiteDto;
 
 public class TestCategoryDao {
 
@@ -33,28 +39,45 @@ public class TestCategoryDao {
 	
 	@Test
 	public void testUpdate() {
-		CategoryDto testDto = new CategoryDto("TEST01", null);
-		CategoryDao testDaoSave = new CategoryDao();
-		testDaoSave.save(testDto);
+		CategoryDto testDtoOld = new CategoryDto("TEST01", null);
+	    new CategoryDao().save(testDtoOld);
+	    
+	    CarDto testCar = new CarDto("TEST01",
+                new MakeDto("Toyota", null),
+                new ModelDto("Camry", null),
+                new CategoryDto("TEST01", null),
+                "Benzin",
+                4,
+                5,
+                "Kézi",
+                50000,
+                10000,
+                LocalDate.now().plusYears(1),
+                new SiteDto("Raktár", "Budapest", 50, null, null, null, null, LocalDate.now(), null, true),
+                "1",
+                true);
+		CarDao carDaoSave = new CarDao();
+		carDaoSave.save(testCar);
+	    
+		CategoryDto testDtoNew = new CategoryDto("TEST02","pict/path");
 		
-		CategoryDto testDto2 = new CategoryDto("TEST01", "pic/path");
-		CategoryDao testDaoUpdate = new CategoryDao();
-		testDaoUpdate.update(testDto2);
-		
-		CategoryDao testDaoFind = new CategoryDao();
-		CategoryDto updatedDto = testDaoFind.findById(testDto2.getNameCategory());
-		
-		assertEquals(testDto2.getNameCategory(), updatedDto.getNameCategory());
-		assertEquals(testDto2.getPicturePathCategory(), updatedDto.getPicturePathCategory());
-				
+		CategoryDao updateDao = new CategoryDao();
+		updateDao.update(testDtoOld, testDtoNew);
+	
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("carfleet_manager");
 		EntityManager entityManager = factory.createEntityManager();
 	    entityManager.getTransaction().begin();
-	    CategoryDto deletedDto = entityManager.find(CategoryDto.class, testDto2.getNameCategory());
-	    entityManager.remove(deletedDto);
-	    entityManager.getTransaction().commit();
-	    entityManager.close();
-	    factory.close();
+	    CarDto carDtoDelete = entityManager.find(CarDto.class, testCar.getLicensePlate());
+	    entityManager.remove(carDtoDelete);
+        entityManager.getTransaction().commit();
+       
+        entityManager.getTransaction().begin();
+        CategoryDto testDtoDelete = entityManager.find(CategoryDto.class, testDtoNew.getNameCategory());
+        entityManager.remove(testDtoDelete);
+        entityManager.getTransaction().commit();
+        
+        entityManager.close();
+	    factory.close();		
 	}
 	
 	@Test

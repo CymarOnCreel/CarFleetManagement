@@ -1,6 +1,7 @@
 package application.controller;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -53,13 +54,13 @@ public class CarNewFrameController implements Initializable{
     private DatePicker dpInspectionExpiryDate;
 
     @FXML
-    private ComboBox<String> cmbMake;
+    private ComboBox<MakeDto> cmbMake;
 
     @FXML
-    private ComboBox<String> cmbModel;
+    private ComboBox<ModelDto> cmbModel;
 
     @FXML
-    private ComboBox<String> cmbCategory;
+    private ComboBox<CategoryDto> cmbCategory;
 
     @FXML
     private ComboBox<String> cmbFuel;
@@ -68,7 +69,7 @@ public class CarNewFrameController implements Initializable{
     private ComboBox<String> cmbTransmission;
 
     @FXML
-    private ComboBox<String> cmbSite;
+    private ComboBox<SiteDto> cmbSite;
 
     @FXML
     private Button btnAddMake;
@@ -122,17 +123,18 @@ public class CarNewFrameController implements Initializable{
             try {
             	String categoryName = result.get();
             	if (!categoryName.isEmpty()) {
-//            		CategoryDto newCategory = new CategoryDto(categoryName, null);
-//                    CategoryDao catDao = new CategoryDao();
-//                    catDao.save(newCategory);
-                    cmbCategory.setValue(categoryName);
+            		CategoryDto newCategory = new CategoryDto(categoryName, null);
+                    CategoryDao catDao = new CategoryDao();
+                    catDao.save(newCategory);
+                    cmbCategoryFill();
+                    cmbCategory.setValue(newCategory);
 				}else {
 					new AlertMessage().emptyNameTextFieldAlert();
 				}
 			} catch (Exception e) {
 				new AlertMessage().saveToDatabaseAlert();
 			}
-        }
+        }	
     }
 
     @FXML
@@ -148,9 +150,10 @@ public class CarNewFrameController implements Initializable{
             try {
             	String fuelName = result.get();
             	if (!fuelName.isEmpty()) {
-//            		FuelDto newFuel = new FuelDto(fuelName);
-//            		FuelDao fuelDao = new FuelDao();
-//            		fuelDao.save(newFuel);
+            		FuelDto newFuel = new FuelDto(fuelName);
+            		FuelDao fuelDao = new FuelDao();
+            		fuelDao.save(newFuel);
+            		cmbFuelFill();
                     cmbFuel.setValue(fuelName);
 				}else {
 					new AlertMessage().emptyNameTextFieldAlert();
@@ -175,10 +178,11 @@ public class CarNewFrameController implements Initializable{
             try {
             	String makeName = result.get();
             	if (!makeName.isEmpty()) {
-//            		MakeDto newMake = new MakeDto(makeName, null);
-//            		MakeDao makeDao = new MakeDao();
-//            		makeDao.save(newMake);
-                    cmbMake.setValue(makeName);
+            		MakeDto newMake = new MakeDto(makeName, null);
+            		MakeDao makeDao = new MakeDao();
+            		makeDao.save(newMake);
+            		cmbMakeFill();
+                    cmbMake.setValue(newMake);
 				}else {
 					new AlertMessage().emptyNameTextFieldAlert();
 				}
@@ -200,12 +204,13 @@ public class CarNewFrameController implements Initializable{
         if (result.isPresent()) {
             try {
             	String modelName = result.get();
-            	String makeName = cmbMake.getValue();
+            	String makeName = cmbMake.getValue().getNameMake();
             	if (!modelName.isEmpty()) {
-//            		ModelDto newModel = new ModelDto(modelName, makeName);
-//            		ModelDao modelDao = new ModelDao();
-//            		modelDao.save(newModel);
-                    cmbModel.setValue(modelName);
+            		ModelDto newModel = new ModelDto(modelName, makeName);
+            		ModelDao modelDao = new ModelDao();
+            		modelDao.save(newModel);
+            		cmbModelFill();
+                    cmbModel.setValue(newModel);
 				}else {
 					new AlertMessage().emptyNameTextFieldAlert();
 				}
@@ -228,10 +233,11 @@ public class CarNewFrameController implements Initializable{
             try {
             	String siteName = result.get();
             	if (!siteName.isEmpty()) {
-//            		SiteDto newSite = new SiteDto(siteName);
-//            		SiteDao siteDao = new SiteDao();
-//            		siteDao.save(newSite);
-                    cmbSite.setValue(siteName);
+            		SiteDto newSite = new SiteDto(siteName, "Település", 50, null, null, null, null, LocalDate.now(), null, true );
+            		SiteDao siteDao = new SiteDao();
+            		siteDao.save(newSite);
+            		cmbSiteFill();
+                    cmbSite.setValue(newSite);
 				}else {
 					new AlertMessage().emptyNameTextFieldAlert();
 				}
@@ -254,9 +260,10 @@ public class CarNewFrameController implements Initializable{
             try {
             	String transmissionName = result.get();
             	if (!transmissionName.isEmpty()) {
-//            		TransmissionDto newTransmission = new TransmissionDto(transmissionName);
-//            		TransmissionDao transmissionDao = new TransmissionDao();
-//            		transmissionDao.save(newTransmission);
+            		TransmissionDto newTransmission = new TransmissionDto(transmissionName);
+            		TransmissionDao transmissionDao = new TransmissionDao();
+            		transmissionDao.save(newTransmission);
+            		cmbTransmissionFill();
                     cmbTransmission.setValue(transmissionName);
 				}else {
 					new AlertMessage().emptyNameTextFieldAlert();
@@ -270,166 +277,193 @@ public class CarNewFrameController implements Initializable{
 
     @FXML
     void updateCategory(ActionEvent event) {
-    	String oldName = cmbCategory.getValue();
-    	TextInputDialog dialog = new TextInputDialog(oldName);
-    	dialog.setTitle("Kategória módosítása");
-        dialog.setHeaderText("Adja meg a kategória új nevét:");
-        dialog.setContentText("Megnevezés:");
+    	if (cmbCategory.getSelectionModel().getSelectedIndex()!=-1) {
+    		CategoryDto oldDto = cmbCategory.getValue();
+        	TextInputDialog dialog = new TextInputDialog(oldDto.getNameCategory());
+        	dialog.setTitle("Kategória módosítása");
+            dialog.setHeaderText("Adja meg a kategória új nevét:");
+            dialog.setContentText("Megnevezés:");
 
-        Optional<String> result = dialog.showAndWait();
+            Optional<String> result = dialog.showAndWait();
 
-        if (result.isPresent()) {
-            try {
-            	String categoryName = result.get();
-            	if (!categoryName.isEmpty()) {
-//            		CategoryDto newCategory = new CategoryDto(categoryName, null);
-//                  CategoryDao catDao = new CategoryDao();
-//                  catDao.update(newCategory);
-                    cmbCategory.setValue(categoryName);
-				}else {
-					new AlertMessage().emptyNameTextFieldAlert();
-				}
-			} catch (Exception e) {
-				new AlertMessage().saveToDatabaseAlert();
-			}
-        }
+            if (result.isPresent()) {
+                try {
+                	String categoryName = result.get();
+                	if (!categoryName.isEmpty()) {
+                		CategoryDto newCategory = new CategoryDto(categoryName, oldDto.getPicturePathCategory());
+                		CategoryDao catDao = new CategoryDao();
+                		catDao.update(oldDto, newCategory);
+                		cmbCategoryFill();
+                        cmbCategory.setValue(newCategory);
+    				}else {
+    					new AlertMessage().emptyNameTextFieldAlert();
+    				}
+    			} catch (Exception e) {
+    				new AlertMessage().saveToDatabaseAlert();
+    			}
+            }
+		}
+    	
     }
 
     @FXML
     void updateFuel(ActionEvent event) {
-    	String oldName = cmbFuel.getValue();
-    	TextInputDialog dialog = new TextInputDialog(oldName);
-    	dialog.setTitle("Üzemanyag típus módosítása");
-        dialog.setHeaderText("Adja meg az üzemanyag típus új nevét:");
-        dialog.setContentText("Megnevezés:");
+    	if (cmbFuel.getSelectionModel().getSelectedIndex()!=-1) {
+    		String oldName = cmbFuel.getValue();
+        	TextInputDialog dialog = new TextInputDialog(oldName);
+        	dialog.setTitle("Üzemanyag típus módosítása");
+            dialog.setHeaderText("Adja meg az üzemanyag típus új nevét:");
+            dialog.setContentText("Megnevezés:");
 
-        Optional<String> result = dialog.showAndWait();
+            Optional<String> result = dialog.showAndWait();
 
-        if (result.isPresent()) {
-            try {
-            	String fuelName = result.get();
-            	if (!fuelName.isEmpty()) {
-//            		FuelDto newFuel = new FuelDto(fuelName);
-//                  FuelDao fuelDao = new FuelDao();
-//                  fuelDao.update(newFuel);
-                    cmbFuel.setValue(fuelName);
-				}else {
-					new AlertMessage().emptyNameTextFieldAlert();
-				}
-			} catch (Exception e) {
-				new AlertMessage().saveToDatabaseAlert();
-			}
-        }
+            if (result.isPresent()) {
+                try {
+                	String fuelName = result.get();
+                	if (!fuelName.isEmpty()) {
+                		FuelDto newFuel = new FuelDto(fuelName);
+                		FuelDto oldFuel = new FuelDto(oldName);
+                		FuelDao fuelDao = new FuelDao();
+                		fuelDao.update(oldFuel, newFuel);
+                		cmbFuelFill();
+                        cmbFuel.setValue(fuelName);
+    				}else {
+    					new AlertMessage().emptyNameTextFieldAlert();
+    				}
+    			} catch (Exception e) {
+    				new AlertMessage().saveToDatabaseAlert();
+    			}
+            }
+		}
+    	
     }
   
 
     @FXML
     void updateMake(ActionEvent event) {
-    	String oldName = cmbMake.getValue();
-    	TextInputDialog dialog = new TextInputDialog(oldName);
-    	dialog.setTitle("Gyártmány módosítása");
-        dialog.setHeaderText("Adja meg az autó márkájának új nevét:");
-        dialog.setContentText("Megnevezés:");
+    	if (cmbMake.getSelectionModel().getSelectedIndex()!=-1) {
+    		MakeDto oldDto = cmbMake.getValue();
+        	TextInputDialog dialog = new TextInputDialog(oldDto.getNameMake());
+        	dialog.setTitle("Gyártmány módosítása");
+            dialog.setHeaderText("Adja meg az autó márkájának új nevét:");
+            dialog.setContentText("Megnevezés:");
 
-        Optional<String> result = dialog.showAndWait();
+            Optional<String> result = dialog.showAndWait();
 
-        if (result.isPresent()) {
-            try {
-            	String makeName = result.get();
-            	if (!makeName.isEmpty()) {
-//            		MakeDto newMake = new MakeDto(makeName, null);
-//                  MakeDao makeDao = new MakeDao();
-//                  makeDao.update(newMake);
-                    cmbMake.setValue(makeName);
-				}else {
-					new AlertMessage().emptyNameTextFieldAlert();
-				}
-			} catch (Exception e) {
-				new AlertMessage().saveToDatabaseAlert();
-			}
-        }
+            if (result.isPresent()) {
+                try {
+                	String makeName = result.get();
+                	if (!makeName.isEmpty()) {
+                		MakeDto newMake = new MakeDto(makeName, oldDto.getPicturePathMake());
+                		MakeDao makeDao = new MakeDao();
+                		makeDao.update(oldDto, newMake);
+                		cmbMakeFill();
+                        cmbMake.setValue(newMake);
+    				}else {
+    					new AlertMessage().emptyNameTextFieldAlert();
+    				}
+    			} catch (Exception e) {
+    				new AlertMessage().saveToDatabaseAlert();
+    			}
+            }
+		}
+    	
     }
 
     @FXML
     void updateModel(ActionEvent event) {
-    	String oldName = cmbModel.getValue();
-    	TextInputDialog dialog = new TextInputDialog(oldName);
-    	dialog.setTitle("Modell módosítása");
-        dialog.setHeaderText("Adja meg a modell új nevét:");
-        dialog.setContentText("Megnevezés:");
+    	if (cmbModel.getSelectionModel().getSelectedIndex()!=-1) {
+    		ModelDto oldDto = cmbModel.getValue();
+        	TextInputDialog dialog = new TextInputDialog(oldDto.getNameModel());
+        	dialog.setTitle("Modell módosítása");
+            dialog.setHeaderText("Adja meg a modell új nevét:");
+            dialog.setContentText("Megnevezés:");
 
-        Optional<String> result = dialog.showAndWait();
+            Optional<String> result = dialog.showAndWait();
 
-        if (result.isPresent()) {
-            try {
-            	String modelName = result.get();
-            	String makeName = cmbMake.getValue();
-            	if (!modelName.isEmpty()) {
-//            		ModelDto newModel = new ModelDto(modelName, makeName);
-//                  ModelDao modelDao = new ModelDao();
-//                  modelDao.update(newModel);
-                    cmbModel.setValue(modelName);
-				}else {
-					new AlertMessage().emptyNameTextFieldAlert();
-				}
-			} catch (Exception e) {
-				new AlertMessage().saveToDatabaseAlert();
-			}
-        }
+            if (result.isPresent()) {
+                try {
+                	String modelName = result.get();
+                	if (!modelName.isEmpty()) {
+                		ModelDto newModel = new ModelDto(modelName, oldDto.getMake());
+                    	ModelDao modelDao = new ModelDao();
+                    	modelDao.update(oldDto, newModel);
+                    	cmbModelFill();
+                        cmbModel.setValue(newModel);
+    				}else {
+    					new AlertMessage().emptyNameTextFieldAlert();
+    				}
+    			} catch (Exception e) {
+    				new AlertMessage().saveToDatabaseAlert();
+    			}
+            }
+		}
+    	
     }
 
     @FXML
     void updateSite(ActionEvent event) {
-    	String oldName = cmbSite.getValue();
-    	TextInputDialog dialog = new TextInputDialog(oldName);
-    	dialog.setTitle("Telephely módosítása");
-        dialog.setHeaderText("Adja meg a telephely új nevét:");
-        dialog.setContentText("Megnevezés:");
+    	if (cmbSite.getSelectionModel().getSelectedIndex()!=-1) {
+    		SiteDto oldDto = cmbSite.getValue();
+        	TextInputDialog dialog = new TextInputDialog(oldDto.getNameSite());
+        	dialog.setTitle("Telephely módosítása");
+            dialog.setHeaderText("Adja meg a telephely új nevét:");
+            dialog.setContentText("Megnevezés:");
 
-        Optional<String> result = dialog.showAndWait();
+            Optional<String> result = dialog.showAndWait();
 
-        if (result.isPresent()) {
-            try {
-            	String siteName = result.get();
-            	if (!siteName.isEmpty()) {
-//            		SiteDto newSite = new SiteDto(siteName);
-//                  SiteDao siteDao = new SiteDao();
-//                  siteDao.update(newSite);
-                    cmbSite.setValue(siteName);
-				}else {
-					new AlertMessage().emptyNameTextFieldAlert();
-				}
-			} catch (Exception e) {
-				new AlertMessage().saveToDatabaseAlert();
-			}
-        }
+            if (result.isPresent()) {
+                try {
+                	String siteName = result.get();
+                	if (!siteName.isEmpty()) {
+                		SiteDto newSite = new SiteDto(siteName, oldDto.getLocation(), oldDto.getCapacity(), oldDto.getContactEmail(), 
+                				oldDto.getContactEmail(), oldDto.getContactPhone(), oldDto.getDescription(), oldDto.getCreatedAt(), 
+                				LocalDate.now(), oldDto.isEnabled());
+                		SiteDao siteDao = new SiteDao();
+                		siteDao.update(newSite);
+                		cmbSiteFill();
+                        cmbSite.setValue(newSite);
+    				}else {
+    					new AlertMessage().emptyNameTextFieldAlert();
+    				}
+    			} catch (Exception e) {
+    				new AlertMessage().saveToDatabaseAlert();
+    			}
+            }
+		}
+    	
     }
 
     @FXML
     void updateTransmission(ActionEvent event) {
-    	String oldName = cmbTransmission.getValue();
-    	TextInputDialog dialog = new TextInputDialog(oldName);
-    	dialog.setTitle("Váltó típus módosítása");
-        dialog.setHeaderText("Adja meg a váltó típus új nevét:");
-        dialog.setContentText("Megnevezés:");
+    	if (cmbTransmission.getSelectionModel().getSelectedIndex()!=-1) {
+    		String oldName = cmbTransmission.getValue();
+        	TextInputDialog dialog = new TextInputDialog(oldName);
+        	dialog.setTitle("Váltó típus módosítása");
+            dialog.setHeaderText("Adja meg a váltó típus új nevét:");
+            dialog.setContentText("Megnevezés:");
 
-        Optional<String> result = dialog.showAndWait();
+            Optional<String> result = dialog.showAndWait();
 
-        if (result.isPresent()) {
-            try {
-            	String transmissionName = result.get();
-            	if (!transmissionName.isEmpty()) {
-//            		TransmissionDto newTransmission = new TransmissionDto(transmissionName);
-//                  TransmissionDao transmissionDao = new TransmissionDao();
-//                  transmissionDao.update(newTransmission);
-                    cmbTransmission.setValue(transmissionName);
-				}else {
-					new AlertMessage().emptyNameTextFieldAlert();
-				}
-			} catch (Exception e) {
-				new AlertMessage().saveToDatabaseAlert();
-			}
-        }
+            if (result.isPresent()) {
+                try {
+                	String transmissionName = result.get();
+                	if (!transmissionName.isEmpty()) {
+                		TransmissionDto oldTransmission = new TransmissionDto(oldName);
+                		TransmissionDto newTransmission = new TransmissionDto(transmissionName);
+                        TransmissionDao transmissionDao = new TransmissionDao();
+                        transmissionDao.update(oldTransmission, newTransmission);
+                        cmbTransmissionFill();
+                        cmbTransmission.setValue(transmissionName);
+    				}else {
+    					new AlertMessage().emptyNameTextFieldAlert();
+    				}
+    			} catch (Exception e) {
+    				new AlertMessage().saveToDatabaseAlert();
+    			}
+            }
+		}
+    	
     }
 
     @FXML
@@ -470,12 +504,12 @@ public class CarNewFrameController implements Initializable{
 				tfMileage.getText().isEmpty()||
 				tfSeats.getText().isEmpty()||
 				tfServiceInterval.getText().isEmpty()||
-				cmbCategory.getSelectionModel().getSelectedIndex()==0||
-				cmbFuel.getSelectionModel().getSelectedIndex()==0||
-				cmbMake.getSelectionModel().getSelectedIndex()==0||
-				cmbModel.getSelectionModel().getSelectedIndex()==0||
-				cmbSite.getSelectionModel().getSelectedIndex()==0||
-				cmbTransmission.getSelectionModel().getSelectedIndex()==0||
+				cmbCategory.getSelectionModel().getSelectedIndex()==-1||
+				cmbFuel.getSelectionModel().getSelectedIndex()==-1||
+				cmbMake.getSelectionModel().getSelectedIndex()==-1||
+				cmbModel.getSelectionModel().getSelectedIndex()==-1||
+				cmbSite.getSelectionModel().getSelectedIndex()==-1||
+				cmbTransmission.getSelectionModel().getSelectedIndex()==-1||
 				dpInspectionExpiryDate.getValue()==null)
 		{
 			return true;
@@ -484,16 +518,17 @@ public class CarNewFrameController implements Initializable{
 	}
     
     private void cmbMakeFill() {
-    	ObservableList<String> items = FXCollections.observableArrayList();
+    	cmbMake.getItems().clear();
+    	ObservableList<MakeDto> items = FXCollections.observableArrayList();
 		MakeDao makeDao = new MakeDao();
 		List<MakeDto> makes = makeDao.getAll();
 		if (!makes.isEmpty()) {
 			for (MakeDto make: makes) {
-				items.add(make.getNameMake());
+				items.add(make);
 			}
 		}
 		cmbMake.setItems(items);
-		cmbMake.getSelectionModel().select(0);
+		cmbMake.getSelectionModel().select(-1);
     }
     
     @FXML
@@ -505,18 +540,18 @@ public class CarNewFrameController implements Initializable{
     }
     
     private void cmbModelFill() {
-    	ObservableList<String> items = FXCollections.observableArrayList();
+    	ObservableList<ModelDto> items = FXCollections.observableArrayList();
 		ModelDao modelDao = new ModelDao();
 		List<ModelDto> models = modelDao.getAll();
 		if (!models.isEmpty()) {
 			for (ModelDto model: models) {
-				if (model.getMake().equals(cmbMake.getValue())) {
-					items.add(model.getNameModel());
+				if (model.getMake().equals(cmbMake.getValue().getNameMake())) {
+					items.add(model);
 				}
 			}
 		}
 		cmbModel.setItems(items);
-		cmbModel.getSelectionModel().select(0);
+		cmbModel.getSelectionModel().select(-1);
     }
     
 //    public void updateCar() {
@@ -543,27 +578,30 @@ public class CarNewFrameController implements Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-//		cmbMakeFill();
-//		cmbCategoryFill();
-//		cmbFuelFill();
-//		cmbTransmissionFill();
-//		cmbSiteFill();
+		cmbMakeFill();
+		cmbCategoryFill();
+		cmbFuelFill();
+		cmbTransmissionFill();
+		cmbSiteFill();
+		btnUpdateSite.setDisable(true);
 	}
 
 	private void cmbSiteFill() {
-		ObservableList<String> items = FXCollections.observableArrayList();
+		cmbSite.getItems().clear();
+		ObservableList<SiteDto> items = FXCollections.observableArrayList();
 		SiteDao siteDao = new SiteDao();
 		List<SiteDto> sites = siteDao.getAll();
 		if (!sites.isEmpty()) {
 			for (SiteDto site: sites) {
-				items.add(site.getNameModel());
+				items.add(site);
 			}
 		}
 		cmbSite.setItems(items);
-		cmbSite.getSelectionModel().select(0);
+		cmbSite.getSelectionModel().select(-1);
     }
 
 	private void cmbTransmissionFill() {
+		cmbTransmission.getItems().clear();
 		ObservableList<String> items = FXCollections.observableArrayList();
 		TransmissionDao transmissionDao = new TransmissionDao();
 		List<TransmissionDto> transmissions = transmissionDao.getAll();
@@ -573,10 +611,11 @@ public class CarNewFrameController implements Initializable{
 			}
 		}
 		cmbTransmission.setItems(items);
-		cmbTransmission.getSelectionModel().select(0);
+		cmbTransmission.getSelectionModel().select(-1);
 	}
 
 	private void cmbFuelFill() {
+		cmbFuel.getItems().clear();
 		ObservableList<String> items = FXCollections.observableArrayList();
 		FuelDao fuelDao = new FuelDao();
 		List<FuelDto> fuels = fuelDao.getAll();
@@ -586,20 +625,21 @@ public class CarNewFrameController implements Initializable{
 			}
 		}
 		cmbFuel.setItems(items);
-		cmbFuel.getSelectionModel().select(0);
+		cmbFuel.getSelectionModel().select(-1);
 	}
 
 	private void cmbCategoryFill() {
-		ObservableList<String> items = FXCollections.observableArrayList();
+		cmbCategory.getItems().clear();
+		ObservableList<CategoryDto> items = FXCollections.observableArrayList();
 		CategoryDao categoryDao = new CategoryDao();
 		List<CategoryDto> categories = categoryDao.getAll();
 		if (!categories.isEmpty()) {
 			for (CategoryDto category : categories) {
-				items.add(category.getNameCategory());
+				items.add(category);
 			}
 		}
 		cmbCategory.setItems(items);
-		cmbCategory.getSelectionModel().select(0);
+		cmbCategory.getSelectionModel().select(-1);
 	}
 	
 	@FXML

@@ -7,8 +7,12 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.CriteriaUpdate;
 import javax.persistence.criteria.Root;
+
+import application.dto.CarDto;
 import application.dto.MakeDto;
+import application.dto.ModelDto;
 
 public class MakeDao implements ICrud<MakeDto> {
 	
@@ -25,16 +29,36 @@ public class MakeDao implements ICrud<MakeDto> {
 	}
 	
 	
-	@Override
-	public void update(MakeDto obj) {
-		entityManager.getTransaction().begin();
-		MakeDto makeDto = entityManager.find(MakeDto.class, obj.getNameMake());
-		if (makeDto!=null) {
-			makeDto.updateMakeDto(obj.getPicturePathMake());
+	
+	public void update(MakeDto oldObj, MakeDto newObj) {
+		MakeDto oldDto = entityManager.find(MakeDto.class, oldObj.getNameMake());
+		if (oldDto != null) {
+			entityManager.getTransaction().begin();
+	        entityManager.persist(newObj);
+	        entityManager.getTransaction().commit();
+	        
+	        CriteriaBuilder criteriaBuilderModel = entityManager.getCriteriaBuilder();
+	        CriteriaUpdate<ModelDto> updateModel = criteriaBuilderModel.createCriteriaUpdate(ModelDto.class);
+	        Root<ModelDto> rootModel = updateModel.from(ModelDto.class);
+	        updateModel.set("make", newObj.getNameMake());
+	        updateModel.where(criteriaBuilderModel.equal(rootModel.get("make"), oldDto.getNameMake()));
+	        
+	        entityManager.getTransaction().begin();
+	        entityManager.createQuery(updateModel).executeUpdate();
+	        entityManager.getTransaction().commit();
+
+	        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+	        CriteriaUpdate<CarDto> update = criteriaBuilder.createCriteriaUpdate(CarDto.class);
+	        Root<CarDto> root = update.from(CarDto.class);
+	        update.set("make", newObj);
+	        update.where(criteriaBuilder.equal(root.get("make"), oldDto));
+	        entityManager.getTransaction().begin();
+	        entityManager.createQuery(update).executeUpdate();
+	        entityManager.remove(oldDto);
+	        entityManager.getTransaction().commit();
+	        entityManager.close();
+		    factory.close();
 		}
-		entityManager.getTransaction().commit();
-		entityManager.close();
-		factory.close();
 	}
 
 	@Override

@@ -2,6 +2,7 @@ package test.testDao;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -10,8 +11,14 @@ import javax.persistence.Persistence;
 
 import org.junit.jupiter.api.Test;
 
+import application.dao.CarDao;
 import application.dao.FuelDao;
+import application.dto.CarDto;
+import application.dto.CategoryDto;
 import application.dto.FuelDto;
+import application.dto.MakeDto;
+import application.dto.ModelDto;
+import application.dto.SiteDto;
 
 public class TestFuelDao {
 
@@ -33,27 +40,47 @@ public class TestFuelDao {
 	
 	@Test
 	public void testUpdate() {
-		FuelDto testDto = new FuelDto("TEST01");
-		FuelDao testDaoSave = new FuelDao();
-		testDaoSave.save(testDto);
+	    FuelDto testDtoOld = new FuelDto("TEST01");
+	    new FuelDao().save(testDtoOld);
+	    
+	    CarDto testCar = new CarDto("TEST01",
+                new MakeDto("Toyota", null),
+                new ModelDto("Camry", null),
+                new CategoryDto("Szédán", null),
+                "TEST01",
+                4,
+                5,
+                "Kézi",
+                50000,
+                10000,
+                LocalDate.now().plusYears(1),
+                new SiteDto("Raktár", "Budapest", 50, null, null, null, null, LocalDate.now(), null, true),
+                "1",
+                true);
+		CarDao carDaoSave = new CarDao();
+		carDaoSave.save(testCar);
+	    
+		FuelDto testDtoNew = new FuelDto("TEST02");
+			
+		FuelDao updateDao = new FuelDao();
+		updateDao.update(testDtoOld, testDtoNew);
 		
-		FuelDto testDto2 = new FuelDto("TEST01");
-		FuelDao testDaoUpdate = new FuelDao();
-		testDaoUpdate.update(testDto2);
 		
-		FuelDao testDaoFind = new FuelDao();
-		FuelDto updatedDto = testDaoFind.findById(testDto2.getFuelType());
-		
-		assertEquals(testDto2.getFuelType(), updatedDto.getFuelType());
-				
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("carfleet_manager");
 		EntityManager entityManager = factory.createEntityManager();
 	    entityManager.getTransaction().begin();
-	    FuelDto deletedDto = entityManager.find(FuelDto.class, testDto2.getFuelType());
-	    entityManager.remove(deletedDto);
-	    entityManager.getTransaction().commit();
-	    entityManager.close();
+	    CarDto carDtoDelete = entityManager.find(CarDto.class, testCar.getLicensePlate());
+	    entityManager.remove(carDtoDelete);
+        entityManager.getTransaction().commit();
+       
+        entityManager.getTransaction().begin();
+        FuelDto testDtoDelete = entityManager.find(FuelDto.class, testDtoNew.getFuelType());
+        entityManager.remove(testDtoDelete);
+        entityManager.getTransaction().commit();
+        
+        entityManager.close();
 	    factory.close();
+		
 	}
 	
 	
@@ -63,7 +90,7 @@ public class TestFuelDao {
         List<FuelDto> dtosBefore = testDaoBefore.getAll();
         int countBefore = dtosBefore.size();
 
-        FuelDto testDto = new FuelDto("TEST01");
+        FuelDto testDto = new FuelDto("TEST03");
         
 
         FuelDao testDaoSave = new FuelDao();

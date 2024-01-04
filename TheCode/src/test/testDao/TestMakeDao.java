@@ -2,6 +2,7 @@ package test.testDao;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -10,8 +11,15 @@ import javax.persistence.Persistence;
 
 import org.junit.jupiter.api.Test;
 
+import application.dao.CarDao;
+import application.dao.CategoryDao;
 import application.dao.MakeDao;
+import application.dao.ModelDao;
+import application.dto.CarDto;
+import application.dto.CategoryDto;
 import application.dto.MakeDto;
+import application.dto.ModelDto;
+import application.dto.SiteDto;
 
 public class TestMakeDao {
 
@@ -33,28 +41,54 @@ public class TestMakeDao {
 	
 	@Test
 	public void testUpdate() {
-		MakeDto testDto = new MakeDto("TEST01", null);
-		MakeDao testDaoSave = new MakeDao();
-		testDaoSave.save(testDto);
+		MakeDto testDtoOld = new MakeDto("TEST01", null);
+	    new MakeDao().save(testDtoOld);
+	    
+	    ModelDto testModelDto = new ModelDto("TEST01", "TEST01");
+	    new ModelDao().save(testModelDto);
+	    
+	    CarDto testCar = new CarDto("TEST01",
+                new MakeDto("TEST01", null),
+                new ModelDto("TEST01", null),
+                new CategoryDto("Szédán", null),
+                "Benzin",
+                4,
+                5,
+                "Kézi",
+                50000,
+                10000,
+                LocalDate.now().plusYears(1),
+                new SiteDto("Raktár", "Budapest", 50, null, null, null, null, LocalDate.now(), null, true),
+                "1",
+                true);
+		CarDao carDaoSave = new CarDao();
+		carDaoSave.save(testCar);
+	    
+		MakeDto testDtoNew = new MakeDto("TEST02", null);
 		
-		MakeDto testDto2 = new MakeDto("TEST01", "pic/path");
-		MakeDao testDaoUpdate = new MakeDao();
-		testDaoUpdate.update(testDto2);
-		
-		MakeDao testDaoFind = new MakeDao();
-		MakeDto updatedDto = testDaoFind.findById(testDto2.getNameMake());
-		
-		assertEquals(testDto2.getNameMake(), updatedDto.getNameMake());
-		assertEquals(testDto2.getPicturePathMake(), updatedDto.getPicturePathMake());
-				
+		MakeDao updateDao = new MakeDao();
+		updateDao.update(testDtoOld, testDtoNew);
+	
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("carfleet_manager");
 		EntityManager entityManager = factory.createEntityManager();
 	    entityManager.getTransaction().begin();
-	    MakeDto deletedDto = entityManager.find(MakeDto.class, testDto2.getNameMake());
-	    entityManager.remove(deletedDto);
-	    entityManager.getTransaction().commit();
-	    entityManager.close();
-	    factory.close();
+	    CarDto carDtoDelete = entityManager.find(CarDto.class, testCar.getLicensePlate());
+	    entityManager.remove(carDtoDelete);
+        entityManager.getTransaction().commit();
+       
+        entityManager.getTransaction().begin();
+        ModelDto testModelDtoDelete = entityManager.find(ModelDto.class, testModelDto.getNameModel());
+        entityManager.remove(testModelDtoDelete);
+        entityManager.getTransaction().commit();
+        
+        entityManager.getTransaction().begin();
+        MakeDto testDtoDelete = entityManager.find(MakeDto.class, testDtoNew.getNameMake());
+        entityManager.remove(testDtoDelete);
+        entityManager.getTransaction().commit();
+              
+        entityManager.close();
+	    factory.close();	
+		
 	}
 	
 //	@Test

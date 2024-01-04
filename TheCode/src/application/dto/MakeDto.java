@@ -34,7 +34,7 @@ public class MakeDto {
 	}
 	@Override
 	public String toString() {
-		return "MakeDto [nameMake=" + nameMake + ", picturePathMake=" + picturePathMake + "]";
+		return nameMake;
 	}
 
 	public void updateMakeDto(String picturePathMake) {

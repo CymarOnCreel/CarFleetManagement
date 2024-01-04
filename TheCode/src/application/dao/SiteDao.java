@@ -25,7 +25,7 @@ public class SiteDao implements ICrud<SiteDto>{
 		
 	}
 
-	@Override
+	
 	public void update(SiteDto obj) {
 		entityManager.getTransaction().begin();
 		SiteDto siteDto = entityManager.find(SiteDto.class,obj.getNameSite());

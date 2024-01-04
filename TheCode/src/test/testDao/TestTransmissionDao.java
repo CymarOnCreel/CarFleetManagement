@@ -2,6 +2,7 @@ package test.testDao;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -10,7 +11,13 @@ import javax.persistence.Persistence;
 
 import org.junit.jupiter.api.Test;
 
+import application.dao.CarDao;
 import application.dao.TransmissionDao;
+import application.dto.CarDto;
+import application.dto.CategoryDto;
+import application.dto.MakeDto;
+import application.dto.ModelDto;
+import application.dto.SiteDto;
 import application.dto.TransmissionDto;
 
 public class TestTransmissionDao {
@@ -33,26 +40,45 @@ public class TestTransmissionDao {
 	
 	@Test
 	public void testUpdate() {
-		TransmissionDto testDto = new TransmissionDto("TEST01");
-		TransmissionDao testDaoSave = new TransmissionDao();
-		testDaoSave.save(testDto);
+		TransmissionDto testDtoOld = new TransmissionDto("TEST01");
+	    new TransmissionDao().save(testDtoOld);
+	    
+	    CarDto testCar = new CarDto("TEST01",
+                new MakeDto("Toyota", null),
+                new ModelDto("Camry", null),
+                new CategoryDto("Szédán", null),
+                "Benzin",
+                4,
+                5,
+                "TEST01",
+                50000,
+                10000,
+                LocalDate.now().plusYears(1),
+                new SiteDto("Raktár", "Budapest", 50, null, null, null, null, LocalDate.now(), null, true),
+                "1",
+                true);
+		CarDao carDaoSave = new CarDao();
+		carDaoSave.save(testCar);
+	    
+		TransmissionDto testDtoNew = new TransmissionDto("TEST02");
+			
+		TransmissionDao updateDao = new TransmissionDao();
+		updateDao.update(testDtoOld, testDtoNew);
 		
-		TransmissionDto testDto2 = new TransmissionDto("TEST01");
-		TransmissionDao testDaoUpdate = new TransmissionDao();
-		testDaoUpdate.update(testDto2);
 		
-		TransmissionDao testDaoFind = new TransmissionDao();
-		TransmissionDto updatedDto = testDaoFind.findById(testDto2.getTransmissionType());
-		
-		assertEquals(testDto2.getTransmissionType(), updatedDto.getTransmissionType());
-				
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("carfleet_manager");
 		EntityManager entityManager = factory.createEntityManager();
 	    entityManager.getTransaction().begin();
-	    TransmissionDto deletedDto = entityManager.find(TransmissionDto.class, testDto2.getTransmissionType());
-	    entityManager.remove(deletedDto);
-	    entityManager.getTransaction().commit();
-	    entityManager.close();
+	    CarDto carDtoDelete = entityManager.find(CarDto.class, testCar.getLicensePlate());
+	    entityManager.remove(carDtoDelete);
+        entityManager.getTransaction().commit();
+       
+        entityManager.getTransaction().begin();
+        TransmissionDto testDtoDelete = entityManager.find(TransmissionDto.class, testDtoNew.getTransmissionType());
+        entityManager.remove(testDtoDelete);
+        entityManager.getTransaction().commit();
+        
+        entityManager.close();
 	    factory.close();
 	}
 	

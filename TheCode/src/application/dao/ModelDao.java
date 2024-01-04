@@ -7,7 +7,11 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.CriteriaUpdate;
 import javax.persistence.criteria.Root;
+
+import application.dto.CarDto;
+import application.dto.MakeDto;
 import application.dto.ModelDto;
 
 public class ModelDao implements ICrud<ModelDto>{
@@ -25,17 +29,27 @@ public class ModelDao implements ICrud<ModelDto>{
 		
 	}
 
-	@Override
-	public void update(ModelDto obj) {
-		entityManager.getTransaction().begin();
-		ModelDto modelDto = entityManager.find(ModelDto.class,obj.getNameModel());
-		if (modelDto!=null) {
-			modelDto.updateModelDto(obj.getMake()
-			);
+	
+	public void update(ModelDto oldObj, ModelDto newObj) {
+		ModelDto oldDto = entityManager.find(ModelDto.class, oldObj.getNameModel());
+		if (oldDto != null) {
+			entityManager.getTransaction().begin();
+	        entityManager.persist(newObj);
+	        entityManager.getTransaction().commit();
+
+	        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+	        CriteriaUpdate<CarDto> update = criteriaBuilder.createCriteriaUpdate(CarDto.class);
+	        Root<CarDto> root = update.from(CarDto.class);
+	        update.set("model", newObj); 
+	        update.where(criteriaBuilder.equal(root.get("model"), oldDto));
+	        
+	        entityManager.getTransaction().begin();
+	        entityManager.createQuery(update).executeUpdate();
+	        entityManager.remove(oldDto);
+	        entityManager.getTransaction().commit();
+	        entityManager.close();
+		    factory.close();
 		}
-		entityManager.getTransaction().commit();
-		entityManager.close();
-		factory.close();
 	}
 
 	@Override

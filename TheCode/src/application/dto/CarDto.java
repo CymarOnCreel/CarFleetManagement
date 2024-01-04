@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -15,14 +17,17 @@ public class CarDto {
 	@Id
 	private String licensePlate;
 	
-	@Column(name="make")
-	private String make;
+	@ManyToOne
+    @JoinColumn(name = "make", nullable = false)
+	private MakeDto make;
 	
-	@Column(name="model")
-	private String model;
+	@ManyToOne
+    @JoinColumn(name = "model", nullable = true)
+	private ModelDto model;
 	
-	@Column(name="category")
-	private String category;
+	@ManyToOne
+    @JoinColumn(name = "category", nullable = false)
+	private CategoryDto category;
 
 	@Column(name="fuel")
 	private String fuel;
@@ -45,8 +50,9 @@ public class CarDto {
 	@Column(name="inspection_expiry_date")
 	private LocalDate inspectionExpiryDate;
 	
-	@Column(name="site_name")
-	private String siteName;
+	@ManyToOne
+    @JoinColumn(name = "site_name", nullable = true)
+	private SiteDto siteName;
 	
 	@Column(name="status")
 	private String status;
@@ -60,8 +66,8 @@ public class CarDto {
 	@Column(name="enabled")
 	private int enabled;
 
-	public CarDto(String licensePlate, String make, String model, String category, String fuel, int doors, int seats,
-			String transmissionType, int mileage, int serviceInterval, LocalDate inspectionExpiryDate, String siteName,
+	public CarDto(String licensePlate, MakeDto make, ModelDto model, CategoryDto category, String fuel, int doors, int seats,
+			String transmissionType, int mileage, int serviceInterval, LocalDate inspectionExpiryDate, SiteDto siteName,
 			String status, boolean enabled) {
 		this.licensePlate = licensePlate;
 		this.make = make;
@@ -88,15 +94,15 @@ public class CarDto {
 		return licensePlate;
 	}
 
-	public String getMake() {
+	public MakeDto getMake() {
 		return make;
 	}
 	
-	public String getModel() {
+	public ModelDto getModel() {
 		return model;
 	}
 
-	public String getCategory() {
+	public CategoryDto getCategory() {
 		return category;
 	}
 
@@ -128,7 +134,7 @@ public class CarDto {
 		return inspectionExpiryDate;
 	}
 
-	public String getSiteName() {
+	public SiteDto getSiteName() {
 		return siteName;
 	}
 
@@ -158,8 +164,8 @@ public class CarDto {
 				+ ", updatedAt=" + updatedAt + ", enabled=" + enabled + "]";
 	}
 	
-	public void updateCarDto(String make, String model, String category, String fuel, int doors, int seats,
-			String transmissionType, int mileage, int serviceInterval, LocalDate inspectionExpiryDate, String siteName,
+	public void updateCarDto(MakeDto make, ModelDto model, CategoryDto category, String fuel, int doors, int seats,
+			String transmissionType, int mileage, int serviceInterval, LocalDate inspectionExpiryDate, SiteDto siteName,
 			String status, boolean enabled) {
 		this.make = make;
 		this.model = model;

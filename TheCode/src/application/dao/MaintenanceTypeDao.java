@@ -25,7 +25,7 @@ public class MaintenanceTypeDao implements ICrud<MaintenanceTypeDto>{
 		
 	}
 
-	@Override
+	
 	public void update(MaintenanceTypeDto obj) {
 		entityManager.getTransaction().begin();
 		MaintenanceTypeDto maintenanceTypeDto = entityManager.find(MaintenanceTypeDto.class, obj.getNameMaintenanceType());
