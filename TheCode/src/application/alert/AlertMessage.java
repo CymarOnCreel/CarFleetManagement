@@ -46,4 +46,16 @@ public class AlertMessage {
 		a.setTitle(title);
 		a.show();
 	}
+
+	public void siteNameExistsAlert() {
+		Alert a = new Alert(AlertType.NONE, "Ez a telephely már létezik!", ButtonType.OK);
+		a.setTitle("Dupla adat!!!");
+		a.show();		
+	}
+
+	public void carSaveSuccess() {
+		Alert a = new Alert(AlertType.NONE, "Az autó mentese sikeresen megtörtént.", ButtonType.OK);
+		a.setTitle("Sikeres mentés");
+		a.show();
+	}
 }

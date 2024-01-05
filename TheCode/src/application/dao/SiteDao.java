@@ -75,4 +75,22 @@ public class SiteDao implements ICrud<SiteDto>{
 		List<SiteDto> site = entityManager.createQuery(criteriaQuery).getResultList();
 		return site;
 	}
+	
+	public boolean isSiteNameExists(String nameSite) {
+	    try {
+	        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+	        CriteriaQuery<Long> query = criteriaBuilder.createQuery(Long.class);
+	        Root<SiteDto> root = query.from(SiteDto.class);
+
+	        query.select(criteriaBuilder.count(root));
+	        query.where(criteriaBuilder.equal(root.get("nameSite"), nameSite));
+
+	        Long result = entityManager.createQuery(query).getSingleResult();
+	        return result > 0;
+	    } finally {
+	        if (entityManager != null && entityManager.isOpen()) {
+	            entityManager.close();
+	        }
+	    }
+	}
 }

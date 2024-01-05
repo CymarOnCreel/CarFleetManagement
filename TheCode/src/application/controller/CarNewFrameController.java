@@ -1,5 +1,6 @@
 package application.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
@@ -25,13 +26,18 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 
 public class CarNewFrameController implements Initializable{
 
@@ -105,10 +111,10 @@ public class CarNewFrameController implements Initializable{
     private Button btnAddSite;
 
     @FXML
-    private Button btnUpdateSite;
+    private Button btnSaveNewCar;
     
     @FXML
-    private Button btnSaveNewCar;
+    private Button btnCancel;
     
     @FXML
     void addCategory(ActionEvent event) {
@@ -222,29 +228,21 @@ public class CarNewFrameController implements Initializable{
 
     @FXML
     void addSite(ActionEvent event) {
-    	TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Új telephely felvétele");
-        dialog.setHeaderText("Adjon meg egy új telephelyet:");
-        dialog.setContentText("Megnevezés:");
-
-        Optional<String> result = dialog.showAndWait();
-
-        if (result.isPresent()) {
-            try {
-            	String siteName = result.get();
-            	if (!siteName.isEmpty()) {
-            		SiteDto newSite = new SiteDto(siteName, "Település", 50, null, null, null, null, LocalDate.now(), null, true );
-            		SiteDao siteDao = new SiteDao();
-            		siteDao.save(newSite);
-            		cmbSiteFill();
-                    cmbSite.setValue(newSite);
-				}else {
-					new AlertMessage().emptyNameTextFieldAlert();
-				}
-			} catch (Exception e) {
-				new AlertMessage().saveToDatabaseAlert();
-			}
-        }
+    	Stage newSiteStage = new Stage();
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("../frame/SiteNewFrame.fxml"));
+			AnchorPane root = loader.load();
+			SiteNewFrameController controller = loader.getController();
+			controller.setCarNewFrameController(this);
+			Scene scene = new Scene(root, 600, 600);
+			newSiteStage.setScene(scene);
+			newSiteStage.setTitle("Telephely hozzáadása");
+			newSiteStage.setX(350);
+			newSiteStage.show();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
     @FXML
@@ -402,39 +400,6 @@ public class CarNewFrameController implements Initializable{
     }
 
     @FXML
-    void updateSite(ActionEvent event) {
-    	if (cmbSite.getSelectionModel().getSelectedIndex()!=-1) {
-    		SiteDto oldDto = cmbSite.getValue();
-        	TextInputDialog dialog = new TextInputDialog(oldDto.getNameSite());
-        	dialog.setTitle("Telephely módosítása");
-            dialog.setHeaderText("Adja meg a telephely új nevét:");
-            dialog.setContentText("Megnevezés:");
-
-            Optional<String> result = dialog.showAndWait();
-
-            if (result.isPresent()) {
-                try {
-                	String siteName = result.get();
-                	if (!siteName.isEmpty()) {
-                		SiteDto newSite = new SiteDto(siteName, oldDto.getLocation(), oldDto.getCapacity(), oldDto.getContactEmail(), 
-                				oldDto.getContactEmail(), oldDto.getContactPhone(), oldDto.getDescription(), oldDto.getCreatedAt(), 
-                				LocalDate.now(), oldDto.isEnabled());
-                		SiteDao siteDao = new SiteDao();
-                		siteDao.update(newSite);
-                		cmbSiteFill();
-                        cmbSite.setValue(newSite);
-    				}else {
-    					new AlertMessage().emptyNameTextFieldAlert();
-    				}
-    			} catch (Exception e) {
-    				new AlertMessage().saveToDatabaseAlert();
-    			}
-            }
-		}
-    	
-    }
-
-    @FXML
     void updateTransmission(ActionEvent event) {
     	if (cmbTransmission.getSelectionModel().getSelectedIndex()!=-1) {
     		String oldName = cmbTransmission.getValue();
@@ -485,6 +450,8 @@ public class CarNewFrameController implements Initializable{
 		    	CarDao carDao = new CarDao();
 		    	if (!carDao.isCarExist(tfLicensePlate.getText())) {
 		    		carDao.save(newCar);
+		    		new AlertMessage().carSaveSuccess();
+		    		cancel(null);
 				}else {
 					new AlertMessage().carExistAlert();
 				}
@@ -504,18 +471,24 @@ public class CarNewFrameController implements Initializable{
 				tfMileage.getText().isEmpty()||
 				tfSeats.getText().isEmpty()||
 				tfServiceInterval.getText().isEmpty()||
-				cmbCategory.getSelectionModel().getSelectedIndex()==-1||
-				cmbFuel.getSelectionModel().getSelectedIndex()==-1||
-				cmbMake.getSelectionModel().getSelectedIndex()==-1||
-				cmbModel.getSelectionModel().getSelectedIndex()==-1||
-				cmbSite.getSelectionModel().getSelectedIndex()==-1||
-				cmbTransmission.getSelectionModel().getSelectedIndex()==-1||
+				cmbCategory.getSelectionModel().getSelectedItem()==null||
+				cmbFuel.getSelectionModel().getSelectedItem()==null||
+				cmbMake.getSelectionModel().getSelectedItem()==null||
+				cmbModel.getSelectionModel().getSelectedItem()==null||
+				cmbSite.getSelectionModel().getSelectedItem()==null||
+				cmbTransmission.getSelectionModel().getSelectedItem()==null||
 				dpInspectionExpiryDate.getValue()==null)
 		{
 			return true;
 		}
 		return false;
 	}
+    
+    @FXML
+    void cancel(ActionEvent event) {
+    	Stage stage = (Stage) btnCancel.getScene().getWindow();
+		stage.close();
+    }
     
     private void cmbMakeFill() {
     	cmbMake.getItems().clear();
@@ -554,28 +527,6 @@ public class CarNewFrameController implements Initializable{
 		cmbModel.getSelectionModel().select(-1);
     }
     
-//    public void updateCar() {
-//    	CarDto newCar = new CarDto(tfLicensePlate.getText().toUpperCase(), 
-//    			cmbMake.getValue(),
-//    			cmbModel.getValue(),
-//    			cmbCategory.getValue(),
-//    			cmbFuel.getValue(),
-//    			Integer.parseInt(tfDoors.getText()), 
-//    			Integer.parseInt(tfSeats.getText()),
-//    			cmbTransmission.getValue(), 
-//    			Integer.parseInt(tfMileage.getText()), 
-//    			Integer.parseInt(tfServiceInterval.getText()), 
-//    			dpInspectionExpiryDate.getValue(), 
-//    			cmbSite.getValue(), "1", true);
-//    	
-//    	CarDao carDao = new CarDao();
-//    	carDao.update(newCar);
-//    }
-    
-//    public void deleteCar() {
-//		new CarDao().deleteById(tfLicensePlate.getText().toUpperCase());
-//	}
-
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		cmbMakeFill();
@@ -583,7 +534,6 @@ public class CarNewFrameController implements Initializable{
 		cmbFuelFill();
 		cmbTransmissionFill();
 		cmbSiteFill();
-		btnUpdateSite.setDisable(true);
 	}
 
 	private void cmbSiteFill() {
@@ -652,6 +602,11 @@ public class CarNewFrameController implements Initializable{
 
 	private boolean isValidIntInput(String character) {
 		return character.matches("[0-9]");
+	}
+	
+	public void setNewSiteInComboBox(SiteDto newSite) {
+		cmbSite.getItems().add(newSite);
+		cmbSite.getSelectionModel().select(newSite);
 	}
     
 }
