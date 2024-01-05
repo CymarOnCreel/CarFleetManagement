@@ -1,5 +1,6 @@
 package application.dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -93,11 +94,4 @@ public class ReservationDao implements ICrud<ReservationDto> {
 		List<ReservationDto> reservations = entityManager.createQuery(criteriaQuery).getResultList();
 		return reservations;
 	}
-//
-//	public List<ReservationDto> getReservationsBetweenDates(LocalDate startDate, LocalDate endDate) {
-//		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-//		CriteriaQuery<ReservationDto> criteriaQuery = criteriaBuilder.createQuery(ReservationDto.class);
-//		Root <ReservationDto> root=criteriaQuery.from(ReservationDto.class);
-//		criteriaQuery.where(criteriaBuilder.is)
-//	}
 }

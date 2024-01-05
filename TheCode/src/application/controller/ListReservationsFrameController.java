@@ -55,7 +55,7 @@ public class ListReservationsFrameController implements Initializable {
 		this.reservationDao = new ReservationDao();
 	}
 //	Long loggedInEmployeeId = SessionManager.getInstance().getLoggedInEmployeeId();
-	private Long userId=2L;
+	private Long userId=1L;
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		setTable();

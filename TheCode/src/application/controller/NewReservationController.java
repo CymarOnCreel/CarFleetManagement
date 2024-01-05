@@ -3,7 +3,6 @@ package application.controller;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,13 +10,10 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-
 import application.alert.AlertMessage;
 import application.dao.CarDao;
-import application.dao.EmployeeDao;
 import application.dao.ReservationDao;
 import application.dto.CarDto;
-import application.dto.EmployeeDto;
 import application.dto.ReservationDto;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
@@ -112,7 +108,6 @@ public class NewReservationController implements Initializable {
 			setCancelButtonsImage();
 		});
 		setUpListeners();
-
 	}
 
 	private void setUpDatePickers() {
@@ -132,14 +127,6 @@ public class NewReservationController implements Initializable {
 			setUpDataForComboboxes();
 		});
 	}
-
-	@FXML
-	void close(ActionEvent event) {
-		Node source = (Node) event.getSource();
-		Stage stage = (Stage) source.getScene().getWindow();
-		stage.close();
-	}
-
 	private void setCancelButtonsImage() {
 		setButtonImage(clearMakeChoiceButton);
 		setButtonImage(clearFuelChoiceButton);
@@ -147,7 +134,7 @@ public class NewReservationController implements Initializable {
 		setButtonImage(clearTransmissionChoiceButton);
 		setButtonImage(clearSeatChoiceButton);
 	}
-
+	
 	private void setUpDataForComboboxes() {
 		updateFilteredListOfReservationsBetweenDates();
 		updateCarsListOutsideOfDates();
@@ -438,7 +425,6 @@ public class NewReservationController implements Initializable {
 			saveReservationStage.setTitle("Save reservation");
 			saveReservationStage.initModality(Modality.APPLICATION_MODAL);
 			SaveNewReservationFrameController saveReservationController = loader.getController();
-			System.out.println(saveReservationController.toString());
 			saveReservationController.setMainStage(saveReservationStage);
 			saveReservationController.setDataForStage(carChosen, startDate.getValue().atStartOfDay(),
 					endDate.getValue().atStartOfDay());
@@ -523,7 +509,7 @@ public class NewReservationController implements Initializable {
 
 	private void updateCarsListOutsideOfDates() {
 		currentFilteredCarsList = listOfCars.stream()
-				.filter(car -> !filteredReservations.stream()
+				.filter(car -> car.isEnabled() &&  !filteredReservations.stream()
 						.anyMatch(reservation -> reservation.getCar().getLicensePlate().equals(car.getLicensePlate())))
 				.collect(Collectors.toList());
 	}
@@ -618,6 +604,12 @@ public class NewReservationController implements Initializable {
 			updateColumnWidths();
 			initializeTableView();
 		});
+	}
+	@FXML
+	void close(ActionEvent event) {
+		Node source = (Node) event.getSource();
+		Stage stage = (Stage) source.getScene().getWindow();
+		stage.close();
 	}
 }
 // To-DO

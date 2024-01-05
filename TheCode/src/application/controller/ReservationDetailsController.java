@@ -1,17 +1,24 @@
 package application.controller;
 
+import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import application.alert.AlertMessage;
 import application.dao.ReservationDao;
+import application.dto.CarDto;
 import application.dto.ReservationDto;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -50,7 +57,8 @@ public class ReservationDetailsController {
 	private ReservationDao reservationDao;
 	private int reservationId;
 	private ListReservationsFrameController listFrameController;
- private ReservationDto reservation;
+	private ReservationDto reservation;
+
 	public void setReservationListController(ListReservationsFrameController listFrameController) {
 		this.listFrameController = listFrameController;
 	}
@@ -61,8 +69,10 @@ public class ReservationDetailsController {
 
 	@FXML
 	void changeCar(ActionEvent event) {
+		showCarPickerStage(reservation);
+		}
 
-	}
+
 
 	@FXML
 	public void close(ActionEvent event) {
@@ -73,12 +83,11 @@ public class ReservationDetailsController {
 
 	@FXML
 	void setReservationDeleted(ActionEvent event) {
-		System.out.println(reservationId);
 		reservationDao.deleteById(reservationId);
 		new AlertMessage().showConfirmationAlertMessage("Foglalás törlés", "A foglalást sikeresen törölted");
-	    reservation.setDeleted(true);
+		reservation.setDeleted(true);
 		Stage stage = (Stage) close.getScene().getWindow();
-	    stage.close(); 
+		stage.close();
 		listFrameController.setTable();
 
 	}
@@ -89,7 +98,8 @@ public class ReservationDetailsController {
 	}
 
 	public void initialize(ReservationDto reservation) {
-		this.reservation=reservation;
+		LocalDateTime today=LocalDateTime.now();
+		this.reservation = reservation;
 		reservationId = reservation.getIdReservation();
 		employeeNameField.setText(reservation.getEmployee().getLastName());
 		carField.setText(reservation.getCar().getLicensePlate());
@@ -97,8 +107,11 @@ public class ReservationDetailsController {
 		showEndDate.setText(reservation.getEndDateTime().toString());
 		descriptionField.setText(reservation.getDescription());
 		if (reservation.isDeleted()) {
-			setAllOptionsDisabledIfReservationIsDeleted();
-		} else {
+			setAllOptionsDisabledIfReservationIsNotUpdateble();
+		} 
+		else if(reservation.getStartDateTime().isBefore(today)){
+			setAllOptionsDisabledIfReservationIsNotUpdateble();
+		}else{
 			startDateField.setDayCellFactory(createDayCellFactory(reservation));
 			endDateField.setDayCellFactory(createDayCellFactory(reservation));
 		}
@@ -121,7 +134,7 @@ public class ReservationDetailsController {
 		};
 	}
 
-	private void setAllOptionsDisabledIfReservationIsDeleted() {
+	private void setAllOptionsDisabledIfReservationIsNotUpdateble() {
 		endDateField.setDisable(true);
 		startDateField.setDisable(true);
 		descriptionField.setDisable(true);
@@ -129,4 +142,38 @@ public class ReservationDetailsController {
 		cancelReservation.setDisable(true);
 		changeCar.setDisable(true);
 	}
+	
+	private void showCarPickerStage(ReservationDto reservation) {
+		FXMLLoader loader = new FXMLLoader(
+				getClass().getResource("/application/frame/ChooseNewCarForReservationUpdate.FXML"));
+	
+	try {
+		AnchorPane root = (AnchorPane) loader.load();	
+		Scene scene=new Scene(root);
+		scene.getStylesheets().add(getClass().getResource("/application/util/application.css").toExternalForm());
+		Stage stage=new Stage();
+		stage.setTitle("Change car for reservation");
+		stage.initModality(Modality.APPLICATION_MODAL);
+		ChooseNewCarForReservationUpdateController controller=loader.getController();
+		controller.setMainStage(stage);
+		controller.setReservationForStage(reservation);
+		stage.setScene(scene);
+		stage.showAndWait();
+		carField.setText(reservation.getCar().getLicensePlate());
+		
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+
+	}
+
+//	public void changedCar(CarDto currentCar) {
+//		  if (reservation != null) {
+//		        reservation.setCar(currentCar);
+//		    } else {
+//		       System.out.println("no reservation");
+//		    }
+//		carField.setText(currentCar.getLicensePlate());
+//	}
 }
