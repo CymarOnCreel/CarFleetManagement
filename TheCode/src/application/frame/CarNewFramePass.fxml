@@ -5,7 +5,6 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -27,8 +26,8 @@
 				<Font size="38.0" />
 			</font>
 			<items>
-				<MenuItem fx:id="listUserReservation" mnemonicParsing="false" onAction="#listAllReservationOfUser" styleClass="menu-item" text="List My Reservations" />
-				<MenuItem fx:id="newReservation" mnemonicParsing="false" onAction="#createNewCarReservation" styleClass="menu-item" text="New Reservation" />
+			<!--	<MenuItem fx:id="listUserReservation" mnemonicParsing="false" onAction="#listAllReservationOfUser" styleClass="menu-item" text="List My Reservations" />
+				<MenuItem fx:id="newReservation" mnemonicParsing="false" onAction="#createNewCarReservation" styleClass="menu-item" text="New Reservation" /> -->
 			</items>
 		</MenuButton>
 		<MenuButton fx:id="cars" layoutX="1360.0" layoutY="40.0" mnemonicParsing="false" prefHeight="103.0" prefWidth="201.0" style="-fx-background-color: #159991;" styleClass="custom-menu-button" stylesheets="@../../../../../../../util/application.css" text="CARS" textFill="WHITE">
@@ -36,8 +35,8 @@
 				<Font size="38.0" />
 			</font>
 			<items>
-				<MenuItem fx:id="addNewCar" mnemonicParsing="false" onAction="#addNewCarToDatabase" styleClass="menu-item" text="Add New Car" />
-				<MenuItem fx:id="addCarMaintenance" mnemonicParsing="false" onAction="#reserveCarForMaintenance" styleClass="menu-item" text="Add Car Maintenance" />
+			<!--	<MenuItem fx:id="addNewCar" mnemonicParsing="false" onAction="#addNewCarToDatabase" styleClass="menu-item" text="Add New Car" />
+				<MenuItem fx:id="addCarMaintenance" mnemonicParsing="false" onAction="#reserveCarForMaintenance" styleClass="menu-item" text="Add Car Maintenance" /> -->
 			</items>
 		</MenuButton>
 		<MenuButton fx:id="profile" layoutX="1570.0" layoutY="40.0" mnemonicParsing="false" prefHeight="103.0" prefWidth="315.0" style="-fx-background-color: #000000; -fx-background-radius: 30;" styleClass="custom-menu-button" text="PROFILE" textFill="WHITE">
@@ -45,10 +44,10 @@
 				<Font size="38.0" />
 			</font>
 			<items>
-				<MenuItem fx:id="login" mnemonicParsing="false" onAction="#login" styleClass="menu-item" text="Login" />
+		<!--		<MenuItem fx:id="login" mnemonicParsing="false" onAction="#login" styleClass="menu-item" text="Login" />
 				<MenuItem fx:id="logout" mnemonicParsing="false" onAction="#logout" styleClass="menu-item" text="Logout" />
 				<MenuItem fx:id="changePassword" mnemonicParsing="false" onAction="#changeUserPassword" styleClass="menu-item" text="Change Password" />
-				<MenuItem fx:id="registration" mnemonicParsing="false" onAction="#registerNewUser" styleClass="menu-item" text="Registration" />
+				<MenuItem fx:id="registration" mnemonicParsing="false" onAction="#registerNewUser" styleClass="menu-item" text="Registration" /> -->
 			</items>
 		</MenuButton>
       <ImageView fitHeight="363.0" fitWidth="488.0" layoutX="-29.0" layoutY="-125.0">
@@ -159,7 +158,7 @@
       </Label>
       <ComboBox fx:id="cmbSite" layoutX="492.0" layoutY="1034.0" prefWidth="150.0" />
       <Button fx:id="btnAddSite" layoutX="666.0" layoutY="1035.0" mnemonicParsing="false" onAction="#addSite" text="Add" />
-      <Button fx:id="btnUpdateSite" layoutX="722.0" layoutY="1035.0" mnemonicParsing="false" onAction="#updateSite" text="Update" />
+      <Button fx:id="btnUpdateSite" disable="true" layoutX="722.0" layoutY="1035.0" mnemonicParsing="false" onAction="#updateSite" text="Update" />
       <Button fx:id="btnSaveNewCar" layoutX="513.0" layoutY="1107.0" mnemonicParsing="false" onAction="#saveNewCar" text="Save">
          <font>
             <Font size="20.0" />

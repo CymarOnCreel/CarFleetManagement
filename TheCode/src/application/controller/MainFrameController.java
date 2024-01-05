@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -60,7 +61,23 @@ public class MainFrameController implements Initializable {
 
 	@FXML
 	void addNewCarToDatabase(ActionEvent event) {
-		// Create scene + methods to add new car to database
+		FXMLLoader loader=new FXMLLoader(getClass().getResource("/application/frame/CarNewFramePass.fxml"));
+		AnchorPane root;
+		try {
+			root = (AnchorPane)loader.load();
+			Scene scene=new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("/application/util/application.css").toExternalForm());
+			Stage stage=new Stage();
+			stage.setTitle("New Car");
+			stage.setScene(scene);
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.initOwner(Main.getPrimaryStage());
+			stage.showAndWait();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 	@FXML
