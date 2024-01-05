@@ -1,11 +1,8 @@
 package application.controller;
 
-import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
-
-import application.Main;
 import application.alert.AlertMessage;
 import application.dao.EmployeeDao;
 import application.dao.PictureDao;
@@ -16,16 +13,13 @@ import application.dto.PictureDto;
 import application.dto.ReservationDto;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class SaveNewReservationFrameController implements Initializable {
@@ -87,14 +81,14 @@ public class SaveNewReservationFrameController implements Initializable {
 	}
 
 	@FXML
-	void closeScene(ActionEvent event) {
+	private void closeScene(ActionEvent event) {
 		Node source = (Node) event.getSource();
 		Stage stage = (Stage) source.getScene().getWindow();
 		stage.close();
 	}
 
 	@FXML
-	void saveReservation(ActionEvent event) {
+	private void saveReservation(ActionEvent event) {
 		saveReservationToDatabase(carChoosen, descriptionField.getText());
 		new AlertMessage().showConfirmationAlertMessage("Reservation succesfull",
 					"Reservation succesfull for:\n " + carChoosen.getLicensePlate() + " car \nat the interval of \n"

@@ -126,6 +126,9 @@ public class EmployeeDto {
 		enabled = true;
 		updatedAt = LocalDate.now();
 	}
+	public String getFullName() {
+		return firstName+" "+lastName;
+	}
 	
 	
 	

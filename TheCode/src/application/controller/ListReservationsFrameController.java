@@ -50,12 +50,15 @@ public class ListReservationsFrameController implements Initializable {
 	private ReservationDao reservationDao;
 	List<ReservationDto> reservations;
 	private ObservableList<ReservationDto> reservationData = FXCollections.observableArrayList();
+	private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
 	public ListReservationsFrameController() {
 		this.reservationDao = new ReservationDao();
 	}
+
 //	Long loggedInEmployeeId = SessionManager.getInstance().getLoggedInEmployeeId();
-	private Long userId=2L;
+	private Long userId = 1L;
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		setTable();
@@ -74,12 +77,14 @@ public class ListReservationsFrameController implements Initializable {
 		updateColumnWidths();
 		initializeTableView();
 	}
+
 	private void populateTableView(List<ReservationDto> reservations) {
 		reservationData.clear();
 		reservationData.addAll(reservations);
-	
+
 		reservationsTable.setItems(reservationData);
 	}
+
 	private void initializeTableView() {
 		addColumns();
 		setupTableClickEvent();
@@ -94,7 +99,6 @@ public class ListReservationsFrameController implements Initializable {
 		Stage stage = (Stage) source.getScene().getWindow();
 		stage.close();
 	}
-
 
 	@FXML
 	public void handleSearchButton(ActionEvent event) {
@@ -112,7 +116,7 @@ public class ListReservationsFrameController implements Initializable {
 		LocalDate localStartDate = intervalStartDate.getValue();
 		LocalDate localEndDate = intervalEndDate.getValue();
 		reservations = reservationDao.getReservationsByUserId(userId); // get user id here with
-																	// loggedInEmployeeId
+																		// loggedInEmployeeId
 		List<ReservationDto> reservationsFilteredByDate;
 		if (localStartDate != null && localEndDate != null) {
 			LocalDateTime startDate = localStartDate.atStartOfDay();
@@ -129,24 +133,58 @@ public class ListReservationsFrameController implements Initializable {
 		return reservationsFilteredByDate;
 	}
 
-
-
 	@SuppressWarnings("unchecked")
 	private void addColumns() {
 		reservationsTable.getColumns().clear();
-		TableColumn<ReservationDto, Integer> idColumn = new TableColumn<>("Reservation ID");
-		idColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getIdReservation()));
 		TableColumn<ReservationDto, String> nameColumn = new TableColumn<>("Employee Name");
 		nameColumn.setCellValueFactory(
-				cellData -> new SimpleStringProperty(cellData.getValue().getEmployee().getLastName()));
+				cellData -> new SimpleStringProperty(cellData.getValue().getEmployee().getFullName()));
 		TableColumn<ReservationDto, String> plateColumn = new TableColumn<>("Car");
 		plateColumn.setCellValueFactory(
 				cellData -> new SimpleStringProperty(cellData.getValue().getCar().getLicensePlate()));
 		TableColumn<ReservationDto, LocalDateTime> startDateColumn = new TableColumn<>("Start Date");
-		startDateColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getStartDateTime()));
+		startDateColumn
+				.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getStartDateTime()));
 		startDateColumn.setCellFactory(col -> new TableCell<ReservationDto, LocalDateTime>() {
-			private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+			@Override
+			protected void updateItem(LocalDateTime date, boolean empty) {
+				super.updateItem(date, empty);
+				if (empty || date == null) {
+					setText(null);
+				} else {
+					setText(formatDate(date));
+				}
+			}
 
+		});
+		TableColumn<ReservationDto, LocalDateTime> endDateColumn = new TableColumn<>("End Date");
+		endDateColumn
+				.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getEndDateTime()));
+		endDateColumn.setCellFactory(col -> new TableCell<ReservationDto, LocalDateTime>() {
+			@Override
+			protected void updateItem(LocalDateTime date, boolean empty) {
+				super.updateItem(date, empty);
+				if (empty || date == null) {
+					setText(null);
+				} else {
+					setText(formatDate(date));
+				}
+			}
+
+		});
+		TableColumn<ReservationDto, String> descriptionColumn = new TableColumn<>("Description");
+		descriptionColumn
+				.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDescription()));
+		TableColumn<ReservationDto, String> statusColumn = new TableColumn<>("Status");
+		statusColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().isDeletedToString()));
+		reservationsTable.getColumns().addAll(nameColumn, plateColumn, startDateColumn, endDateColumn,
+				descriptionColumn, statusColumn);
+		reservationsTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+	}
+
+	private TableCell<ReservationDto, LocalDateTime> createDateTimeCell(DateTimeFormatter formatter) {
+		return new TableCell<ReservationDto, LocalDateTime>() {
 			@Override
 			protected void updateItem(LocalDateTime date, boolean empty) {
 				super.updateItem(date, empty);
@@ -156,13 +194,11 @@ public class ListReservationsFrameController implements Initializable {
 					setText(formatter.format(date));
 				}
 			}
+		};
+	}
 
-		});
-		TableColumn<ReservationDto, String> statusColumn = new TableColumn<>("Status");
-		statusColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().isDeletedToString()));
-		reservationsTable.getColumns().addAll(idColumn, nameColumn, plateColumn, startDateColumn, statusColumn);
-		reservationsTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-
+	private String formatDate(LocalDateTime date) {
+		return formatter.format(date);
 	}
 
 	private void setTableHeight() {
@@ -198,7 +234,6 @@ public class ListReservationsFrameController implements Initializable {
 
 		return maxWidth + 10.0;
 	}
-// Go to Reservation details
 
 	private void setupTableClickEvent() {
 		reservationsTable.setOnMouseClicked(mouseEvent -> {
@@ -220,11 +255,9 @@ public class ListReservationsFrameController implements Initializable {
 			e.printStackTrace();
 			return;
 		}
-
 		ReservationDetailsController detailsController = loader.getController();
 		detailsController.setReservationListController(this);
 		detailsController.initialize(reservation);
-
 		Stage detailsStage = new Stage();
 		detailsStage.setScene(new Scene(root));
 		detailsStage.setTitle("Reservation Details");
