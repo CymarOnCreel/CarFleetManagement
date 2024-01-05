@@ -94,7 +94,6 @@ public class MainFrameController implements Initializable {
 		reservationsStage.setScene(reservationsScene);
 		reservationsStage.initModality(Modality.APPLICATION_MODAL);
 		reservationsStage.showAndWait();
-
 	}
 
 	@FXML
