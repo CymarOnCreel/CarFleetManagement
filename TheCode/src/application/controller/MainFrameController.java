@@ -18,6 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitMenuButton;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
@@ -89,6 +90,7 @@ public class MainFrameController implements Initializable {
 			stage.setScene(scene);
 			stage.initModality(Modality.APPLICATION_MODAL);
 			stage.initOwner(Main.getPrimaryStage());
+			stage.getIcons().add(new Image("application/pictures/logo.png"));
 			stage.showAndWait();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -125,6 +127,7 @@ public class MainFrameController implements Initializable {
 		scene.getStylesheets().add(getClass().getResource("/application/util/application.css").toExternalForm());
 		Stage stage = new Stage();
 		stage.setTitle("New Reservation");
+		stage.getIcons().add(new Image("application/pictures/logo.png"));
 		stage.setScene(scene);
 		stage.initModality(Modality.APPLICATION_MODAL);
 		stage.initOwner(Main.getPrimaryStage());
@@ -140,6 +143,8 @@ public class MainFrameController implements Initializable {
 				.add(getClass().getResource("/application/util/application.css").toExternalForm());
 		Stage reservationsStage = new Stage();
 		reservationsStage.setTitle("List Reservations");
+		reservationsStage.getIcons().add(new Image("application/pictures/logo.png"));
+
 		reservationsStage.setScene(reservationsScene);
 		reservationsStage.initModality(Modality.APPLICATION_MODAL);
 		reservationsStage.showAndWait();
@@ -184,6 +189,8 @@ public class MainFrameController implements Initializable {
 			Stage stage= new Stage();
 			stage.setTitle("List Of Users");
 			stage.setScene(scene);
+			stage.getIcons().add(new Image("application/pictures/logo.png"));
+
 			stage.initModality(Modality.APPLICATION_MODAL);
 			stage.showAndWait();			
 	
@@ -207,6 +214,8 @@ public class MainFrameController implements Initializable {
 			reservationsStage.setTitle("Login");
 			reservationsStage.setScene(loginsScene);
 			reservationsStage.initModality(Modality.APPLICATION_MODAL);
+			reservationsStage.getIcons().add(new Image("application/pictures/logo.png"));
+
 			reservationsStage.showAndWait();
 			employeeId = UserSession.getUserId();
 			System.out.println(employeeId + " az id");

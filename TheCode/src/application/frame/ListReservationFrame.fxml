@@ -5,16 +5,31 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="672.0" prefWidth="981.0" stylesheets="@../util/application.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.ListReservationsFrameController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="649.0" prefWidth="996.0" styleClass="backGroundColor" stylesheets="@../util/application.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.ListReservationsFrameController">
 	<children>
-		<DatePicker fx:id="intervalStartDate" layoutX="162.0" layoutY="46.0" />
-		<DatePicker fx:id="intervalEndDate" layoutX="561.0" layoutY="46.0" />
-		<Label layoutX="31.0" layoutY="50.0" prefHeight="25.0" prefWidth="123.0" text="From" />
-		<Label layoutX="402.0" layoutY="46.0" prefHeight="25.0" prefWidth="137.0" text="To" />
-		<Button fx:id="search" layoutX="839.0" layoutY="46.0" mnemonicParsing="false" onAction="#handleSearchButton" text="Search" />
-		<TableView fx:id="reservationsTable" layoutX="17.0" layoutY="135.0" prefHeight="456.0" prefWidth="963.0" styleClass="my-table" visible="false">
+		<DatePicker fx:id="intervalStartDate" layoutX="145.0" layoutY="88.0" prefHeight="35.0" prefWidth="186.0" />
+		<DatePicker fx:id="intervalEndDate" layoutX="477.0" layoutY="88.0" prefHeight="35.0" prefWidth="200.0" />
+		<Label layoutX="35.0" layoutY="88.0" prefHeight="25.0" prefWidth="123.0" text="From">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font></Label>
+		<Label layoutX="394.0" layoutY="88.0" prefHeight="25.0" prefWidth="137.0" text="To:">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font></Label>
+		<Button fx:id="search" layoutX="768.0" layoutY="67.0" mnemonicParsing="false" onAction="#handleSearchButton" style="-fx-background-radius: 15; -fx-background-color: #0088ff;" text="Search" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="36.0" />
+         </font></Button>
+		<TableView fx:id="reservationsTable" layoutX="17.0" layoutY="149.0" prefHeight="381.0" prefWidth="963.0" styleClass="my-table" stylesheets="@../util/application.css" visible="false">
    </TableView>
-		<Button fx:id="closeWindow" layoutX="800.0" layoutY="600.0" mnemonicParsing="false" onAction="#closeWindow" prefHeight="44.0" prefWidth="146.0" text="EXIT" />
+		<Button fx:id="closeWindow" layoutX="813.0" layoutY="544.0" mnemonicParsing="false" onAction="#closeWindow" prefHeight="44.0" prefWidth="146.0" style="-fx-background-radius: 15;" styleClass="close-button" stylesheets="@../util/application.css" text="CLOSE" />
+      <Label layoutX="397.0" layoutY="14.0" text="My Reservations">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
 	</children>
 </AnchorPane>

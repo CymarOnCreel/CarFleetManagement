@@ -7,8 +7,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import javax.transaction.Transactional;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,12 +36,17 @@ public class TestReservationDao {
 
 	@AfterEach
 	public void tearDown() {
-		entityManager.close();
+		 if (entityManager.getTransaction().isActive()) {
+	            entityManager.getTransaction().rollback();
+	        }
+	        entityManager.close();
 	}
 
 	@Test
-	@Transactional
 	public void testGetReservationByUserId() {
+		EntityTransaction transaction = entityManager.getTransaction();
+	    transaction.begin();
+
 		insertTestData();
 		Long userId = -8L;
 		List<ReservationDto> reservations = reservationDao.getReservationsByUserId(userId);
@@ -49,11 +54,11 @@ public class TestReservationDao {
 	}
 
 	@Test
-	@Transactional
 	public void testgetReservationByCarLicencePlate() {
 		insertTestData();
 		String licencePlate="Test118";
 		List<ReservationDto> reservations=reservationDao.getReservationsByCarLicencePlate(licencePlate);
+		System.out.println(reservations.size());
 		assertNotNull(reservations);
 	}
 	private void insertTestData() {
@@ -72,8 +77,8 @@ public class TestReservationDao {
 		ReservationDto reservation = new ReservationDto();
 		reservation.setEmployee(employee);
 		reservation.setCar(car);
-		reservation.setStartDateTime(LocalDateTime.now().minusDays(5));
-		reservation.setEndDateTime(LocalDateTime.now().minusDays(3));
+		reservation.setStartDateTime(LocalDateTime.now().plusDays(1));
+		reservation.setEndDateTime(LocalDateTime.now().plusDays(3));
 		reservation.setDescription("Test reservation");
 		reservation.setCreatedAt(LocalDateTime.now().minusDays(6));
 

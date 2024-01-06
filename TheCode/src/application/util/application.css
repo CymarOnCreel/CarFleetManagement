@@ -40,9 +40,9 @@
 .round-button .image-view {
     -fx-clip-shape: circle;
 }
-.text-center-black{
-	-fx-font-size:16.0px;
-	-fx-fill: black;
+.text-center-white{
+	-fx-font-size:24.0px;
+	-fx-fill: white;
 	-fx-font-weight: bold;
 	-fx-alignment:center;
 }
@@ -56,4 +56,12 @@
 	-fx-font-weight: bold;
 	-fx-text-fill: white;
 	-fx-font-size: 24.0px;
+	-fx-background-radius:15.0;
+}
+.save-update-button{
+	-fx-background-color:#005ce6 ;
+	-fx-font-weight: bold;
+	-fx-text-fill: white;
+	-fx-font-size: 24.0px;
+	-fx-background-radius:15.0;
 }

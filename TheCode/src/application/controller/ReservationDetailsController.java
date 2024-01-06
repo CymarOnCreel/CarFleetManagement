@@ -180,6 +180,7 @@ public class ReservationDetailsController {
 			stage.setScene(scene);
 			stage.showAndWait();
 			carField.setText(reservation.getCar().getLicensePlate());
+			mileageAtStart.setText(String.valueOf(reservation.getCar().getMileage()));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

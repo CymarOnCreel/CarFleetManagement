@@ -7,20 +7,23 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="593.0" prefWidth="1273.0" stylesheets="@../util/application.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.ListUsersFrameController">
    <children>
       <TableView fx:id="employeeListTable" layoutX="38.0" layoutY="152.0" prefHeight="349.0" prefWidth="1200.0" tableMenuButtonVisible="true" />
-      <ChoiceBox fx:id="role" layoutX="448.0" layoutY="101.0" prefHeight="38.0" prefWidth="190.0" />
-      <Button fx:id="close" layoutX="1128.0" layoutY="517.0" mnemonicParsing="false" onAction="#close" prefHeight="39.0" prefWidth="110.0" styleClass="close-button" stylesheets="@../util/application.css" text="CLOSE" />
-      <Label alignment="CENTER" layoutX="521.0" layoutY="26.0" prefHeight="53.0" prefWidth="234.0" text="Users">
+      <ChoiceBox fx:id="role" layoutX="794.0" layoutY="102.0" prefHeight="38.0" prefWidth="190.0" />
+      <Button fx:id="close" layoutX="1128.0" layoutY="517.0" mnemonicParsing="false" onAction="#close" prefHeight="39.0" prefWidth="110.0" style="-fx-background-radius: 15;" styleClass="close-button" stylesheets="@../util/application.css" text="CLOSE" />
+      <Label alignment="CENTER" layoutX="521.0" layoutY="26.0" prefHeight="53.0" prefWidth="234.0" text="Users" textFill="WHITE">
          <font>
-            <Font size="36.0" />
+            <Font name="System Bold" size="36.0" />
          </font>
       </Label>
-      <Group layoutX="55.0" layoutY="107.0">
+      <Group layoutX="119.0" layoutY="108.0">
          <children>
             <RadioButton fx:id="all" mnemonicParsing="false" onAction="#getAllEmployees" text="ALL" textFill="WHITE">
                <font>
@@ -39,6 +42,19 @@
             </RadioButton>
          </children>
       </Group>
+      <ImageView fitHeight="139.0" fitWidth="182.0" layoutX="1099.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../pictures/employeesIcon.png" />
+         </image>
+         <effect>
+            <InnerShadow choke="1.0" height="255.0" radius="127.0" width="255.0" />
+         </effect>
+      </ImageView>
+      <Label layoutX="824.0" layoutY="53.0" text="Select Role:" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
    </children>
    <styleClass>
       <String fx:value="my-table" />

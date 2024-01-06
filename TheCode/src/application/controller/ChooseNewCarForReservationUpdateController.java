@@ -17,6 +17,7 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Bounds;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -39,6 +40,7 @@ public class ChooseNewCarForReservationUpdateController implements Initializable
 	private static final double CAR_IMAGE_WIDTH = 300;
 	private static final double CAR_IMAGE_HEIGHT = 300;
 	private static final String DEFAULT_IMAGE_PATH = "application/pictures/suv-removebg-preview.png";
+	private static final double TEXT_BOX_HEIGHT = 30;
 
 	private int tileColumns = 3;
 	private ReservationDao reservationDao = new ReservationDao();
@@ -121,8 +123,10 @@ public class ChooseNewCarForReservationUpdateController implements Initializable
 			Text carInfoText = new Text(currentCar.getMake() + " " + currentCar.getModel() + "\n" + "Transmission: "
 					+ currentCar.getTransmissionType() + "\n" + "Fuel Type: " + currentCar.getFuel() + "\n" + "Seats: "
 					+ currentCar.getSeats());
-			carInfoText.getStyleClass().add("text-center-black");
+			carInfoText.getStyleClass().add("text-center-white");
 			carInfoBox.getChildren().add(carInfoText);
+//			Bounds bounds = carInfoText.getLayoutBounds();
+//			double textBoxHeight=bounds.getHeight();
 			carInfoBox.setOnMouseClicked(event -> {
 				handleCarImageClick(currentCar);
 			});
@@ -143,7 +147,7 @@ public class ChooseNewCarForReservationUpdateController implements Initializable
 			tileColumns = totalCarsAvaileble;
 		int numberOfRows = (int) Math.ceil((double) totalCarsAvaileble / tileColumns);
 		double windowWidth = tileColumns * CAR_IMAGE_WIDTH;
-		double windowHeight = numberOfRows * CAR_IMAGE_HEIGHT;
+		double windowHeight = numberOfRows * (CAR_IMAGE_HEIGHT+TEXT_BOX_HEIGHT);
 		Stage stage = (Stage) gridPane.getScene().getWindow();
 		stage.setWidth(windowWidth);
 		stage.setHeight(windowHeight);

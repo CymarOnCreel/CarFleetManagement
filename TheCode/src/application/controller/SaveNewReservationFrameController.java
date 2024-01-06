@@ -113,10 +113,9 @@ public class SaveNewReservationFrameController implements Initializable {
 
 	private void updateLabelsAndImage() {
 		carMake.setText(carMake.getText() + " " + carChoosen.getMake());
-		System.out.println(carMake.getText());
 		carModel.setText(carModel.getText() + " " + carChoosen.getModel());
-		startDate.setText(startDate.getText() + " " + startDateData);
-		endDate.setText(endDate.getText() + " " + endDateData);
+		startDate.setText(startDate.getText() + " " + startDateData.toLocalDate());
+		endDate.setText(endDate.getText() + " " + endDateData.toLocalDate());
 		fuelType.setText(fuelType.getText() + " " + carChoosen.getFuel());
 		seatsNumber.setText(seatsNumber.getText() + " " + String.valueOf(carChoosen.getSeats()));
 		site.setText(site.getText() + " " + carChoosen.getSiteName());
