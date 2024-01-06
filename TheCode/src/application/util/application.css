@@ -40,3 +40,10 @@
 .round-button .image-view {
     -fx-clip-shape: circle;
 }
+.text-center-black{
+	-fx-font-size:14.0px;
+	-fx-fill: black;
+	-fx-font-weight: bold;
+	-fx-alignment:center;
+	
+}
