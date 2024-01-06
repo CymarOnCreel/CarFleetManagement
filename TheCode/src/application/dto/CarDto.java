@@ -13,6 +13,8 @@ import javax.persistence.Table;
 @Table(name="car")
 public class CarDto {
 	
+
+
 	@Column(name="license_plate")
 	@Id
 	private String licensePlate;
@@ -178,7 +180,9 @@ public class CarDto {
 		this.updatedAt = LocalDate.now();
 		this.enabled = enabled ? 1:0;
 	}
-	
+	public void setMileage(int mileage) {
+		this.mileage = mileage;
+	}
 	public void deleteCarDto() {
 		enabled = 0;
 		updatedAt = LocalDate.now();

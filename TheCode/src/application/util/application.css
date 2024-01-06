@@ -45,5 +45,9 @@
 	-fx-fill: black;
 	-fx-font-weight: bold;
 	-fx-alignment:center;
-	
+}
+
+.wrong-input-background{
+	-fx-background-color:red;
+	-fx-fill: white;
 }
