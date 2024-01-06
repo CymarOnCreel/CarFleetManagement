@@ -4,7 +4,6 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -12,63 +11,29 @@
 <?import javafx.scene.shape.Polygon?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1200.0" prefWidth="1900.0" style="-fx-background-color: #1F363C;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.CarNewFrameController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1900.0" style="-fx-background-color: #1F363C;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.CarNewFrameController">
 	<children>
 		<Polygon fill="#159991" layoutX="1715.0" layoutY="123.0" points="-931.0, -123.00003051757812, 185.0, 861.5, 185.0, -123.0" stroke="#159991" strokeType="INSIDE" />
 		<Polygon fill="#159991" layoutX="1788.0" layoutY="432.0" points="-720.333251953125, 551.0, 112.0, 552.5, -1004.0, -447.6666564941406" stroke="#159991" strokeType="OUTSIDE" />
-		<Button fx:id="home" layoutX="831.0" layoutY="40.0" mnemonicParsing="false" prefHeight="103.0" prefWidth="164.0" style="-fx-background-color: #159991;" text="HOME" textFill="WHITE">
-			<font>
-				<Font size="38.0" />
-			</font>
-		</Button>
-		<MenuButton fx:id="reservation" layoutX="996.0" layoutY="40.0" mnemonicParsing="false" prefHeight="103.0" prefWidth="353.0" style="-fx-background-color: #159991;" styleClass="custom-menu-button" stylesheets="@../util/application.css" text="RESERVATION" textAlignment="CENTER" textFill="WHITE">
-			<font>
-				<Font size="38.0" />
-			</font>
-			<items>
-			<!--	<MenuItem fx:id="listUserReservation" mnemonicParsing="false" onAction="#listAllReservationOfUser" styleClass="menu-item" text="List My Reservations" />
-				<MenuItem fx:id="newReservation" mnemonicParsing="false" onAction="#createNewCarReservation" styleClass="menu-item" text="New Reservation" /> -->
-			</items>
-		</MenuButton>
-		<MenuButton fx:id="cars" layoutX="1360.0" layoutY="40.0" mnemonicParsing="false" prefHeight="103.0" prefWidth="201.0" style="-fx-background-color: #159991;" styleClass="custom-menu-button" stylesheets="@../../../../../../../util/application.css" text="CARS" textFill="WHITE">
-			<font>
-				<Font size="38.0" />
-			</font>
-			<items>
-			<!--	<MenuItem fx:id="addNewCar" mnemonicParsing="false" onAction="#addNewCarToDatabase" styleClass="menu-item" text="Add New Car" />
-				<MenuItem fx:id="addCarMaintenance" mnemonicParsing="false" onAction="#reserveCarForMaintenance" styleClass="menu-item" text="Add Car Maintenance" /> -->
-			</items>
-		</MenuButton>
-		<MenuButton fx:id="profile" layoutX="1570.0" layoutY="40.0" mnemonicParsing="false" prefHeight="103.0" prefWidth="315.0" style="-fx-background-color: #000000; -fx-background-radius: 30;" styleClass="custom-menu-button" text="PROFILE" textFill="WHITE">
-			<font>
-				<Font size="38.0" />
-			</font>
-			<items>
-		<!--		<MenuItem fx:id="login" mnemonicParsing="false" onAction="#login" styleClass="menu-item" text="Login" />
-				<MenuItem fx:id="logout" mnemonicParsing="false" onAction="#logout" styleClass="menu-item" text="Logout" />
-				<MenuItem fx:id="changePassword" mnemonicParsing="false" onAction="#changeUserPassword" styleClass="menu-item" text="Change Password" />
-				<MenuItem fx:id="registration" mnemonicParsing="false" onAction="#registerNewUser" styleClass="menu-item" text="Registration" /> -->
-			</items>
-		</MenuButton>
-      <ImageView fitHeight="363.0" fitWidth="488.0" layoutX="-29.0" layoutY="-125.0">
+      <ImageView fitHeight="363.0" fitWidth="488.0" layoutX="14.0" layoutY="-143.0">
          <image>
             <Image url="@../pictures/carfleet-removebg-preview.png" />
          </image>
       </ImageView>
-      <Label layoutX="118.0" layoutY="199.0" prefHeight="73.0" prefWidth="207.0" text="Rendszám:" textFill="WHITE">
+      <Label layoutX="161.0" layoutY="93.0" prefHeight="73.0" prefWidth="207.0" text="Rendszám:" textFill="WHITE">
          <font>
             <Font size="32.0" />
          </font>
       </Label>
-      <TextField fx:id="tfLicensePlate" layoutX="339.0" layoutY="226.0" />
-      <Label layoutX="118.0" layoutY="272.0" text="Gyártmány:" textFill="WHITE">
+      <TextField fx:id="tfLicensePlate" layoutX="382.0" layoutY="120.0" />
+      <Label layoutX="161.0" layoutY="166.0" text="Gyártmány:" textFill="WHITE">
          <font>
             <Font size="32.0" />
          </font>
       </Label>
-      <ComboBox fx:id="cmbMake" layoutX="340.0" layoutY="283.0" onAction="#makeSelected" prefWidth="150.0" />
-      <Button fx:id="btnAddMake" layoutX="522.0" layoutY="285.0" mnemonicParsing="false" onAction="#addMake" text="Add" />
-      <Button fx:id="btnUpdateMake" layoutX="580.0" layoutY="285.0" mnemonicParsing="false" onAction="#updateMake" text="Update" />
+      <ComboBox fx:id="cmbMake" layoutX="383.0" layoutY="177.0" onAction="#makeSelected" prefWidth="150.0" />
+      <Button fx:id="btnAddMake" layoutX="565.0" layoutY="179.0" mnemonicParsing="false" onAction="#addMake" text="+" />
+      <Button fx:id="btnUpdateMake" layoutX="623.0" layoutY="179.0" mnemonicParsing="false" onAction="#updateMake" text="Szerkesztés" />
       <ImageView fitHeight="467.0" fitWidth="732.0" layoutX="1111.0" layoutY="209.0" preserveRatio="true">
          <image>
             <Image url="@../pictures/CarNewframePicture/1_qYUvh-EtES8dtgKiBRiLsA.png" />
@@ -79,7 +44,7 @@
             <Image url="@../pictures/CarNewframePicture/nyitva-tartas-vagy-nyitvatartas-removebg-preview.png" />
          </image>
       </ImageView>
-      <Label layoutX="136.0" layoutY="333.0" text="Modell:" textFill="WHITE">
+      <Label layoutX="179.0" layoutY="227.0" text="Modell:" textFill="WHITE">
          <font>
             <Font size="32.0" />
          </font>
@@ -89,90 +54,94 @@
             <Image url="@../pictures/CarNewframePicture/nyitvatartas-tabla-egyedi-TDE70312-fekete-feher-kreta-hatas-removebg-preview.png" />
          </image>
       </ImageView>
-      <ComboBox fx:id="cmbModel" disable="true" layoutX="339.0" layoutY="344.0" prefWidth="150.0" />
-      <Button fx:id="btnAddModel" disable="true" layoutX="522.0" layoutY="344.0" mnemonicParsing="false" onAction="#addModel" text="Add" />
-      <Button fx:id="btnUpdateModel" disable="true" layoutX="580.0" layoutY="345.0" mnemonicParsing="false" onAction="#updateModel" text="Update" />
-      <Label layoutX="121.0" layoutY="389.0" text="Kategória:" textFill="WHITE">
+      <ComboBox fx:id="cmbModel" disable="true" layoutX="382.0" layoutY="238.0" prefWidth="150.0" />
+      <Button fx:id="btnAddModel" disable="true" layoutX="565.0" layoutY="238.0" mnemonicParsing="false" onAction="#addModel" text="+" />
+      <Button fx:id="btnUpdateModel" disable="true" layoutX="623.0" layoutY="239.0" mnemonicParsing="false" onAction="#updateModel" text="Szerkesztés" />
+      <Label layoutX="164.0" layoutY="283.0" text="Kategória:" textFill="WHITE">
          <font>
             <Font size="32.0" />
          </font>
       </Label>
-      <ComboBox fx:id="cmbCategory" layoutX="339.0" layoutY="400.0" prefWidth="150.0" />
-      <Button fx:id="btnAddCategory" layoutX="522.0" layoutY="400.0" mnemonicParsing="false" onAction="#addCategory" text="Add" />
-      <Button fx:id="btnUpdateCategory" layoutX="580.0" layoutY="400.0" mnemonicParsing="false" onAction="#updateCategory" text="Update" />
-      <Label layoutX="59.0" layoutY="445.0" text="Üzemanyag típusa:" textFill="WHITE">
+      <ComboBox fx:id="cmbCategory" layoutX="382.0" layoutY="294.0" prefWidth="150.0" />
+      <Button fx:id="btnAddCategory" layoutX="565.0" layoutY="294.0" mnemonicParsing="false" onAction="#addCategory" text="+" />
+      <Button fx:id="btnUpdateCategory" layoutX="623.0" layoutY="294.0" mnemonicParsing="false" onAction="#updateCategory" text="Szerkesztés" />
+      <Label layoutX="102.0" layoutY="339.0" text="Üzemanyag típusa:" textFill="WHITE">
          <font>
             <Font size="32.0" />
          </font>
       </Label>
-      <ComboBox fx:id="cmbFuel" layoutX="339.0" layoutY="458.0" prefWidth="150.0" />
-      <Button fx:id="btnAddFuel" layoutX="522.0" layoutY="458.0" mnemonicParsing="false" onAction="#addFuel" text="Add" />
-      <Button fx:id="btnUpdateFuel" layoutX="580.0" layoutY="458.0" mnemonicParsing="false" onAction="#updateFuel" text="Update" />
-      <Label layoutX="100.0" layoutY="501.0" text="Ajtók száma:" textFill="WHITE">
+      <ComboBox fx:id="cmbFuel" layoutX="382.0" layoutY="352.0" prefWidth="150.0" />
+      <Button fx:id="btnAddFuel" layoutX="565.0" layoutY="352.0" mnemonicParsing="false" onAction="#addFuel" text="+" />
+      <Button fx:id="btnUpdateFuel" layoutX="623.0" layoutY="352.0" mnemonicParsing="false" onAction="#updateFuel" text="Szerkesztés" />
+      <Label layoutX="143.0" layoutY="395.0" text="Ajtók száma:" textFill="WHITE">
          <font>
             <Font size="32.0" />
          </font>
       </Label>
-      <TextField fx:id="tfDoors" layoutX="340.0" layoutY="514.0" onKeyTyped="#intTyped" />
-      <Label layoutX="89.0" layoutY="551.0" text="Ülések száma:" textFill="WHITE">
+      <TextField fx:id="tfDoors" layoutX="383.0" layoutY="408.0" onKeyTyped="#intTyped" />
+      <Label layoutX="132.0" layoutY="445.0" text="Ülések száma:" textFill="WHITE">
          <font>
             <Font size="32.0" />
          </font>
       </Label>
-      <TextField fx:id="tfSeats" layoutX="340.0" layoutY="564.0" onKeyTyped="#intTyped" />
-      <Label layoutX="101.0" layoutY="603.0" text="Váltó típusa:" textFill="WHITE">
+      <TextField fx:id="tfSeats" layoutX="383.0" layoutY="458.0" onKeyTyped="#intTyped" />
+      <Label layoutX="144.0" layoutY="497.0" text="Váltó típusa:" textFill="WHITE">
          <font>
             <Font size="32.0" />
          </font>
       </Label>
-      <ComboBox fx:id="cmbTransmission" layoutX="339.0" layoutY="617.0" prefWidth="150.0" />
-      <Button fx:id="btnAddTransmission" layoutX="521.0" layoutY="618.0" mnemonicParsing="false" onAction="#addTransmission" text="Add" />
-      <Button fx:id="btnAddTransmisson" layoutX="579.0" layoutY="618.0" mnemonicParsing="false" onAction="#updateTransmission" text="Update" />
-      <ImageView fitHeight="254.0" fitWidth="315.0" layoutX="107.0" layoutY="642.0">
+      <ComboBox fx:id="cmbTransmission" layoutX="382.0" layoutY="511.0" prefWidth="150.0" />
+      <Button fx:id="btnAddTransmission" layoutX="564.0" layoutY="512.0" mnemonicParsing="false" onAction="#addTransmission" text="+" />
+      <Button fx:id="btnAddTransmisson" layoutX="622.0" layoutY="512.0" mnemonicParsing="false" onAction="#updateTransmission" text="Szerkesztés" />
+      <ImageView fitHeight="254.0" fitWidth="315.0" layoutX="107.0" layoutY="512.0">
          <image>
             <Image url="@../pictures/CarNewframePicture/8701388-removebg-preview.png" />
          </image>
       </ImageView>
-      <Label layoutX="227.0" layoutY="867.0" text="Kilóméteróra állás:" textFill="WHITE">
+      <Label layoutX="291.0" layoutY="743.0" text="Kilóméteróra állás:" textFill="WHITE">
          <font>
             <Font size="32.0" />
          </font>
       </Label>
-      <TextField fx:id="tfMileage" layoutX="495.0" layoutY="883.0" onKeyTyped="#intTyped" />
-      <Label layoutX="14.0" layoutY="916.0" text="Kötelező szerviz intervallum (km):" textFill="WHITE">
+      <TextField fx:id="tfMileage" layoutX="559.0" layoutY="759.0" onKeyTyped="#intTyped" />
+      <Label layoutX="78.0" layoutY="792.0" text="Kötelező szerviz intervallum (km):" textFill="WHITE">
          <font>
             <Font size="32.0" />
          </font>
       </Label>
-      <TextField fx:id="tfServiceInterval" layoutX="494.0" layoutY="929.0" onKeyTyped="#intTyped" />
-      <Label layoutX="62.0" layoutY="967.0" text="Műszaki vizsga érvényessége:" textFill="WHITE">
+      <TextField fx:id="tfServiceInterval" layoutX="558.0" layoutY="805.0" onKeyTyped="#intTyped" />
+      <Label layoutX="126.0" layoutY="843.0" text="Műszaki vizsga érvényessége:" textFill="WHITE">
          <font>
             <Font size="32.0" />
          </font>
       </Label>
-      <DatePicker fx:id="dpInspectionExpiryDate" layoutX="492.0" layoutY="982.0" />
-      <Label layoutX="326.0" layoutY="1022.0" text="Telephely:" textFill="WHITE">
+      <DatePicker fx:id="dpInspectionExpiryDate" layoutX="556.0" layoutY="858.0" />
+      <Label layoutX="390.0" layoutY="898.0" text="Telephely:" textFill="WHITE">
          <font>
             <Font size="32.0" />
          </font>
       </Label>
-      <ComboBox fx:id="cmbSite" layoutX="492.0" layoutY="1034.0" prefWidth="150.0" />
-      <Button fx:id="btnAddSite" layoutX="666.0" layoutY="1035.0" mnemonicParsing="false" onAction="#addSite" text="Add" />
-      <Button fx:id="btnUpdateSite" disable="true" layoutX="722.0" layoutY="1035.0" mnemonicParsing="false" onAction="#updateSite" text="Update" />
-      <Button fx:id="btnSaveNewCar" layoutX="513.0" layoutY="1107.0" mnemonicParsing="false" onAction="#saveNewCar" text="Save">
+      <ComboBox fx:id="cmbSite" layoutX="556.0" layoutY="910.0" prefWidth="150.0" />
+      <Button fx:id="btnAddSite" layoutX="730.0" layoutY="911.0" mnemonicParsing="false" onAction="#addSite" text="+" />
+      <Button fx:id="btnSaveNewCar" layoutX="712.0" layoutY="986.0" mnemonicParsing="false" onAction="#saveNewCar" text="Mentés">
          <font>
             <Font size="20.0" />
          </font>
       </Button>
-      <ImageView fitHeight="159.0" fitWidth="164.0" layoutX="106.0" layoutY="1016.0">
+      <ImageView fitHeight="159.0" fitWidth="164.0" layoutX="170.0" layoutY="892.0">
          <image>
             <Image url="@../pictures/CarNewframePicture/5935741-removebg-preview.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="103.0" fitWidth="99.0" layoutX="707.0" layoutY="865.0">
+      <ImageView fitHeight="103.0" fitWidth="99.0" layoutX="771.0" layoutY="741.0">
          <image>
             <Image url="@../pictures/CarNewframePicture/google-maps-logo-removebg-preview.png" />
          </image>
       </ImageView>
+      <Button fx:id="btnCancel" layoutX="442.0" layoutY="986.0" mnemonicParsing="false" onAction="#cancel" text="Mégsem">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
 	</children>
 </AnchorPane>
