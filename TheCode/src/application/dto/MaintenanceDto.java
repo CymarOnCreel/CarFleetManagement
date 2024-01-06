@@ -124,7 +124,6 @@ public class MaintenanceDto {
 	}
 	
 	public void deleteMaintenanceDto() {
-		int enabled = 0;
-		LocalDate updatedAt = LocalDate.now();
+		
 	}
 }

@@ -9,17 +9,13 @@ import java.util.ResourceBundle;
 
 import application.alert.AlertMessage;
 import application.dao.CarDao;
-import application.dao.FuelDao;
 import application.dao.MaintenanceDao;
 import application.dao.MaintenanceTypeDao;
 import application.dao.ServiceCompanyDao;
-import application.dao.SiteDao;
 import application.dto.CarDto;
-import application.dto.FuelDto;
 import application.dto.MaintenanceDto;
 import application.dto.MaintenanceTypeDto;
 import application.dto.ServiceCompanyDto;
-import application.dto.SiteDto;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

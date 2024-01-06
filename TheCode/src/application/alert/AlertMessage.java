@@ -70,4 +70,10 @@ public class AlertMessage {
 		a.setTitle("Sikeres mentés");
 		a.show();
 	}
+
+	public void insuranceSaveSuccess() {
+		Alert a = new Alert(AlertType.NONE, "A biztosítás mentese sikeresen megtörtént.", ButtonType.OK);
+		a.setTitle("Sikeres mentés");
+		a.show();
+	}
 }

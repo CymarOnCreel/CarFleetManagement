@@ -97,14 +97,26 @@ public class MainFrameController implements Initializable {
 
 	}
 
-	@FXML
-	private void reserveCarForMaintenance(ActionEvent event) {
-		// To-DO create Scene + methods for reserving a car for maintenance
-	}
 	 @FXML
-	  private  void addNewInsurance(ActionEvent event) {
-
+	private  void addNewInsurance(ActionEvent event) {
+		 FXMLLoader loader=new FXMLLoader(getClass().getResource("/application/frame/InsuranceNewFrame.fxml"));
+			AnchorPane root;
+			try {
+				root = (AnchorPane)loader.load();
+				Scene scene=new Scene(root);
+				scene.getStylesheets().add(getClass().getResource("/application/util/application.css").toExternalForm());
+				Stage stage=new Stage();
+				stage.setTitle("Biztosítás hozzáadása");
+				stage.setScene(scene);
+				stage.initModality(Modality.APPLICATION_MODAL);
+				stage.initOwner(Main.getPrimaryStage());
+				stage.showAndWait();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	    }
+	 
 	@FXML
 	void createNewCarReservation(ActionEvent event) throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/frame/NewReservationFrame.fxml"));

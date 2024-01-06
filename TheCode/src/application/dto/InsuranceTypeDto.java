@@ -29,7 +29,7 @@ public class InsuranceTypeDto {
 
 	@Override
 	public String toString() {
-		return "InsuranceTypeDto [nameInsuranceType=" + nameInsuranceType + "]";
+		return nameInsuranceType;
 	}
 	
 	public void updateInsuranceTypeDto(String nameInsuranceType) {
