@@ -235,6 +235,28 @@ public class MainFrameController implements Initializable {
 		search.setDisable(false);
 	}
 
+	@FXML
+	void reserveCarForMaintenance(ActionEvent event) {
+		FXMLLoader loader=new FXMLLoader(getClass().getResource("/application/frame/MaintenanceNewFrame.fxml"));
+		AnchorPane root;
+		try {
+			root = (AnchorPane)loader.load();
+			Scene scene=new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("/application/util/application.css").toExternalForm());
+			Stage stage=new Stage();
+			stage.setTitle("Karbantartás hozzáadása");
+			stage.setScene(scene);
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.initOwner(Main.getPrimaryStage());
+			stage.showAndWait();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+
+	}
+
 	private void setUpMenuForNoEmployeeLogedIn() {
 		reservation.setDisable(true);
 //		newReservation.setDisable(true);

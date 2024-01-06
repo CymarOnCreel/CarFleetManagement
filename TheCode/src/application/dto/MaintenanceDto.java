@@ -4,6 +4,8 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -12,6 +14,7 @@ import javax.persistence.Table;
 public class MaintenanceDto {
 
 	@Column(name="id_maintenance")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
 	private int idMaintenance;
 	
@@ -42,9 +45,8 @@ public class MaintenanceDto {
 	@Column(name="updated_at")
 	private LocalDate updatedAt;
 
-	public MaintenanceDto(int idMaintenance, String licensePlate, String maintenanceType, String serviceCompany,
+	public MaintenanceDto(String licensePlate, String maintenanceType, String serviceCompany,
 			LocalDate date, int mileage, String description, int amount, LocalDate createdAt, LocalDate updatedAt) {
-		this.idMaintenance = idMaintenance;
 		this.licensePlate = licensePlate;
 		this.maintenanceType = maintenanceType;
 		this.serviceCompany = serviceCompany;

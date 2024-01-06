@@ -29,7 +29,7 @@ public class MaintenanceTypeDto {
 
 	@Override
 	public String toString() {
-		return "MaintenanceTypeDto [nameMaintenanceType=" + nameMaintenanceType + "]";
+		return nameMaintenanceType;
 	}
 	
 	public void updateMaintenanceTypeDto(String nameMaintenanceType) {
