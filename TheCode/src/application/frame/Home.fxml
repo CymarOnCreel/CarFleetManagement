@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -11,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1200.0" prefWidth="1900.0" style="-fx-background-color: #1F363C;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.MainFrameController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1200.0" prefWidth="1900.0" style="-fx-background-color: #1F363C;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.MainFrameController">
 	<children>
 		<Polygon fill="#159991" layoutX="1715.0" layoutY="123.0" points="-931.0, -123.00003051757812, 185.0, 861.5, 185.0, -123.0" stroke="#159991" strokeType="INSIDE" />
 		<Polygon fill="#159991" layoutX="1788.0" layoutY="432.0" points="-720.333251953125, 551.0, 112.0, 552.5, -1004.0, -447.6666564941406" stroke="#159991" strokeType="OUTSIDE" />
@@ -52,20 +53,36 @@
 				<Font size="38.0" />
 			</font>
 			<items>
-				<MenuItem fx:id="listUserReservation" mnemonicParsing="false" onAction="#listAllReservationOfUser" styleClass="menu-item" text="List My Reservations" />
 				<MenuItem fx:id="newReservation" mnemonicParsing="false" onAction="#createNewCarReservation" styleClass="menu-item" text="New Reservation" />
+				<MenuItem fx:id="listUserReservation" mnemonicParsing="false" onAction="#listAllReservationOfUser" styleClass="menu-item" text="List My Reservations" />
 			</items>
 		</MenuButton>
-		<MenuButton fx:id="cars" layoutX="1360.0" layoutY="40.0" mnemonicParsing="false" prefHeight="103.0" prefWidth="201.0" style="-fx-background-color: #159991;" styleClass="custom-menu-button" stylesheets="@../../../../../../../util/application.css" text="CARS" textFill="WHITE">
+		<MenuButton fx:id="admin" layoutX="1337.0" layoutY="40.0" mnemonicParsing="false" prefHeight="103.0" prefWidth="244.0" style="-fx-background-color: #159991;" styleClass="custom-menu-button" stylesheets="@../../../../../../../util/application.css" text="ADMIN" textFill="WHITE">
 			<font>
 				<Font size="38.0" />
 			</font>
 			<items>
-				<MenuItem fx:id="addNewCar" mnemonicParsing="false" onAction="#addNewCarToDatabase" styleClass="menu-item" text="Add New Car" />
-				<MenuItem fx:id="addCarMaintenance" mnemonicParsing="false" onAction="#reserveCarForMaintenance" styleClass="menu-item" text="Add Car Maintenance" />
+				<MenuItem mnemonicParsing="false" styleClass="menu-item">
+               <graphic>
+                  <SplitMenuButton fx:id="cars" mnemonicParsing="false" text="Cars">
+                    <items>
+                      <MenuItem fx:id="addNewCarToDatabase" mnemonicParsing="false" onAction="#addNewCarToDatabase" text="Add New Car" />
+                      <MenuItem fx:id="addCarMaintenance" mnemonicParsing="false" onAction="#reserveCarForMaintenance" text="Add Car Maintenance" />
+                    </items>
+                  </SplitMenuButton>
+               </graphic></MenuItem>
+				<MenuItem mnemonicParsing="false" styleClass="menu-item">
+               <graphic>
+                  <SplitMenuButton fx:id="users" mnemonicParsing="false" text="Users">
+                    <items>
+                      <MenuItem fx:id="listUsers" mnemonicParsing="false" onAction="#listUsers" text="List Users" />
+                      <MenuItem fx:id="addUser" mnemonicParsing="false" onAction="#addNewUser" text="Add User" />
+                    </items>
+                  </SplitMenuButton>
+               </graphic></MenuItem>
 			</items>
 		</MenuButton>
-		<MenuButton fx:id="profile" layoutX="1570.0" layoutY="40.0" mnemonicParsing="false" prefHeight="103.0" prefWidth="315.0" style="-fx-background-color: #000000; -fx-background-radius: 30;" styleClass="custom-menu-button" text="PROFILE" textFill="WHITE">
+		<MenuButton fx:id="profile" layoutX="1582.0" layoutY="40.0" mnemonicParsing="false" prefHeight="103.0" prefWidth="303.0" style="-fx-background-color: #000000; -fx-background-radius: 30;" styleClass="custom-menu-button" text="PROFILE" textFill="WHITE">
 			<font>
 				<Font size="38.0" />
 			</font>

@@ -88,4 +88,15 @@ public class EmployeeDao implements ICrud<EmployeeDto>{
 			  Long result = typedQuery.getSingleResult();
 			  return result;
 	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public EmployeeDto getEmployeeByEmail(String email) {
+		CriteriaBuilder builder= entityManager.getCriteriaBuilder();
+		CriteriaQuery query=builder.createQuery(EmployeeDto.class);
+		Root<EmployeeDto> from=query.from(EmployeeDto.class);
+		query.where(builder.equal(from.get("email"), email));
+	
+		EmployeeDto employee=(EmployeeDto) entityManager.createQuery(query).getSingleResult();
+		return employee;
+	}
 }
