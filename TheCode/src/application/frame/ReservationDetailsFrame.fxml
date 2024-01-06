@@ -5,25 +5,30 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="321.0" prefWidth="588.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.ReservationDetailsController">
+<AnchorPane prefHeight="291.0" prefWidth="588.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.ReservationDetailsController">
 
 	<Label layoutX="40.0" layoutY="52.0" text="Employee Name:" />
 	<TextField fx:id="employeeNameField" disable="true" editable="false" layoutX="160.0" layoutY="48.0" />
 
-	<Label layoutX="40.0" layoutY="84.0" text="Car:" />
-	<TextField fx:id="carField" disable="true" editable="false" layoutX="160.0" layoutY="80.0" />
+	<Label layoutX="340.0" layoutY="52.0" text="Car:" />
+	<TextField fx:id="carField" disable="true" editable="false" layoutX="407.0" layoutY="48.0" />
 
-	<Label layoutX="40.0" layoutY="116.0" text="Start Date:" />
-	<Label layoutX="40.0" layoutY="148.0" text="End Date:" />
+	<Label layoutX="49.0" layoutY="88.0" text="Start Date:" />
+	<Label layoutX="325.0" layoutY="88.0" text="End Date:" />
 
-	<Label layoutX="45.0" layoutY="187.0" text="Description:" />
-	<TextField fx:id="descriptionField" layoutX="160.0" layoutY="183.0" />
+	<Label layoutX="54.0" layoutY="176.0" text="Description:" />
+	<TextField fx:id="descriptionField" layoutX="160.0" layoutY="172.0" />
 
-	<Button fx:id="update" layoutX="214.0" layoutY="243.0" onAction="#updateReservation" text="Save" />
-	<Button fx:id="changeCar" layoutX="361.0" layoutY="80.0" mnemonicParsing="false" onAction="#changeCar" prefHeight="25.0" prefWidth="169.0" text="Change Car" />
-	<Button fx:id="close" layoutX="407.0" layoutY="243.0" onAction="#close" stylesheets="@../util/application.css" text="Close" />
-	<Button fx:id="cancelReservation" layoutX="379.0" layoutY="183.0" onAction="#setReservationDeleted" text="Cancel reservation" />
-	<TextField fx:id="showStartDate" disable="true" editable="false" layoutX="160.0" layoutY="112.0" />
-	<TextField fx:id="showEndDate" disable="true" editable="false" layoutX="160.0" layoutY="144.0" />
+	<Button fx:id="update" layoutX="40.0" layoutY="235.0" onAction="#updateReservation" text="Update" />
+	<Button fx:id="changeCar" layoutX="235.0" layoutY="14.0" mnemonicParsing="false" onAction="#changeCar" prefHeight="25.0" prefWidth="149.0" text="Change Car" />
+	<Button fx:id="close" layoutX="522.0" layoutY="235.0" onAction="#close" stylesheets="@../util/application.css" text="Close" />
+	<Button fx:id="cancelReservation" layoutX="237.0" layoutY="235.0" onAction="#setReservationDeleted" prefHeight="25.0" prefWidth="149.0" text="Cancel reservation" />
+	<TextField fx:id="showStartDate" disable="true" editable="false" layoutX="160.0" layoutY="84.0" />
+	<TextField fx:id="showEndDate" disable="true" editable="false" layoutX="407.0" layoutY="84.0" />
+   <Label layoutX="15.0" layoutY="129.0" text="Mileageat Trip Start" />
+   <TextField fx:id="mileageAtEnd" layoutX="418.0" layoutY="125.0" promptText="11111" />
+   <Button fx:id="updateMileage" layoutX="418.0" layoutY="164.0" mnemonicParsing="false" onAction="#updateMileageAtEndOfTrip" prefHeight="25.0" prefWidth="149.0" text="Update Mileage" />
+   <Label layoutX="311.0" layoutY="129.0" text="Mileageat Trip End" />
+   <TextField fx:id="mileageAtStart" disable="true" editable="false" layoutX="145.0" layoutY="125.0" />
 
 </AnchorPane>

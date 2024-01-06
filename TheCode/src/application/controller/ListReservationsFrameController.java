@@ -258,8 +258,10 @@ public class ListReservationsFrameController implements Initializable {
 		ReservationDetailsController detailsController = loader.getController();
 		detailsController.setReservationListController(this);
 		detailsController.initialize(reservation);
+		Scene scene=new Scene(root);
+		scene.getStylesheets().add(getClass().getResource("/application/util/application.css").toExternalForm());
 		Stage detailsStage = new Stage();
-		detailsStage.setScene(new Scene(root));
+		detailsStage.setScene(scene);
 		detailsStage.setTitle("Reservation Details");
 		detailsStage.initModality(Modality.APPLICATION_MODAL);
 		detailsStage.showAndWait();

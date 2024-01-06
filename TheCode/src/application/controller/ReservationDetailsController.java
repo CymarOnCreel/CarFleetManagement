@@ -5,18 +5,17 @@ import java.time.LocalDateTime;
 
 import application.alert.AlertMessage;
 import application.dao.ReservationDao;
+import application.dto.CarDto;
 import application.dto.ReservationDto;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class ReservationDetailsController {
@@ -32,7 +31,8 @@ public class ReservationDetailsController {
 
 	@FXML
 	private Button close;
-
+	@FXML
+	private Button updateMileage;
 	@FXML
 	private TextField descriptionField;
 
@@ -40,11 +40,18 @@ public class ReservationDetailsController {
 	private TextField employeeNameField;
 
 	@FXML
+	private TextField mileageAtEnd;
+	
+	@FXML
+	private TextField mileageAtStart;
+	@FXML
 	private Button update;
 	@FXML
 	private TextField showStartDate;
 	@FXML
 	private TextField showEndDate;
+	
+	
 	private ReservationDao reservationDao;
 	private int reservationId;
 	private ListReservationsFrameController listFrameController;
@@ -60,8 +67,8 @@ public class ReservationDetailsController {
 
 	@FXML
 	void changeCar(ActionEvent event) {
-				showCarPickerStage(reservation);
-		}
+		showCarPickerStage(reservation);
+	}
 
 	@FXML
 	public void close(ActionEvent event) {
@@ -82,14 +89,42 @@ public class ReservationDetailsController {
 	}
 
 	@FXML
-	void updateReservation(ActionEvent event) {
+	private void updateReservation(ActionEvent event) {
 		reservation.setDescription(descriptionField.getText());
+		performeUpdateAndCloseWindow(event);
+	}
+
+	private void performeUpdateAndCloseWindow(ActionEvent event) {
 		reservationDao.update(reservation);
 		Node source = (Node) event.getSource();
 		Stage stage = (Stage) source.getScene().getWindow();
 		stage.close();
-		new AlertMessage().showConfirmationAlertMessage("Reservation Update Succesfull", "The Reservation was succesfully updated");
+		new AlertMessage().showConfirmationAlertMessage("Reservation Update Succesfull",
+				"The Reservation was succesfully updated");
 		listFrameController.setTable();
+	}
+	
+	@FXML
+	private void updateMileageAtEndOfTrip(ActionEvent event) {
+		int mileageUpdate=reservation.getCar().getMileage();
+		if (!isMileageTextFieldEmpty()) {
+			if (isMileageLesserThenStartMileage()) {
+				new AlertMessage().showUnknownError("Wrong mileage", "The mileage cannot be lesser than original");
+				mileageAtEnd.getStyleClass().add("wrong-input-background");
+			} else {
+				CarDto carUpdate = reservation.getCar();
+				mileageUpdate = Integer.parseInt(mileageAtEnd.getText());
+				carUpdate.setMileage(mileageUpdate);
+				mileageAtStart.setText(String.valueOf(mileageUpdate));
+				mileageAtEnd.getStyleClass().remove("wrong-input-background");
+			}
+		}
+	}
+	private boolean isMileageTextFieldEmpty() {
+		return mileageAtEnd.getText().isEmpty();
+	}
+	private boolean isMileageLesserThenStartMileage() {
+		return Integer.parseInt(mileageAtEnd.getText()) < reservation.getCar().getMileage();
 	}
 
 	public void initialize(ReservationDto reservation) {
@@ -101,18 +136,31 @@ public class ReservationDetailsController {
 		showStartDate.setText(reservation.getStartDateTime().toLocalDate().toString());
 		showEndDate.setText(reservation.getEndDateTime().toLocalDate().toString());
 		descriptionField.setText(reservation.getDescription());
+		mileageAtStart.setText(String.valueOf(reservation.getCar().getMileage()));
 		if (reservation.isDeleted()) {
 			setAllOptionsDisabledIfReservationIsNotUpdateble();
 		} else if (reservation.getStartDateTime().isBefore(today)) {
 			setAllOptionsDisabledIfReservationIsNotUpdateble();
 		}
+		setUpListeners();
+	}
+
+	private void setUpListeners() {
+		mileageAtEnd.textProperty().addListener((observable, oldaValue, newValue) -> {
+			if (!newValue.matches("\\d*")) {
+				mileageAtEnd.setText(newValue.replaceAll("[^\\d]", ""));
+			}
+		});
+
 	}
 
 	private void setAllOptionsDisabledIfReservationIsNotUpdateble() {
 		descriptionField.setDisable(true);
+		mileageAtEnd.setDisable(true);
 		update.setDisable(true);
 		cancelReservation.setDisable(true);
 		changeCar.setDisable(true);
+		updateMileage.setDisable(true);
 	}
 
 	private void showCarPickerStage(ReservationDto reservation) {
