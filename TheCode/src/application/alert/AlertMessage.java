@@ -57,7 +57,7 @@ public class AlertMessage {
 	public void carSaveSuccess() {
 		Alert a = new Alert(AlertType.NONE, "Az autó mentese sikeresen megtörtént.", ButtonType.OK);
 		a.setTitle("Sikeres mentés");
-		a.show();
+		a.show();}
 
   public void showUnknownError(String title, String message) {
 		Alert a =new Alert(AlertType.ERROR, message, ButtonType.CLOSE);

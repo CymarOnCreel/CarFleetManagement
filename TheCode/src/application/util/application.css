@@ -41,7 +41,7 @@
     -fx-clip-shape: circle;
 }
 .text-center-black{
-	-fx-font-size:14.0px;
+	-fx-font-size:16.0px;
 	-fx-fill: black;
 	-fx-font-weight: bold;
 	-fx-alignment:center;
