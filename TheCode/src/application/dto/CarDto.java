@@ -157,11 +157,7 @@ public class CarDto {
 
 	@Override
 	public String toString() {
-		return "CarDto [licensePlate=" + licensePlate + ", make=" + make + ", model=" + model + ", category=" + category
-				+ ", fuel=" + fuel + ", doors=" + doors + ", seats=" + seats + ", transmissionType=" + transmissionType
-				+ ", mileage=" + mileage + ", serviceInterval=" + serviceInterval + ", inspectionExpiryDate="
-				+ inspectionExpiryDate + ", siteName=" + siteName + ", status=" + status + ", createdAt=" + createdAt
-				+ ", updatedAt=" + updatedAt + ", enabled=" + enabled + "]";
+		return licensePlate + " - " + make;
 	}
 	
 	public void updateCarDto(MakeDto make, ModelDto model, CategoryDto category, String fuel, int doors, int seats,

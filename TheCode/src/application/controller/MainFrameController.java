@@ -9,7 +9,6 @@ import application.alert.AlertMessage;
 import application.dao.EmployeeDao;
 import application.dto.EmployeeDto;
 import application.util.UserSession;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -96,10 +95,10 @@ public class MainFrameController implements Initializable {
 
 	}
 
-	@FXML
-	void reserveCarForMaintenance(ActionEvent event) {
-		// To-DO create Scene + methods for reserving a car for maintenance
-	}
+//	@FXML
+//	void reserveCarForMaintenance(ActionEvent event) {
+//		// To-DO create Scene + methods for reserving a car for maintenance
+//	}
 
 	@FXML
 	void createNewCarReservation(ActionEvent event) throws IOException {
@@ -215,6 +214,28 @@ public class MainFrameController implements Initializable {
 		changePassword.setDisable(false);
 		registration.setDisable(true);
 		search.setDisable(false);
+	}
+
+	@FXML
+	void reserveCarForMaintenance(ActionEvent event) {
+		FXMLLoader loader=new FXMLLoader(getClass().getResource("/application/frame/MaintenanceNewFrame.fxml"));
+		AnchorPane root;
+		try {
+			root = (AnchorPane)loader.load();
+			Scene scene=new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("/application/util/application.css").toExternalForm());
+			Stage stage=new Stage();
+			stage.setTitle("Karbantartás hozzáadása");
+			stage.setScene(scene);
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.initOwner(Main.getPrimaryStage());
+			stage.showAndWait();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+
 	}
 
 	private void setUpMenuForNoEmployeeLogedIn() {

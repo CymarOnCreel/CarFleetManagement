@@ -64,4 +64,10 @@ public class AlertMessage {
 		a.setTitle(title);
 		a.show();
 	}
+
+	public void maintenanceSaveSuccess() {
+		Alert a = new Alert(AlertType.NONE, "A karbantartás mentese sikeresen megtörtént.", ButtonType.OK);
+		a.setTitle("Sikeres mentés");
+		a.show();
+	}
 }

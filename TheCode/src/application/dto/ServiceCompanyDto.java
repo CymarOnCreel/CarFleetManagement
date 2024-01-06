@@ -86,9 +86,7 @@ public class ServiceCompanyDto {
 
 	@Override
 	public String toString() {
-		return "ServiceCompanyDto [nameServiceCompany=" + nameServiceCompany + ", location=" + location
-				+ ", contactPerson=" + contactPerson + ", contactEmail=" + contactEmail + ", contactPhone="
-				+ contactPhone + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", enabled=" + enabled + "]";
+		return nameServiceCompany;
 	}
 	
 	public void updateServiceCompanyDto(String location, String contactPerson, String contactEmail,
