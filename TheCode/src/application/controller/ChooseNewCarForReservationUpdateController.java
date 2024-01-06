@@ -17,10 +17,15 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class ChooseNewCarForReservationUpdateController implements Initializable {
@@ -33,10 +38,10 @@ public class ChooseNewCarForReservationUpdateController implements Initializable
 	private List<ReservationDto> filteredReservations;
 	private List<CarDto> filteredCarsList;
 	private static final double CAR_IMAGE_WIDTH = 300;
-    private static final double CAR_IMAGE_HEIGHT = 300;
-    private static final String DEFAULT_IMAGE_PATH = "/application/pictures/suv-removebg-preview.png";
+	private static final double CAR_IMAGE_HEIGHT = 300;
+	private static final String DEFAULT_IMAGE_PATH = "application/pictures/suv-removebg-preview.png";
 
-	private int tileColumns=3;
+	private int tileColumns = 3;
 	private ReservationDao reservationDao = new ReservationDao();
 	private CarDao carDao;
 
@@ -67,9 +72,9 @@ public class ChooseNewCarForReservationUpdateController implements Initializable
 			getCarsNotInReservation();
 			if (filteredCarsList != null && filteredCarsList.size() != 0) {
 				setWindowSizeByFilteredCarsNumber();
+				centerStageOnScreen();
 				populateWithCarImagesAvailebleForChange();
 				makeStageUnresizable();
-				System.out.println("height"+mainStage.getHeight()+"\nwidth "+mainStage.getWidth());
 			} else {
 				Stage stage = (Stage) gridPane.getScene().getWindow();
 				stage.close();
@@ -107,19 +112,26 @@ public class ChooseNewCarForReservationUpdateController implements Initializable
 	private void populateWithCarImagesAvailebleForChange() {
 		for (int i = 0; i < filteredCarsList.size(); i++) {
 			CarDto currentCar = filteredCarsList.get(i);
-			ImageView imageView = new ImageView(new Image(getCarImageFilePath(currentCar)));
+			String imagePath = getCarImageFilePath(currentCar);
+			ImageView imageView = new ImageView(new Image(imagePath));
 			imageView.setFitWidth(CAR_IMAGE_WIDTH);
 			imageView.setPreserveRatio(true);
-			imageView.setOnMouseClicked(event -> {
+			VBox carInfoBox = new VBox();
+			carInfoBox.setAlignment(Pos.CENTER);
+			carInfoBox.getChildren().add(imageView);
+			Text carInfoText = new Text(currentCar.getMake() + " " + currentCar.getModel() + "\n" + "Transmission: "
+					+ currentCar.getTransmissionType() + "\n" + "Fuel Type: " + currentCar.getFuel() + "\n" + "Seats: "
+					+ currentCar.getSeats());
+			carInfoText.getStyleClass().add("text-center-black");
+			carInfoBox.getChildren().add(carInfoText);
+			carInfoBox.setOnMouseClicked(event -> {
 				handleCarImageClick(currentCar);
 			});
 			int rowIndex = i / tileColumns;
-	        int colIndex = i % tileColumns;
-	       
+			int colIndex = i % tileColumns;
 
 			if (gridPane != null) {
-				gridPane.add(imageView, colIndex, rowIndex);
-				System.out.println(colIndex+" oszlop "+rowIndex+" sor");
+				gridPane.add(carInfoBox, colIndex, rowIndex);
 			} else {
 				System.err.println("TilePane is null");
 			}
@@ -128,22 +140,22 @@ public class ChooseNewCarForReservationUpdateController implements Initializable
 
 	private void setWindowSizeByFilteredCarsNumber() {
 		int totalCarsAvaileble = filteredCarsList.size();
-		if(totalCarsAvaileble<tileColumns) tileColumns=totalCarsAvaileble;
-		int numberOfRows=(int)Math.ceil((double)totalCarsAvaileble/tileColumns);
-		System.out.println(numberOfRows);
+		if (totalCarsAvaileble < tileColumns)
+			tileColumns = totalCarsAvaileble;
+		int numberOfRows = (int) Math.ceil((double) totalCarsAvaileble / tileColumns);
 		double windowWidth = tileColumns * CAR_IMAGE_WIDTH;
-	    double windowHeight = numberOfRows * CAR_IMAGE_HEIGHT;
-	    Stage stage = (Stage) gridPane.getScene().getWindow();
-	    stage.setWidth(windowWidth);
-	    stage.setHeight(windowHeight);
-	    gridPane.getRowConstraints().clear();
-	    for (int i = 0; i < numberOfRows; i++) {
-            RowConstraints rowConstraints = new RowConstraints();
-            rowConstraints.setPrefHeight(CAR_IMAGE_HEIGHT);
-            rowConstraints.setMaxHeight(CAR_IMAGE_HEIGHT);
-            rowConstraints.setMinHeight(CAR_IMAGE_HEIGHT);
-            gridPane.getRowConstraints().add(rowConstraints);
-        }
+		double windowHeight = numberOfRows * CAR_IMAGE_HEIGHT;
+		Stage stage = (Stage) gridPane.getScene().getWindow();
+		stage.setWidth(windowWidth);
+		stage.setHeight(windowHeight);
+		gridPane.getRowConstraints().clear();
+		for (int i = 0; i < numberOfRows; i++) {
+			RowConstraints rowConstraints = new RowConstraints();
+			rowConstraints.setPrefHeight(CAR_IMAGE_HEIGHT);
+			rowConstraints.setMaxHeight(CAR_IMAGE_HEIGHT);
+			rowConstraints.setMinHeight(CAR_IMAGE_HEIGHT);
+			gridPane.getRowConstraints().add(rowConstraints);
+		}
 	}
 
 	private void handleCarImageClick(CarDto currentCar) {
@@ -162,8 +174,23 @@ public class ChooseNewCarForReservationUpdateController implements Initializable
 			return DEFAULT_IMAGE_PATH;
 		}
 	}
+
 	private void makeStageUnresizable() {
-	    Stage stage = (Stage) gridPane.getScene().getWindow();
-	    stage.setResizable(false);
+		Stage stage = (Stage) gridPane.getScene().getWindow();
+		stage.setResizable(false);
+	}
+
+	private void centerStageOnScreen() {
+		try {
+			Stage primaryStage = (Stage) gridPane.getScene().getWindow();
+			double centerXPosition = Screen.getPrimary().getVisualBounds().getMinX()
+					+ Screen.getPrimary().getVisualBounds().getWidth() / 2;
+			double centerYPosition = Screen.getPrimary().getVisualBounds().getMinY()
+					+ Screen.getPrimary().getVisualBounds().getHeight() / 2;
+			primaryStage.setX(centerXPosition - primaryStage.getWidth() / 2);
+			primaryStage.setY(centerYPosition - primaryStage.getHeight() / 2);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

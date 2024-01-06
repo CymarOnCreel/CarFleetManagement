@@ -147,8 +147,8 @@ public class NewReservationController implements Initializable {
 		selectedValues.put(fuelType, null);
 		selectedValues.put(transmissionType, null);
 		selectedValues.put(numberOfSeats, null);
-		setUpChoiceBoxData(carMake, CarDto::getMake);
-		setUpChoiceBoxData(carCategory, CarDto::getCategory);
+		setUpChoiceBoxData(carMake, car -> car.getMake().getNameMake());
+		setUpChoiceBoxData(carCategory, car -> car.getCategory().getNameCategory());
 		setUpChoiceBoxData(fuelType, CarDto::getFuel);
 		setUpChoiceBoxData(transmissionType, CarDto::getTransmissionType);
 		setUpChoiceBoxData(numberOfSeats, CarDto::getSeats);
@@ -299,7 +299,7 @@ public class NewReservationController implements Initializable {
 	}
 
 	private void updateMakeChoiceBoxData() {
-		updateChoiceBox(currentFilteredCarsList, carMake, CarDto::getMake);
+		updateChoiceBox(currentFilteredCarsList, carMake, car -> car.getMake().getNameMake());
 		if (selectedValues.containsKey(carMake) && selectedValues.get(carMake) != null) {
 			carMake.setValue(selectedValues.get(carMake).toString());
 		}
@@ -307,7 +307,7 @@ public class NewReservationController implements Initializable {
 	}
 
 	private void updateCategoryTypeChoiceBoxData() {
-		updateChoiceBox(currentFilteredCarsList, carCategory, CarDto::getCategory);
+		updateChoiceBox(currentFilteredCarsList, carCategory, car->car.getCategory().getNameCategory());
 		if (selectedValues.containsKey(carCategory) && selectedValues.get(carCategory) != null) {
 			carCategory.setValue(selectedValues.get(carCategory).toString());
 		}
@@ -443,9 +443,9 @@ public class NewReservationController implements Initializable {
 		TableColumn<CarDto, String> licencePlate = new TableColumn<>("Licence Plate");
 		licencePlate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getLicensePlate()));
 		TableColumn<CarDto, String> make = new TableColumn<>("Car Make");
-		make.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMake()));
+		make.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMake().getNameMake()));
 		TableColumn<CarDto, String> category = new TableColumn<>("Car Category");
-		category.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCategory()));
+		category.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCategory().getNameCategory()));
 		TableColumn<CarDto, String> transmission = new TableColumn<>("Transmission");
 		transmission
 				.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTransmissionType()));
@@ -529,7 +529,7 @@ public class NewReservationController implements Initializable {
 		carMake.setValue(null);
 		selectedValues.put(carMake, null);
 		updateCarsListWithSelectedChoices();
-		updateChoiceBox(currentFilteredCarsList, carMake, CarDto::getMake);
+		updateChoiceBox(currentFilteredCarsList, carMake,  car -> car.getMake().getNameMake());
 		carMake.setDisable(false);
 	}
 
@@ -538,7 +538,7 @@ public class NewReservationController implements Initializable {
 		carCategory.setValue(null);
 		selectedValues.put(carCategory, null);
 		updateCarsListWithSelectedChoices();
-		updateChoiceBox(currentFilteredCarsList, carCategory, CarDto::getCategory);
+		updateChoiceBox(currentFilteredCarsList, carCategory, car -> car.getCategory().getNameCategory());
 		carCategory.setDisable(false);
 	}
 

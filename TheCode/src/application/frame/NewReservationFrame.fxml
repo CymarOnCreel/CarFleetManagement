@@ -5,34 +5,62 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="816.0" prefWidth="1118.0" stylesheets="@../util/application.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.NewReservationController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="775.0" prefWidth="1118.0" style="-fx-background-color: #1F363C;" stylesheets="@../../../Downloads/CarFleetManagement-main/CarFleetManagement-main/TheCode/src/application/util/application.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.NewReservationController">
 	<children>
-		<Button fx:id="search" layoutX="942.0" layoutY="59.0" mnemonicParsing="false" onAction="#setCarPickerTable" prefHeight="58.0" prefWidth="126.0" text="SEARCH" />
-		<Button fx:id="close" layoutX="916.0" layoutY="689.0" mnemonicParsing="false" onAction="#close" prefHeight="58.0" prefWidth="126.0" text="CLOSE" />
-		<DatePicker fx:id="startDate" layoutX="115.0" layoutY="21.0" />
-		<DatePicker fx:id="endDate" layoutX="120.0" layoutY="75.0" />
-		<Label layoutX="14.0" layoutY="25.0" prefHeight="17.0" prefWidth="88.0" text="Start Date*" />
-		<Label layoutX="12.0" layoutY="79.0" prefHeight="17.0" prefWidth="88.0" text="End Date*" />
-		<Label layoutX="296.0" layoutY="25.0" prefHeight="17.0" prefWidth="88.0" text="Car Make" />
-		<Label layoutX="295.0" layoutY="79.0" prefHeight="17.0" prefWidth="88.0" text="Car Category" />
-		<Label layoutX="585.0" layoutY="28.0" text="Transmisson" />
-		<Label layoutX="577.0" layoutY="77.0" text="Seat Number" />
-		<Label layoutX="865.0" layoutY="28.0" text="FuelType" />
-		<ChoiceBox fx:id="carMake" layoutX="371.0" layoutY="22.0" prefWidth="150.0" />
+		<Button fx:id="search" layoutX="489.0" layoutY="146.0" mnemonicParsing="false" onAction="#setCarPickerTable" prefHeight="36.0" prefWidth="150.0" style="-fx-background-color: #159991; -fx-background-radius: 15;" text="SEARCH" textFill="#050505" textOverrun="LEADING_ELLIPSIS">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font></Button>
+		<Button fx:id="close" layoutX="488.0" layoutY="695.0" mnemonicParsing="false" onAction="#close" prefHeight="36.0" prefWidth="150.0" style="-fx-background-radius: 15; -fx-background-color: #ff0000;" stylesheets="@../util/application.css" text="CLOSE" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font></Button>
+		<DatePicker fx:id="startDate" layoutX="102.0" layoutY="21.0" />
+		<DatePicker fx:id="endDate" layoutX="102.0" layoutY="75.0" />
+		<Label layoutX="14.0" layoutY="25.0" prefHeight="17.0" prefWidth="88.0" text="Start Date*" textFill="WHITE" />
+		<Label layoutX="12.0" layoutY="79.0" prefHeight="17.0" prefWidth="88.0" text="End Date*" textFill="WHITE" />
+		<Label layoutX="302.0" layoutY="26.0" prefHeight="17.0" prefWidth="88.0" text="Car Make" textFill="WHITE" />
+		<Label layoutX="294.0" layoutY="79.0" prefHeight="17.0" prefWidth="88.0" text="Car Category" textFill="WHITE" />
+		<Label layoutX="581.0" layoutY="28.0" text="Transmisson" textFill="WHITE" />
+		<Label layoutX="577.0" layoutY="77.0" text="Seat Number" textFill="WHITE" />
+		<Label layoutX="865.0" layoutY="55.0" text="FuelType" textFill="WHITE" />
+		<ChoiceBox fx:id="carMake" layoutX="374.0" layoutY="22.0" prefWidth="150.0" />
 		<ChoiceBox fx:id="carCategory" layoutX="375.0" layoutY="75.0" prefWidth="150.0" />
-		<ChoiceBox fx:id="transmissionType" layoutX="669.0" layoutY="23.0" prefWidth="150.0" />
-		<ChoiceBox fx:id="numberOfSeats" layoutX="665.0" layoutY="75.0" prefWidth="150.0" />
-		<ChoiceBox fx:id="fuelType" layoutX="920.0" layoutY="22.0" prefWidth="150.0" />
-		<Label layoutX="115.0" layoutY="46.0" prefHeight="17.0" prefWidth="150.0" text="Required" />
-		<Label layoutX="115.0" layoutY="109.0" prefHeight="17.0" prefWidth="150.0" text="Required" />
-		<TableView fx:id="availabelCarsTable" layoutX="45.0" layoutY="208.0" prefHeight="452.0" prefWidth="1025.0" />
-		<Button fx:id="clearMakeChoiceButton" depthTest="DISABLE" graphicTextGap="0.0" layoutX="538.0" layoutY="22.0" mnemonicParsing="false" onAction="#clearMakeChoice" prefHeight="25.0" prefWidth="25.0" styleClass="round-button"></Button>
+		<ChoiceBox fx:id="transmissionType" layoutX="666.0" layoutY="23.0" prefWidth="150.0" />
+		<ChoiceBox fx:id="numberOfSeats" layoutX="666.0" layoutY="75.0" prefWidth="150.0" />
+		<ChoiceBox fx:id="fuelType" layoutX="920.0" layoutY="51.0" prefWidth="150.0" />
+		<Label layoutX="162.0" layoutY="49.0" prefHeight="17.0" prefWidth="150.0" text="Required" textFill="WHITE" />
+		<Label layoutX="161.0" layoutY="105.0" prefHeight="17.0" prefWidth="150.0" text="Required" textFill="WHITE" />
+		<TableView fx:id="availabelCarsTable" layoutX="45.0" layoutY="213.0" prefHeight="452.0" prefWidth="1025.0" style="-fx-background-color: #159991;" />
+		<Button fx:id="clearMakeChoiceButton" depthTest="DISABLE" graphicTextGap="0.0" layoutX="538.0" layoutY="22.0" mnemonicParsing="false" onAction="#clearMakeChoice" prefHeight="25.0" prefWidth="25.0" styleClass="round-button" />
       <Button fx:id="clearCategoryChoiceButton" layoutX="539.0" layoutY="75.0" mnemonicParsing="false" onAction="#clearCategoryChoice" prefHeight="25.0" prefWidth="25.0" styleClass="round-button" />
       <Button fx:id="clearTransmissionChoiceButton" layoutX="835.0" layoutY="25.0" mnemonicParsing="false" onAction="#clearTransmissionChoice" prefHeight="25.0" prefWidth="25.0" styleClass="round-button" />
       <Button fx:id="clearSeatChoiceButton" layoutX="838.0" layoutY="73.0" mnemonicParsing="false" onAction="#clearSeatChoice" prefHeight="25.0" prefWidth="25.0" styleClass="round-button" />
-      <Button fx:id="clearFuelChoiceButton" layoutX="1078.0" layoutY="23.0" mnemonicParsing="false" onAction="#clearFuelChoice" prefHeight="25.0" prefWidth="25.0" styleClass="round-button" />
+      <Button fx:id="clearFuelChoiceButton" layoutX="1079.0" layoutY="51.0" mnemonicParsing="false" onAction="#clearFuelChoice" prefHeight="25.0" prefWidth="25.0" styleClass="round-button" />
+      <ImageView fitHeight="123.0" fitWidth="242.0" layoutX="236.0" layoutY="99.0">
+         <image>
+            <Image url="https://github.com/CymarOnCreel/CarFleetManagement/blob/main/TheCode/src/application/pictures/CarReservation%20k%C3%A9pek/mx-5-roadster-1080-x-580-removebg-preview.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="123.0" fitWidth="242.0" layoutX="672.0" layoutY="80.0">
+         <image>
+            <Image url="https://github.com/CymarOnCreel/CarFleetManagement/blob/main/TheCode/src/application/pictures/CarReservation%20k%C3%A9pek/sl_245106151_bmw-3-2018-side-view_4x-removebg-preview.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="674.0" layoutY="645.0">
+         <image>
+            <Image url="https://github.com/CymarOnCreel/CarFleetManagement/blob/main/TheCode/src/application/pictures/CarReservation%20k%C3%A9pek/201895001jpg_omrzhw1x-removebg-preview.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="133.0" fitWidth="259.0" layoutX="209.0" layoutY="655.0">
+         <image>
+            <Image url="https://github.com/CymarOnCreel/CarFleetManagement/blob/main/TheCode/src/application/pictures/CarReservation%20k%C3%A9pek/kija-removebg-preview.png" />
+         </image>
+      </ImageView>
 	</children>
 </AnchorPane>
