@@ -9,7 +9,6 @@ import application.alert.AlertMessage;
 import application.dao.EmployeeDao;
 import application.dto.EmployeeDto;
 import application.util.UserSession;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -44,6 +43,8 @@ public class MainFrameController implements Initializable {
 	private MenuItem addCarMaintenance;
 	@FXML
 	private MenuItem addNewCarToDatabase;
+	@FXML
+	private MenuItem addNewInsurance;
 	@FXML
 	private SplitMenuButton users;
 	@FXML
@@ -97,10 +98,13 @@ public class MainFrameController implements Initializable {
 	}
 
 	@FXML
-	void reserveCarForMaintenance(ActionEvent event) {
+	private void reserveCarForMaintenance(ActionEvent event) {
 		// To-DO create Scene + methods for reserving a car for maintenance
 	}
+	 @FXML
+	  private  void addNewInsurance(ActionEvent event) {
 
+	    }
 	@FXML
 	void createNewCarReservation(ActionEvent event) throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/frame/NewReservationFrame.fxml"));
@@ -127,7 +131,7 @@ public class MainFrameController implements Initializable {
 		reservationsStage.setScene(reservationsScene);
 		reservationsStage.initModality(Modality.APPLICATION_MODAL);
 		reservationsStage.showAndWait();
-		
+
 	}
 
 	private void setupMenuByEmployeeRole(int employeeId) {
@@ -160,7 +164,21 @@ public class MainFrameController implements Initializable {
 
 	@FXML
 	void listUsers(ActionEvent event) {
-
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/frame/ListUsersFrame.fxml"));
+			AnchorPane root = (AnchorPane) loader.load();
+			Scene scene=new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("/application/util/application.css").toExternalForm());
+			Stage stage= new Stage();
+			stage.setTitle("List Of Users");
+			stage.setScene(scene);
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.showAndWait();			
+	
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@FXML
@@ -179,7 +197,7 @@ public class MainFrameController implements Initializable {
 			reservationsStage.initModality(Modality.APPLICATION_MODAL);
 			reservationsStage.showAndWait();
 			employeeId = UserSession.getUserId();
-			System.out.println(employeeId+" az id");
+			System.out.println(employeeId + " az id");
 			setupMenuByEmployeeRole(employeeId);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -189,7 +207,7 @@ public class MainFrameController implements Initializable {
 
 	@FXML
 	void logout(ActionEvent event) {
-		employeeId=-1;
+		employeeId = -1;
 		UserSession.setUserId(employeeId);
 		new AlertMessage().showConfirmationAlertMessage("Bye", "Hope you use our app soon:)");
 		setUpMenuForNoEmployeeLogedIn();

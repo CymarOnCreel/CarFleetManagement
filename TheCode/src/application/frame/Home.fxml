@@ -68,6 +68,7 @@
                     <items>
                       <MenuItem fx:id="addNewCarToDatabase" mnemonicParsing="false" onAction="#addNewCarToDatabase" text="Add New Car" />
                       <MenuItem fx:id="addCarMaintenance" mnemonicParsing="false" onAction="#reserveCarForMaintenance" text="Add Car Maintenance" />
+                        <MenuItem fx:id="addNewInsurance" mnemonicParsing="false" onAction="#addNewInsurance" text="Add New Insurance" />
                     </items>
                   </SplitMenuButton>
                </graphic></MenuItem>
