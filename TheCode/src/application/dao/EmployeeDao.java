@@ -77,6 +77,7 @@ public class EmployeeDao implements ICrud<EmployeeDto>{
 		return employee;
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Long validateEmployeeByEmailAndPasswordLong(String email, String password) {
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 		CriteriaQuery criteriaQuery = criteriaBuilder.createQuery(Long.class);
@@ -99,4 +100,5 @@ public class EmployeeDao implements ICrud<EmployeeDto>{
 		EmployeeDto employee=(EmployeeDto) entityManager.createQuery(query).getSingleResult();
 		return employee;
 	}
+	
 }

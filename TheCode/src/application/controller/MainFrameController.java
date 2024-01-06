@@ -97,10 +97,6 @@ public class MainFrameController implements Initializable {
 
 	}
 
-	@FXML
-	private void reserveCarForMaintenance(ActionEvent event) {
-		// To-DO create Scene + methods for reserving a car for maintenance
-	}
 	 @FXML
 	  private  void addNewInsurance(ActionEvent event) {
 

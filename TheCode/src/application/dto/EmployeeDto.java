@@ -97,8 +97,6 @@ public class EmployeeDto {
 	}
 
 	public boolean isEnabled() {
-		if (enabled)
-			return false;
 		return enabled;
 	}
 
@@ -122,16 +120,26 @@ public class EmployeeDto {
 		this.enabled = enabled;
 	}
 	
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
 	public void deleteEmployeeDto() {
-		enabled = true;
-		updatedAt = LocalDate.now();
+		this.enabled = false;
+		this.updatedAt = LocalDate.now();
+	}
+	
+	public void activateEmployeeDto() {
+		this.enabled = true;
+		this.updatedAt = LocalDate.now();
 	}
 	public String getFullName() {
 		return firstName+" "+lastName;
 	}
 	
 	
-	
+	public String isEnabledToString() {
+		return enabled ? "aktív":"törölve";
+	}
 	
 	
 }
