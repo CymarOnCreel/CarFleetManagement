@@ -1,6 +1,5 @@
 package application.dao;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -8,8 +7,10 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
 
+import application.dto.CarDto;
 import application.dto.ReservationDto;
 
 public class ReservationDao implements ICrud<ReservationDto> {
@@ -90,7 +91,8 @@ public class ReservationDao implements ICrud<ReservationDto> {
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 		CriteriaQuery<ReservationDto> criteriaQuery = criteriaBuilder.createQuery(ReservationDto.class);
 		Root<ReservationDto> root = criteriaQuery.from(ReservationDto.class);
-		criteriaQuery.where(criteriaBuilder.equal(root.get("car"), licencePlate));
+		 Join<ReservationDto, CarDto> carJoin = root.join("car");
+		criteriaQuery.where(criteriaBuilder.equal(carJoin.get("licensePlate"), licencePlate));
 		List<ReservationDto> reservations = entityManager.createQuery(criteriaQuery).getResultList();
 		return reservations;
 	}

@@ -89,3 +89,10 @@ INSERT INTO `reservation` (`id_reservation`, `id_employee`, `license_plate`, `st
 (8, 2, 'GHI789', '2023-12-30 15:00:00', '2023-12-30 17:30:00', 'Ünnepi vásárlás', '2023-12-22', NULL,0),
 (9, 1, 'ABC123', '2023-12-31 10:00:00', '2023-12-31 16:00:00', 'Hétvégi kirándulás', '2023-12-22', NULL,0),
 (10, 2, 'XYZ789', '2024-01-01 12:30:00', '2024-01-01 20:00:00', 'Szilveszteri buli', '2023-12-22', NULL,1);
+
+INSERT INTO `car_picture` (`picture_path`, `license_plate`) VALUES
+(`application/pictures/type/toyota luxury.png`,`ABC127`),
+(`application/pictures/type/toyota sports.png`,`ABC125`),
+(`application/pictures/type/toyota suv.png`,`ABC124`),
+(`application/pictures/type/ford luxury.png`,`DEF456`),
+(`application/pictures/type/tesla luxury.png`,`XYZ789`);

@@ -485,6 +485,8 @@ public class CarNewFrameController implements Initializable{
 		    	CarDao carDao = new CarDao();
 		    	if (!carDao.isCarExist(tfLicensePlate.getText())) {
 		    		carDao.save(newCar);
+		    		new AlertMessage().showConfirmationAlertMessage("Save Car Successfull", "The new car has been successfully adedd to the database");
+		    		
 				}else {
 					new AlertMessage().carExistAlert();
 				}

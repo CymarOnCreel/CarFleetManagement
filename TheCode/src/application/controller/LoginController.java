@@ -7,7 +7,10 @@ import java.util.ResourceBundle;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
+import application.alert.AlertMessage;
 import application.dao.EmployeeDao;
+import application.dto.EmployeeDto;
+import application.util.UserSession;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,6 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class LoginController implements Initializable{
 
@@ -34,9 +38,13 @@ public class LoginController implements Initializable{
 			 String password = DigestUtils.sha1Hex(pfPassword.getText());
 			 Long result = userDaoObj.validateEmployeeByEmailAndPasswordLong(email, password);
 			 if (result > 0) {
-			     System.out.println("Beléphet :)");
+				 EmployeeDto employeLoggedIn=userDaoObj.getEmployeeByEmail(email);
+				 new AlertMessage().showConfirmationAlertMessage("Login successfull", "Welcome "+employeLoggedIn.getFullName());
+				
+				 UserSession.setUserId(employeLoggedIn.getIdEmployee());
+				closePage();
 			    } else {
-			     System.out.println("Hibás felhasználónév/jelszó :(");
+			    	new AlertMessage().showConfirmationAlertMessage("Login Error", "Wrong Email/Password");
 			    }
 			}
 		
@@ -50,7 +58,10 @@ public class LoginController implements Initializable{
 			
 		}
 
-
+private void closePage() {
+	Stage stage=(Stage) btnSignin.getScene().getWindow();
+	stage.close();
+}
 		
 
 

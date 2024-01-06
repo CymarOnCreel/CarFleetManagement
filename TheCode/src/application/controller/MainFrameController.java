@@ -5,6 +5,11 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import application.Main;
+import application.alert.AlertMessage;
+import application.dao.EmployeeDao;
+import application.dto.EmployeeDto;
+import application.util.UserSession;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,6 +18,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SplitMenuButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
@@ -21,53 +27,63 @@ import javafx.stage.Stage;
 public class MainFrameController implements Initializable {
 
 	@FXML
-	private MenuItem addCarMaintenance;
-
-	@FXML
-	private MenuItem addNewCar;
-
-	@FXML
-	private MenuButton cars;
-
-	@FXML
-	private MenuItem changePassword;
-
-	@FXML
 	private Button home;
 
+	@FXML
+	private MenuButton reservation;
+	@FXML
+	private MenuItem newReservation;
 	@FXML
 	private MenuItem listUserReservation;
 
 	@FXML
-	private MenuItem login;
+	private MenuButton admin;
+	@FXML
+	private SplitMenuButton cars;
+	@FXML
+	private MenuItem addCarMaintenance;
+	@FXML
+	private MenuItem addNewCarToDatabase;
+	@FXML
+	private SplitMenuButton users;
+	@FXML
+	private MenuItem addUser;
+	@FXML
+	private MenuItem listUsers;
 
+	@FXML
+	private MenuButton profile;
+	@FXML
+	private MenuItem login;
+	@FXML
+	private MenuItem registration;
+	@FXML
+	private MenuItem changePassword;
 	@FXML
 	private MenuItem logout;
 
 	@FXML
-	private MenuItem newReservation;
-
-	@FXML
-	private MenuButton profile;
-
-	@FXML
-	private MenuItem registration;
-
-	@FXML
-	private MenuButton reservation;
-
-	@FXML
 	private Button search;
+	private int employeeId;
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+//		setUpMenuForEmployeeRoleAdmin();
+		setUpMenuForEmployeeRoleSuperAdmin();
+//		setupMenuForEmployeeRoleUser();
+//		setUpMenuForNoEmployeeLogedIn();
+
+	}
 
 	@FXML
 	void addNewCarToDatabase(ActionEvent event) {
-		FXMLLoader loader=new FXMLLoader(getClass().getResource("/application/frame/CarNewFramePass.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/frame/CarNewFramePass.fxml"));
 		AnchorPane root;
 		try {
-			root = (AnchorPane)loader.load();
-			Scene scene=new Scene(root);
+			root = (AnchorPane) loader.load();
+			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("/application/util/application.css").toExternalForm());
-			Stage stage=new Stage();
+			Stage stage = new Stage();
 			stage.setTitle("New Car");
 			stage.setScene(scene);
 			stage.initModality(Modality.APPLICATION_MODAL);
@@ -77,26 +93,26 @@ public class MainFrameController implements Initializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	@FXML
-	void changeUserPassword(ActionEvent event) {
-		// Create a scene + methods for changing the password
+	void reserveCarForMaintenance(ActionEvent event) {
+		// To-DO create Scene + methods for reserving a car for maintenance
 	}
 
 	@FXML
 	void createNewCarReservation(ActionEvent event) throws IOException {
-	FXMLLoader loader=new FXMLLoader(getClass().getResource("/application/frame/NewReservationFrame.fxml"));
-	AnchorPane root= (AnchorPane)loader.load();
-	Scene scene=new Scene(root);
-	scene.getStylesheets().add(getClass().getResource("/application/util/application.css").toExternalForm());
-	Stage stage=new Stage();
-	stage.setTitle("New Reservation");
-	stage.setScene(scene);
-	stage.initModality(Modality.APPLICATION_MODAL);
-	stage.initOwner(Main.getPrimaryStage());
-	stage.showAndWait();
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/frame/NewReservationFrame.fxml"));
+		AnchorPane root = (AnchorPane) loader.load();
+		Scene scene = new Scene(root);
+		scene.getStylesheets().add(getClass().getResource("/application/util/application.css").toExternalForm());
+		Stage stage = new Stage();
+		stage.setTitle("New Reservation");
+		stage.setScene(scene);
+		stage.initModality(Modality.APPLICATION_MODAL);
+		stage.initOwner(Main.getPrimaryStage());
+		stage.showAndWait();
 	}
 
 	@FXML
@@ -111,16 +127,72 @@ public class MainFrameController implements Initializable {
 		reservationsStage.setScene(reservationsScene);
 		reservationsStage.initModality(Modality.APPLICATION_MODAL);
 		reservationsStage.showAndWait();
+		
+	}
+
+	private void setupMenuByEmployeeRole(int employeeId) {
+		EmployeeDao employeeDao = new EmployeeDao();
+		EmployeeDto employeeLoggedIn = employeeDao.findById(employeeId);
+		System.out.println(employeeLoggedIn.toString());
+		String employeeRole = employeeLoggedIn.getRoleName();
+		System.out.println(employeeRole);
+		if (employeeRole.equalsIgnoreCase("user")) {
+			setupMenuForEmployeeRoleUser();
+		} else if (employeeRole.equalsIgnoreCase("admin")) {
+			setUpMenuForEmployeeRoleAdmin();
+		} else if (employeeRole.equalsIgnoreCase("superadmin")) {
+			setUpMenuForEmployeeRoleSuperAdmin();
+		} else {
+			new AlertMessage().showUnknownError("Error", "An unkonown error occured,\nPlease contact support!");
+		}
+
+	}
+
+	@FXML
+	void changeUserPassword(ActionEvent event) {
+		// Create a scene + methods for changing the password
+	}
+
+	@FXML
+	void addNewUser(ActionEvent event) {
+
+	}
+
+	@FXML
+	void listUsers(ActionEvent event) {
+
 	}
 
 	@FXML
 	void login(ActionEvent event) {
-		// TO-DO Login scene+methods
+
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/frame/Login.fxml"));
+			GridPane loginRoot = (GridPane) loader.load();
+
+			Scene loginsScene = new Scene(loginRoot);
+			loginsScene.getStylesheets()
+					.add(getClass().getResource("/application/util/application.css").toExternalForm());
+			Stage reservationsStage = new Stage();
+			reservationsStage.setTitle("Login");
+			reservationsStage.setScene(loginsScene);
+			reservationsStage.initModality(Modality.APPLICATION_MODAL);
+			reservationsStage.showAndWait();
+			employeeId = UserSession.getUserId();
+			System.out.println(employeeId+" az id");
+			setupMenuByEmployeeRole(employeeId);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@FXML
 	void logout(ActionEvent event) {
-		// To-Do logout the user
+		employeeId=-1;
+		UserSession.setUserId(employeeId);
+		new AlertMessage().showConfirmationAlertMessage("Bye", "Hope you use our app soon:)");
+		setUpMenuForNoEmployeeLogedIn();
 	}
 
 	@FXML
@@ -128,15 +200,72 @@ public class MainFrameController implements Initializable {
 		// To-Do create registration scene+methods to save user
 	}
 
-	@FXML
-	void reserveCarForMaintenance(ActionEvent event) {
-		// To-DO create Scene + methods for reserving a car for maintenance
+	private void setupMenuForEmployeeRoleUser() {
+		reservation.setDisable(false);
+		newReservation.setDisable(false);
+		listUserReservation.setDisable(false);
+		admin.setDisable(true);
+//		addCarMaintenance.setDisable(false);
+//		addNewCarToDatabase.setDisable(false);
+//		addUser.setDisable(true);
+//		listUsers.setDisable(false);
+		profile.setDisable(false);
+		login.setDisable(true);
+		logout.setDisable(false);
+		changePassword.setDisable(false);
+		registration.setDisable(true);
+		search.setDisable(false);
 	}
 
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
+	private void setUpMenuForNoEmployeeLogedIn() {
+		reservation.setDisable(true);
+//		newReservation.setDisable(true);
+//		listUserReservation.setDisable(true);
+		admin.setDisable(true);
+//		addCarMaintenance.setDisable(true);
+//		addNewCarToDatabase.setDisable(true);
+//		addUser.setDisable(true);
+//		listUsers.setDisable(true);
+		profile.setDisable(false);
+		login.setDisable(false);
+		logout.setDisable(true);
+		changePassword.setDisable(true);
+		registration.setDisable(false);
+		search.setDisable(true);
+	}
 
+	private void setUpMenuForEmployeeRoleAdmin() {
+		reservation.setDisable(false);
+		newReservation.setDisable(false);
+		listUserReservation.setDisable(false);
+		admin.setDisable(false);
+		addCarMaintenance.setDisable(false);
+		addNewCarToDatabase.setDisable(false);
+		addUser.setDisable(true);
+		listUsers.setDisable(false);
+		profile.setDisable(false);
+		login.setDisable(true);
+		logout.setDisable(false);
+		changePassword.setDisable(false);
+		registration.setDisable(true);
+		search.setDisable(false);
+	}
+
+	private void setUpMenuForEmployeeRoleSuperAdmin() {
+		reservation.setDisable(false);
+		newReservation.setDisable(false);
+		listUserReservation.setDisable(false);
+		admin.setDisable(false);
+		addCarMaintenance.setDisable(false);
+		addNewCarToDatabase.setDisable(false);
+		addUser.setDisable(false);
+		listUsers.setDisable(false);
+		profile.setDisable(false);
+		login.setDisable(true);
+		logout.setDisable(false);
+		changePassword.setDisable(false);
+		registration.setDisable(true);
+		search.setDisable(false);
 	}
 
 }

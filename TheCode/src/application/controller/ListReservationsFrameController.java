@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import application.dao.ReservationDao;
 import application.dto.ReservationDto;
+import application.util.UserSession;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -56,8 +57,8 @@ public class ListReservationsFrameController implements Initializable {
 		this.reservationDao = new ReservationDao();
 	}
 
-//	Long loggedInEmployeeId = SessionManager.getInstance().getLoggedInEmployeeId();
-	private Long userId = 1L;
+//	private Long loggedInEmployeeId = (long) UserSession.getUserId();
+	private Long loggedInEmployeeId = 1L;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -68,7 +69,7 @@ public class ListReservationsFrameController implements Initializable {
 	public void setTable() {
 		Platform.runLater(() -> {
 			clearTable();
-			updateTableView(getAllReservationsOfUserBetweenDates(userId));
+			updateTableView(getAllReservationsOfUserBetweenDates(loggedInEmployeeId));
 		});
 	}
 
@@ -103,7 +104,7 @@ public class ListReservationsFrameController implements Initializable {
 	@FXML
 	public void handleSearchButton(ActionEvent event) {
 		clearTable();
-		updateTableView(getAllReservationsOfUserBetweenDates(userId));
+		updateTableView(getAllReservationsOfUserBetweenDates(loggedInEmployeeId));
 	}
 
 	public void clearTable() {
@@ -115,8 +116,7 @@ public class ListReservationsFrameController implements Initializable {
 	public List<ReservationDto> getAllReservationsOfUserBetweenDates(Long userId) {
 		LocalDate localStartDate = intervalStartDate.getValue();
 		LocalDate localEndDate = intervalEndDate.getValue();
-		reservations = reservationDao.getReservationsByUserId(userId); // get user id here with
-																		// loggedInEmployeeId
+		reservations = reservationDao.getReservationsByUserId(userId); 
 		List<ReservationDto> reservationsFilteredByDate;
 		if (localStartDate != null && localEndDate != null) {
 			LocalDateTime startDate = localStartDate.atStartOfDay();

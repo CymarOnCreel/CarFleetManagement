@@ -46,4 +46,11 @@ public class AlertMessage {
 		a.setTitle(title);
 		a.show();
 	}
+
+	public void showUnknownError(String title, String message) {
+		Alert a =new Alert(AlertType.ERROR, message, ButtonType.CLOSE);
+		a.setTitle(title);
+		a.show();
+		
+	}
 }

@@ -16,8 +16,12 @@ import org.junit.jupiter.api.Test;
 
 import application.dao.ReservationDao;
 import application.dto.CarDto;
+import application.dto.CategoryDto;
 import application.dto.EmployeeDto;
+import application.dto.MakeDto;
+import application.dto.ModelDto;
 import application.dto.ReservationDto;
+import application.dto.SiteDto;
 
 public class TestReservationDao {
 	private EntityManager entityManager;
@@ -39,18 +43,31 @@ public class TestReservationDao {
 	@Transactional
 	public void testGetReservationByUserId() {
 		insertTestData();
-
 		Long userId = -8L;
 		List<ReservationDto> reservations = reservationDao.getReservationsByUserId(userId);
 		assertNotNull(reservations);
 	}
 
+	@Test
+	@Transactional
+	public void testgetReservationByCarLicencePlate() {
+		insertTestData();
+		String licencePlate="Test118";
+		List<ReservationDto> reservations=reservationDao.getReservationsByCarLicencePlate(licencePlate);
+		assertNotNull(reservations);
+	}
 	private void insertTestData() {
 		EmployeeDto employee = new EmployeeDto(-8, "Smith", "John", "johnsmith@gmail.com", "password", "11111111",
 				"USER", LocalDate.now().minusYears(1), LocalDate.now().minusMonths(2), true);
 
-		CarDto car = new CarDto("Test118", "Toyota", "Camry", "Szédán", "Benzin", 4, 5, "Automata", 50000, 10000,
-				LocalDate.now().plusYears(1), "Test Site", "1", true);
+		MakeDto make=new MakeDto("Toyota",null);
+		ModelDto model=new ModelDto("Camry","Toyota");
+		CategoryDto category=new CategoryDto("Szedán", null);
+		SiteDto site=new SiteDto("Test Site","Budapest",10, "Contact","contact@contact.com", "0630555555","Testing site",LocalDate.now().minusDays(5),LocalDate.now(),true);
+		
+		
+		CarDto car = new CarDto("Test118", make, model, category, "Benzin", 4, 5, "Automata", 50000, 10000,
+				LocalDate.now().plusYears(1), site, "1", true);
 
 		ReservationDto reservation = new ReservationDto();
 		reservation.setEmployee(employee);
