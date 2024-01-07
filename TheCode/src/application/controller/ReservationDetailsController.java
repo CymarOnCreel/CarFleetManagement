@@ -99,8 +99,8 @@ public class ReservationDetailsController {
 		Node source = (Node) event.getSource();
 		Stage stage = (Stage) source.getScene().getWindow();
 		stage.close();
-		new AlertMessage().showConfirmationAlertMessage("Reservation Update Succesfull",
-				"The Reservation was succesfully updated");
+		new AlertMessage().showConfirmationAlertMessage("Foglalás frissítve",
+				"A foglalás sikeresen frissítve");
 		listFrameController.setTable();
 	}
 	
@@ -109,7 +109,7 @@ public class ReservationDetailsController {
 		int mileageUpdate=reservation.getCar().getMileage();
 		if (!isMileageTextFieldEmpty()) {
 			if (isMileageLesserThenStartMileage()) {
-				new AlertMessage().showUnknownError("Wrong mileage", "The mileage cannot be lesser than original");
+				new AlertMessage().showUnknownError("Hiba kilométerállás", "A végső kilométerállás nem lehet kevesebb\n mint a kezdeti kilométerállás");
 				mileageAtEnd.getStyleClass().add("wrong-input-background");
 			} else {
 				CarDto carUpdate = reservation.getCar();
@@ -172,7 +172,7 @@ public class ReservationDetailsController {
 			Scene scene = new Scene(anchorPane);
 			scene.getStylesheets().add(getClass().getResource("/application/util/application.css").toExternalForm());
 			Stage stage = new Stage();
-			stage.setTitle("Change car for reservation");
+			stage.setTitle("Kocsi cseréje");
 			stage.initModality(Modality.APPLICATION_MODAL);
 			ChooseNewCarForReservationUpdateController controller = loader.getController();
 			controller.setMainStage(stage);

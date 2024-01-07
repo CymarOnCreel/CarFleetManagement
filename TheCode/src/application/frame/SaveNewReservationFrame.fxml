@@ -9,48 +9,48 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="525.0" prefWidth="815.0" styleClass="backGroundColor" stylesheets="@../util/application.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.SaveNewReservationFrameController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="525.0" prefWidth="870.0" styleClass="backGroundColor" stylesheets="@../util/application.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.SaveNewReservationFrameController">
    <children>
       <ImageView fx:id="carImage" fitHeight="292.0" fitWidth="385.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="carMake" layoutX="440.0" layoutY="31.0" prefHeight="35.0" prefWidth="369.0" text="Car Make:" textFill="WHITE">
+      <Label fx:id="carMake" layoutX="440.0" layoutY="31.0" prefHeight="35.0" prefWidth="426.0" text="GYÁRTMÁNY:" textFill="WHITE">
          <font>
             <Font name="System Bold" size="24.0" />
          </font></Label>
-      <Label fx:id="carModel" layoutX="438.0" layoutY="73.0" prefHeight="35.0" prefWidth="369.0" text="Car Model:" textFill="WHITE">
+      <Label fx:id="carModel" layoutX="438.0" layoutY="73.0" prefHeight="35.0" prefWidth="426.0" text="MODEL:" textFill="WHITE">
          <font>
             <Font name="System Bold" size="24.0" />
          </font></Label>
-      <Label fx:id="endDate" layoutX="440.0" layoutY="152.0" prefHeight="35.0" prefWidth="369.0" text="End Date: " textFill="WHITE">
+      <Label fx:id="endDate" layoutX="440.0" layoutY="152.0" prefHeight="35.0" prefWidth="426.0" text="FOGLALÁS VÉGE:" textFill="WHITE">
          <font>
             <Font name="System Bold" size="24.0" />
          </font></Label>
-      <Label fx:id="startDate" layoutX="440.0" layoutY="117.0" prefHeight="35.0" prefWidth="369.0" text="Start Date: " textFill="WHITE">
+      <Label fx:id="startDate" layoutX="440.0" layoutY="117.0" prefHeight="35.0" prefWidth="426.0" text="FOGLALÁS KEZDETE:" textFill="WHITE">
          <font>
             <Font name="System Bold" size="24.0" />
          </font></Label>
-      <Label fx:id="transmissionType" layoutX="438.0" layoutY="189.0" prefHeight="35.0" prefWidth="369.0" text="Transmission type" textFill="WHITE">
+      <Label fx:id="transmissionType" layoutX="438.0" layoutY="189.0" prefHeight="35.0" prefWidth="426.0" text="VÁLTÓ TÍPUSA:" textFill="WHITE">
          <font>
             <Font name="System Bold" size="24.0" />
          </font></Label>
-      <Label fx:id="seatsNumber" layoutX="438.0" layoutY="230.0" prefHeight="35.0" prefWidth="369.0" text="Number of seats: " textFill="WHITE">
+      <Label fx:id="seatsNumber" layoutX="438.0" layoutY="224.0" prefHeight="35.0" prefWidth="426.0" text="ÜLÉSEK SZÁMA:" textFill="WHITE">
          <font>
             <Font name="System Bold" size="24.0" />
          </font></Label>
-      <Label fx:id="site" layoutX="440.0" layoutY="306.0" prefHeight="35.0" prefWidth="369.0" text="Site: " textFill="WHITE">
+      <Label fx:id="site" layoutX="440.0" layoutY="306.0" prefHeight="35.0" prefWidth="426.0" text="TELEPHELY:" textFill="WHITE">
          <font>
             <Font name="System Bold" size="24.0" />
          </font></Label>
-      <Label fx:id="fuelType" layoutX="440.0" layoutY="269.0" prefHeight="35.0" prefWidth="369.0" text="Fuel Type: " textFill="WHITE">
+      <Label fx:id="fuelType" layoutX="440.0" layoutY="269.0" prefHeight="35.0" prefWidth="426.0" text="ÜZEMANYAG TIPUS:" textFill="WHITE">
          <font>
             <Font name="System Bold" size="24.0" />
          </font></Label>
-      <Button fx:id="save" layoutX="36.0" layoutY="425.0" mnemonicParsing="false" onAction="#saveReservation" styleClass="save-update-button" stylesheets="@../util/application.css" text="SAVE" />
-      <Button fx:id="close" layoutX="689.0" layoutY="425.0" mnemonicParsing="false" onAction="#closeScene" styleClass="close-button" stylesheets="@../util/application.css" text="CLOSE" />
+      <Button fx:id="save" layoutX="36.0" layoutY="425.0" mnemonicParsing="false" onAction="#saveReservation" styleClass="save-update-button" stylesheets="@../util/application.css" text="MENTÉS" />
+      <Button fx:id="close" layoutX="671.0" layoutY="425.0" mnemonicParsing="false" onAction="#closeScene" styleClass="close-button" stylesheets="@../util/application.css" text="KILÉPÉS" />
       <TextField fx:id="descriptionField" layoutX="36.0" layoutY="350.0" prefHeight="51.0" prefWidth="757.0">
          <font>
             <Font size="24.0" />
          </font></TextField>
-      <Label layoutX="36.0" layoutY="315.0" text="Reservation description:*" textFill="WHITE">
+      <Label layoutX="36.0" layoutY="315.0" text="FOGLALÁS MEGJEGYZÉS:*" textFill="WHITE">
          <font>
             <Font name="System Bold" size="24.0" />
          </font></Label>
@@ -62,5 +62,10 @@
             <InnerShadow choke="1.0" radius="68.5" width="255.0" />
          </effect>
       </ImageView>
+      <Label layoutX="128.0" layoutY="401.0" prefHeight="17.0" prefWidth="245.0" text="*KÖTELEZŐ MEZŐ" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

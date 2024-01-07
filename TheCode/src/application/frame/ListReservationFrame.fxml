@@ -9,26 +9,26 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="649.0" prefWidth="996.0" styleClass="backGroundColor" stylesheets="@../util/application.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.ListReservationsFrameController">
 	<children>
-		<DatePicker fx:id="intervalStartDate" layoutX="145.0" layoutY="88.0" prefHeight="35.0" prefWidth="186.0" />
-		<DatePicker fx:id="intervalEndDate" layoutX="477.0" layoutY="88.0" prefHeight="35.0" prefWidth="200.0" />
-		<Label layoutX="35.0" layoutY="88.0" prefHeight="25.0" prefWidth="123.0" text="From">
+		<DatePicker fx:id="intervalStartDate" layoutX="202.0" layoutY="88.0" prefHeight="35.0" prefWidth="186.0" />
+		<DatePicker fx:id="intervalEndDate" layoutX="642.0" layoutY="88.0" prefHeight="35.0" prefWidth="200.0" />
+		<Label layoutX="12.0" layoutY="88.0" prefHeight="35.0" prefWidth="186.0" text="KEZDŐ DÁTUM:">
          <font>
             <Font name="System Bold" size="24.0" />
          </font></Label>
-		<Label layoutX="394.0" layoutY="88.0" prefHeight="25.0" prefWidth="137.0" text="To:">
+		<Label layoutX="404.0" layoutY="88.0" prefHeight="35.0" prefWidth="266.0" text="BEFEJEZÉS DÁTUMA:">
          <font>
             <Font name="System Bold" size="24.0" />
          </font></Label>
-		<Button fx:id="search" layoutX="768.0" layoutY="67.0" mnemonicParsing="false" onAction="#handleSearchButton" style="-fx-background-radius: 15; -fx-background-color: #0088ff;" text="Search" textFill="WHITE">
+		<Button fx:id="search" layoutX="852.0" layoutY="80.0" mnemonicParsing="false" onAction="#handleSearchButton" styleClass="save-update-button" stylesheets="@../util/application.css" text="KERESÉS" textFill="WHITE">
          <font>
             <Font name="System Bold" size="36.0" />
          </font></Button>
 		<TableView fx:id="reservationsTable" layoutX="17.0" layoutY="149.0" prefHeight="381.0" prefWidth="963.0" styleClass="my-table" stylesheets="@../util/application.css" visible="false">
    </TableView>
-		<Button fx:id="closeWindow" layoutX="813.0" layoutY="544.0" mnemonicParsing="false" onAction="#closeWindow" prefHeight="44.0" prefWidth="146.0" style="-fx-background-radius: 15;" styleClass="close-button" stylesheets="@../util/application.css" text="CLOSE" />
-      <Label layoutX="397.0" layoutY="14.0" text="My Reservations">
+		<Button fx:id="closeWindow" layoutX="833.0" layoutY="568.0" mnemonicParsing="false" onAction="#closeWindow" prefHeight="44.0" prefWidth="146.0" styleClass="close-button" stylesheets="@../util/application.css" text="BEZÁRÁS" />
+      <Label layoutX="397.0" layoutY="14.0" text="FOGLALÁSAIM">
          <font>
-            <Font size="36.0" />
+            <Font name="System Bold" size="36.0" />
          </font>
       </Label>
 	</children>

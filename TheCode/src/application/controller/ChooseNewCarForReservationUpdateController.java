@@ -17,7 +17,6 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Bounds;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -79,8 +78,8 @@ public class ChooseNewCarForReservationUpdateController implements Initializable
 			} else {
 				Stage stage = (Stage) gridPane.getScene().getWindow();
 				stage.close();
-				new AlertMessage().showConfirmationAlertMessage("No cars Available",
-						"There are no cars availeble in the period of time selected!!!");
+				new AlertMessage().showConfirmationAlertMessage("Nincs szabad kocsi",
+						"A megadott időszakra nincs szabad kocsi!!!");
 			}
 		});
 
@@ -120,8 +119,8 @@ public class ChooseNewCarForReservationUpdateController implements Initializable
 			VBox carInfoBox = new VBox();
 			carInfoBox.setAlignment(Pos.CENTER);
 			carInfoBox.getChildren().add(imageView);
-			Text carInfoText = new Text(currentCar.getMake() + " " + currentCar.getModel() + "\n" + "Transmission: "
-					+ currentCar.getTransmissionType() + "\n" + "Fuel Type: " + currentCar.getFuel() + "\n" + "Seats: "
+			Text carInfoText = new Text(currentCar.getMake() + " " + currentCar.getModel() + "\n" + "Váltó: "
+					+ currentCar.getTransmissionType() + "\n" + "Üzemanyag: " + currentCar.getFuel() + "\n" + "ülések száma: "
 					+ currentCar.getSeats());
 			carInfoText.getStyleClass().add("text-center-white");
 			carInfoBox.getChildren().add(carInfoText);
@@ -136,7 +135,6 @@ public class ChooseNewCarForReservationUpdateController implements Initializable
 			if (gridPane != null) {
 				gridPane.add(carInfoBox, colIndex, rowIndex);
 			} else {
-				System.err.println("TilePane is null");
 			}
 		}
 	}

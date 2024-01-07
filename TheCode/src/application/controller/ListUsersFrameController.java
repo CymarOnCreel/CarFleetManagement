@@ -85,7 +85,7 @@ public class ListUsersFrameController implements Initializable {
 	}
 
 	private void handleComboBoxChange(String selectedRole) {
-		if (!selectedRole.equalsIgnoreCase("all")) {
+		if (!selectedRole.equalsIgnoreCase("Összes")) {
 			filteredEmployeeList = allEmployees.stream()
 					.filter(employee -> employee.getRoleName().equalsIgnoreCase(selectedRole))
 					.collect(Collectors.toList());
@@ -119,7 +119,7 @@ public class ListUsersFrameController implements Initializable {
 	private void fillComboboxWithRoles() {
 		role.getItems().clear();
 		ObservableList<String> items = FXCollections.observableArrayList();
-		items.add("All");
+		items.add("Összes");
 		RoleDao roleDao = new RoleDao();
 		List<RoleDto> roles = roleDao.getAll();
 		if (!roles.isEmpty()) {
@@ -166,19 +166,19 @@ public class ListUsersFrameController implements Initializable {
 	@SuppressWarnings("unchecked")
 	private void addColumns() {
 		employeeListTable.getColumns().clear();
-		TableColumn<EmployeeDto, String> employeeName = new TableColumn<>("Employee Name");
+		TableColumn<EmployeeDto, String> employeeName = new TableColumn<>("Felhasználó neve:");
 		employeeName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFullName()));
-		TableColumn<EmployeeDto, String> employeeRole = new TableColumn<>("Role");
+		TableColumn<EmployeeDto, String> employeeRole = new TableColumn<>("Jogosultság");
 		employeeRole.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getRoleName()));
 		TableColumn<EmployeeDto, String> employeeEmail = new TableColumn<>("Email");
 		employeeEmail.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEmail()));
-		TableColumn<EmployeeDto, String> employeeDriverLicense = new TableColumn<>("Driver License");
+		TableColumn<EmployeeDto, String> employeeDriverLicense = new TableColumn<>("Jogosítvány száma");
 		employeeDriverLicense
 				.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDriverLicense()));
-		TableColumn<EmployeeDto, String> employeeStatus = new TableColumn<>("Status");
+		TableColumn<EmployeeDto, String> employeeStatus = new TableColumn<>("Státusz");
 		employeeStatus
 				.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().isEnabledToString()));
-		TableColumn<EmployeeDto, Void> employeeDeleteOrActivate = new TableColumn<>("DELETE/ACTIVATE");
+		TableColumn<EmployeeDto, Void> employeeDeleteOrActivate = new TableColumn<>("Státusz váltás");
 		employeeDeleteOrActivate.setCellFactory(param -> new TableCell<EmployeeDto, Void>() {
 			private final Button employeeDeleteOrActivate = new Button();
 
@@ -197,9 +197,9 @@ public class ListUsersFrameController implements Initializable {
 				} else {
 					EmployeeDto employee = getTableView().getItems().get(getIndex());
 					if (employee.isEnabled()) {
-						employeeDeleteOrActivate.setText("DELETE");
+						employeeDeleteOrActivate.setText("INAKTÍVÁL");
 					} else {
-						employeeDeleteOrActivate.setText("ACTIVATE");
+						employeeDeleteOrActivate.setText("AKTÍVÁL");
 					}
 					setGraphic(employeeDeleteOrActivate);
 				}
@@ -227,7 +227,7 @@ public class ListUsersFrameController implements Initializable {
 
 	private void updateFilteredList() {
 		if (active.isSelected()) {
-			if (!role.getValue().equalsIgnoreCase("all")) {
+			if (!role.getValue().equalsIgnoreCase("Összes")) {
 				filteredEmployeeList = allEmployees.stream().filter(
 						employee -> employee.isEnabled() && employee.getRoleName().equalsIgnoreCase(role.getValue()))
 						.collect(Collectors.toList());
@@ -236,7 +236,7 @@ public class ListUsersFrameController implements Initializable {
 						.collect(Collectors.toList());
 			}
 		} else if (inactive.isSelected()) {
-			if (!role.getValue().equalsIgnoreCase("all")) {
+			if (!role.getValue().equalsIgnoreCase("Összes")) {
 				filteredEmployeeList = allEmployees.stream().filter(
 						employee -> !employee.isEnabled() && employee.getRoleName().equalsIgnoreCase(role.getValue()))
 						.collect(Collectors.toList());
@@ -245,7 +245,7 @@ public class ListUsersFrameController implements Initializable {
 						.collect(Collectors.toList());
 			}
 		} else {
-			if (!role.getValue().equalsIgnoreCase("all")) {
+			if (!role.getValue().equalsIgnoreCase("Összes")) {
 				filteredEmployeeList = allEmployees.stream()
 						.filter(employee -> employee.getRoleName().equalsIgnoreCase(role.getValue()))
 						.collect(Collectors.toList());
