@@ -23,7 +23,7 @@ public class InspectionExpirySorter {
 		for (CarDto carDto : cars) {
 			NextEvent neObj = new NextEvent(carDto.getInspectionExpiryDate(), 
 					carDto.getLicensePlate(), 
-					"Műszaki vizsga", 0);
+					"Műszaki vizsga", "");
 			inspectionExpiries.add(neObj);
 		}
 		return inspectionExpiries;
