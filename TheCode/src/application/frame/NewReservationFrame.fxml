@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="775.0" prefWidth="1118.0" styleClass="backGroundColor" stylesheets="@../util/application.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.NewReservationController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="775.0" prefWidth="1118.0" style="-fx-background-color: #1F363C;" stylesheets="@../util/application.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.NewReservationController">
 	<children>
 		<Button fx:id="search" layoutX="489.0" layoutY="146.0" mnemonicParsing="false" onAction="#setCarPickerTable" prefHeight="36.0" prefWidth="150.0" styleClass="save-update-button" stylesheets="@../util/application.css" text="KERESÉS" textFill="#050505" textOverrun="LEADING_ELLIPSIS">
          <font>
@@ -64,22 +64,22 @@
       <Button fx:id="clearFuelChoiceButton" layoutX="1085.0" layoutY="51.0" mnemonicParsing="false" onAction="#clearFuelChoice" prefHeight="25.0" prefWidth="25.0" styleClass="round-button" />
       <ImageView fitHeight="123.0" fitWidth="242.0" layoutX="236.0" layoutY="99.0">
          <image>
-            <Image url="https://github.com/CymarOnCreel/CarFleetManagement/blob/main/TheCode/src/application/pictures/CarReservation%20k%C3%A9pek/mx-5-roadster-1080-x-580-removebg-preview.png" />
+            <Image url="@../pictures/CarReservation%20képek/mx-5-roadster-1080-x-580-removebg-preview.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="123.0" fitWidth="242.0" layoutX="672.0" layoutY="80.0">
          <image>
-            <Image url="https://github.com/CymarOnCreel/CarFleetManagement/blob/main/TheCode/src/application/pictures/CarReservation%20k%C3%A9pek/sl_245106151_bmw-3-2018-side-view_4x-removebg-preview.png" />
+            <Image url="@../pictures/CarReservation%20képek/sl_245106151_bmw-3-2018-side-view_4x-removebg-preview.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="674.0" layoutY="645.0">
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="668.0" layoutY="621.0">
          <image>
-            <Image url="https://github.com/CymarOnCreel/CarFleetManagement/blob/main/TheCode/src/application/pictures/CarReservation%20k%C3%A9pek/201895001jpg_omrzhw1x-removebg-preview.png" />
+            <Image url="@../pictures/CarReservation%20képek/201895001jpg_omrzhw1x-removebg-preview.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="133.0" fitWidth="259.0" layoutX="209.0" layoutY="655.0">
+      <ImageView fitHeight="133.0" fitWidth="259.0" layoutX="210.0" layoutY="629.0">
          <image>
-            <Image url="https://github.com/CymarOnCreel/CarFleetManagement/blob/main/TheCode/src/application/pictures/CarReservation%20k%C3%A9pek/kija-removebg-preview.png" />
+            <Image url="@../pictures/CarReservation%20képek/kija-removebg-preview.png" />
          </image>
       </ImageView>
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="112.0" layoutY="115.0" prefHeight="0.0" prefWidth="150.0" text="KÖTELEZŐ*" textAlignment="CENTER" textFill="WHITE" />
