@@ -100,6 +100,27 @@ public class EmployeeDto {
 		return enabled;
 	}
 
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public void setDriverLicense(String driverLicense) {
+		this.driverLicense = driverLicense;
+	}
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
+	public void setUpdatedAt(LocalDate updatedAt) {
+		this.updatedAt = updatedAt;
+	}
 	@Override
 	public String toString() {
 		return "EmployeeDto [idEmployee=" + idEmployee + ", lastName=" + lastName + ", firstName=" + firstName

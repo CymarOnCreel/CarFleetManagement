@@ -73,7 +73,7 @@ public class MainFrameController implements Initializable {
 //		setUpMenuForEmployeeRoleAdmin();
 		setUpMenuForEmployeeRoleSuperAdmin();
 //		setupMenuForEmployeeRoleUser();
-//		setUpMenuForNoEmployeeLogedIn();
+//		setUpMenuForNoEmployeeLogedIn();--at start this should be run
 
 	}
 
@@ -171,7 +171,20 @@ public class MainFrameController implements Initializable {
 
 	@FXML
 	void changeUserPassword(ActionEvent event) {
-		// Create a scene + methods for changing the password
+		try {
+		FXMLLoader loader=new FXMLLoader(getClass().getResource("/application/frame/ChangePasswordByUserFrame.fxml"));
+		AnchorPane root=(AnchorPane) loader.load();
+		Scene scene=new Scene(root);
+		scene.getStylesheets().add(getClass().getResource("/application/util/application.css").toExternalForm());
+		Stage stage=new Stage();
+		stage.setTitle("Change My Password");
+		stage.getIcons().add(new Image("application/pictures/logo.png"));
+		stage.setScene(scene);
+		stage.initModality(Modality.APPLICATION_MODAL);
+		stage.showAndWait();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@FXML
@@ -190,12 +203,9 @@ public class MainFrameController implements Initializable {
 			stage.setTitle("List Of Users");
 			stage.setScene(scene);
 			stage.getIcons().add(new Image("application/pictures/logo.png"));
-
 			stage.initModality(Modality.APPLICATION_MODAL);
 			stage.showAndWait();			
-	
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -206,7 +216,6 @@ public class MainFrameController implements Initializable {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/frame/Login.fxml"));
 			GridPane loginRoot = (GridPane) loader.load();
-
 			Scene loginsScene = new Scene(loginRoot);
 			loginsScene.getStylesheets()
 					.add(getClass().getResource("/application/util/application.css").toExternalForm());
@@ -215,13 +224,10 @@ public class MainFrameController implements Initializable {
 			reservationsStage.setScene(loginsScene);
 			reservationsStage.initModality(Modality.APPLICATION_MODAL);
 			reservationsStage.getIcons().add(new Image("application/pictures/logo.png"));
-
 			reservationsStage.showAndWait();
 			employeeId = UserSession.getUserId();
-			System.out.println(employeeId + " az id");
 			setupMenuByEmployeeRole(employeeId);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
