@@ -32,9 +32,9 @@
 
 .round-button {
     -fx-background-color: transparent;
-    -fx-background-radius: 50%;
+    -fx-background-radius: 50.0%;
     -fx-border-color: transparent;
-    -fx-padding: 0;
+    -fx-padding: 0.0;
 }
 
 .round-button .image-view {
@@ -64,4 +64,14 @@
 	-fx-text-fill: white;
 	-fx-font-size: 24.0px;
 	-fx-background-radius:15.0;
+}
+
+.text-white-Label{
+	-fx-text-fill: white;
+	-fx-font-weight: bold;
+	-fx-font-size: 18.0px;
+}
+.text-field-rounded-bold{
+	-fx-background-radius:25.0;
+	-fx-font-size:18.0px;
 }
