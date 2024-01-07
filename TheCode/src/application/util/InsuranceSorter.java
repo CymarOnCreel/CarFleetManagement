@@ -38,7 +38,7 @@ public class InsuranceSorter {
 			actualDate = actualDate.minusDays(30L);
 			
 			NextEvent neObj = new NextEvent(actualDate, insuranceDto.getLicensePlate(), 
-					"Kötelező felelősségbiztosítás újrakötése (30 nap)", 0);
+					"Kötelező felelősségbiztosítás újrakötése (30 nap)", "");
 			insuranceRenewals.add(neObj);
 			
 		}

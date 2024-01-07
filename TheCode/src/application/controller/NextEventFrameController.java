@@ -2,7 +2,6 @@ package application.controller;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.chrono.ChronoLocalDate;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -34,7 +33,7 @@ public class NextEventFrameController implements Initializable{
     private TableColumn<NextEvent, String> columnType;
 
     @FXML
-    private TableColumn<NextEvent, Integer> columnRemainingDistance;
+    private TableColumn<NextEvent, String> columnRemainingDistance;
     
     private ObservableList<NextEvent> data = FXCollections.observableArrayList();
 
@@ -55,8 +54,8 @@ public class NextEventFrameController implements Initializable{
 		columnDate.setCellValueFactory(cellData -> cellData.getValue().getDate());
 		columnLicensPlate.setCellValueFactory(cellData -> cellData.getValue().getLicensePlate());
 		columnType.setCellValueFactory(cellData -> cellData.getValue().getType());
-		columnRemainingDistance.setCellValueFactory(cellData -> cellData.getValue().getRemainingDistance().asObject());
-		
+		columnRemainingDistance.setCellValueFactory(cellData -> cellData.getValue().getRemainingDistance());
+				
 		tableNextEvent.getColumns().addAll(columnDate, columnLicensPlate, columnType, columnRemainingDistance);
 		tableNextEvent.setItems(data);
 		
