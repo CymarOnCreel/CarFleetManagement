@@ -39,7 +39,7 @@ public class ChooseNewCarForReservationUpdateController implements Initializable
 	private static final double CAR_IMAGE_WIDTH = 300;
 	private static final double CAR_IMAGE_HEIGHT = 300;
 	private static final String DEFAULT_IMAGE_PATH = "application/pictures/suv-removebg-preview.png";
-	private static final double TEXT_BOX_HEIGHT = 30;
+	private static final double TEXT_BOX_HEIGHT = 50;
 
 	private int tileColumns = 3;
 	private ReservationDao reservationDao = new ReservationDao();

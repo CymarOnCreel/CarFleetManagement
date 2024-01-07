@@ -80,7 +80,7 @@ public class MainFrameController implements Initializable {
 		Platform.runLater(() -> {
 			setUpMenuForNoEmployeeLogedIn();// --at start this should be run
 		});
-		
+//		
 
 	}
 

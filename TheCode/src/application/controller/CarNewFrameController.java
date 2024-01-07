@@ -232,7 +232,7 @@ public class CarNewFrameController implements Initializable{
     void addSite(ActionEvent event) {
     	Stage newSiteStage = new Stage();
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("../frame/SiteNewFrame.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("../frame/SiteNewFramePass.fxml"));
 			AnchorPane root = loader.load();
 			SiteNewFrameController controller = loader.getController();
 			controller.setCarNewFrameController(this);
