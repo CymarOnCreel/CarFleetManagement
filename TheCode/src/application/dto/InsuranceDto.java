@@ -13,7 +13,7 @@ import javax.persistence.Table;
 @Table (name="insurance")
 public class InsuranceDto {
 
-	@Column(name="insurance_id")
+	@Column(name="id_insurance")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
 	private int insuranceId;
@@ -101,7 +101,7 @@ public class InsuranceDto {
 	public boolean isEnabled() {
 		return enabled;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "InsuranceDto [insuranceId=" + insuranceId + ", licensePlate=" + licensePlate + ", insuranceType="

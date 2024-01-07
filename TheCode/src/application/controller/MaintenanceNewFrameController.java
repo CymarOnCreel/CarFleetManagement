@@ -30,6 +30,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class MaintenanceNewFrameController implements Initializable {
@@ -114,17 +115,18 @@ public class MaintenanceNewFrameController implements Initializable {
 
     @FXML
     void newServiceCompany(ActionEvent event) {
-    	Stage newSiteStage = new Stage();
+    	Stage newServiceCompanyStage = new Stage();
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("../frame/ServiceCompanyNewFrame.fxml"));
 			AnchorPane root = loader.load();
 			ServiceCompanyNewFrameController controller = loader.getController();
 			controller.setMaintenanceNewFrameController(this);
 			Scene scene = new Scene(root, 600, 600);
-			newSiteStage.setScene(scene);
-			newSiteStage.setTitle("Serviz társaság hozzáadása");
-			newSiteStage.setX(350);
-			newSiteStage.show();
+			newServiceCompanyStage.setScene(scene);
+			newServiceCompanyStage.setTitle("Serviz társaság hozzáadása");
+			newServiceCompanyStage.setX(350);
+			newServiceCompanyStage.initModality(Modality.APPLICATION_MODAL);
+			newServiceCompanyStage.showAndWait();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -177,9 +179,13 @@ public class MaintenanceNewFrameController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		cmbLicensePlateFill();
 		cmbMaintenanceTypeFill();
-		cmbServiceCompanyFill();
-		
-		
+		cmbServiceCompanyFill();	
+	}
+	
+	@FXML
+	private void setMileagePromptText(ActionEvent event) {
+		String actualMileage = cmbLicensePlate.getValue().getMileage()+"";
+		tfMileage.setPromptText("aktuális: " + actualMileage);
 	}
 
 	private void cmbServiceCompanyFill() {

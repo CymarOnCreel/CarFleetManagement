@@ -2,6 +2,7 @@ package application.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -10,6 +11,7 @@ import application.alert.AlertMessage;
 import application.dao.CarDao;
 import application.dao.CategoryDao;
 import application.dao.FuelDao;
+import application.dao.MaintenanceDao;
 import application.dao.MakeDao;
 import application.dao.ModelDao;
 import application.dao.SiteDao;
@@ -17,6 +19,7 @@ import application.dao.TransmissionDao;
 import application.dto.CarDto;
 import application.dto.CategoryDto;
 import application.dto.FuelDto;
+import application.dto.MaintenanceDto;
 import application.dto.MakeDto;
 import application.dto.ModelDto;
 import application.dto.SiteDto;
@@ -35,6 +38,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class CarNewFrameController implements Initializable{
@@ -236,7 +240,8 @@ public class CarNewFrameController implements Initializable{
 			newSiteStage.setScene(scene);
 			newSiteStage.setTitle("Telephely hozzáadása");
 			newSiteStage.setX(350);
-			newSiteStage.show();
+			newSiteStage.initModality(Modality.APPLICATION_MODAL);
+			newSiteStage.showAndWait();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -463,7 +468,7 @@ public class CarNewFrameController implements Initializable{
     	
     }
     
-    private boolean isFieldEmpty() {
+	private boolean isFieldEmpty() {
 		if (tfLicensePlate.getText().isEmpty() ||
 				tfDoors.getText().isEmpty()||
 				tfMileage.getText().isEmpty()||

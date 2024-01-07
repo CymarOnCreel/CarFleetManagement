@@ -55,7 +55,7 @@ public class AlertMessage {
 	}
 
 	public void carSaveSuccess() {
-		Alert a = new Alert(AlertType.NONE, "Az autó mentese sikeresen megtörtént.", ButtonType.OK);
+		Alert a = new Alert(AlertType.NONE, "Az autó mentese sikeresen megtörtént. \nKérem, rögzítse az utolsó kötelező szerviz adatait is!", ButtonType.OK);
 		a.setTitle("Sikeres mentés");
 		a.show();}
 

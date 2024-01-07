@@ -46,6 +46,8 @@ public class MainFrameController implements Initializable {
 	private MenuItem addNewCarToDatabase;
 	@FXML
 	private MenuItem addNewInsurance;
+    @FXML
+    private MenuItem nextEvent;
 	@FXML
 	private SplitMenuButton users;
 	@FXML
@@ -117,7 +119,27 @@ public class MainFrameController implements Initializable {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-	    }
+	 }
+	 
+	 @FXML
+	 void nextEvent(ActionEvent event) {
+		 FXMLLoader loader=new FXMLLoader(getClass().getResource("/application/frame/NextEventFrame.fxml"));
+			AnchorPane root;
+			try {
+				root = (AnchorPane)loader.load();
+				Scene scene=new Scene(root);
+				scene.getStylesheets().add(getClass().getResource("/application/util/application.css").toExternalForm());
+				Stage stage=new Stage();
+				stage.setTitle("Közeledő események");
+				stage.setScene(scene);
+				stage.initModality(Modality.APPLICATION_MODAL);
+				stage.initOwner(Main.getPrimaryStage());
+				stage.showAndWait();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	 }
 	 
 	@FXML
 	void createNewCarReservation(ActionEvent event) throws IOException {

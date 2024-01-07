@@ -101,7 +101,7 @@ public class MaintenanceDto {
 	public LocalDate getUpdatedAt() {
 		return updatedAt;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "MaintenanceDto [idMaintenance=" + idMaintenance + ", licensePlate=" + licensePlate

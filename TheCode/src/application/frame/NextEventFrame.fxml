@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.NextEventFrameController">
+   <children>
+      <TableView fx:id="tableNextEvent" layoutX="59.0" layoutY="59.0" prefHeight="686.0" prefWidth="1085.0">
+        <columns>
+          <TableColumn fx:id="columnDate" prefWidth="168.0" text="Dátum" />
+          <TableColumn fx:id="columnLicensPlate" prefWidth="151.0" text="Rendszám" />
+            <TableColumn fx:id="columnType" prefWidth="620.0" text="Esemény" />
+            <TableColumn fx:id="columnRemainingDistance" prefWidth="145.0" text="Hátralévő km" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
