@@ -25,9 +25,9 @@
          <font>
             <Font name="System Bold" size="16.0" />
          </font></Button>
-		<TableView fx:id="reservationsTable" layoutX="17.0" layoutY="149.0" prefHeight="381.0" prefWidth="963.0" styleClass="my-table" stylesheets="@CarFleetManagement-main%20(3)/CarFleetManagement-main/TheCode/src/application/util/application.css" visible="false">
+		<TableView fx:id="reservationsTable" layoutX="33.0" layoutY="200.0" prefHeight="381.0" prefWidth="963.0" styleClass="my-table" stylesheets="@CarFleetManagement-main%20(3)/CarFleetManagement-main/TheCode/src/application/util/application.css" visible="false">
    </TableView>
-		<Button fx:id="closeWindow" layoutX="420.0" layoutY="557.0" mnemonicParsing="false" onAction="#closeWindow" prefHeight="44.0" prefWidth="146.0" style="-fx-background-color: #159991;" styleClass="close-button" stylesheets="@CarFleetManagement-main%20(3)/CarFleetManagement-main/TheCode/src/application/util/application.css" text="CLOSE" />
+		<Button fx:id="closeWindow" layoutX="426.0" layoutY="581.0" mnemonicParsing="false" onAction="#closeWindow" prefHeight="44.0" prefWidth="146.0" style="-fx-background-color: #159991;" styleClass="close-button" stylesheets="@CarFleetManagement-main%20(3)/CarFleetManagement-main/TheCode/src/application/util/application.css" text="CLOSE" />
       <Label layoutX="426.0" layoutY="21.0" text="RESERVATION" textFill="WHITE">
          <font>
             <Font name="System Bold" size="20.0" />
@@ -35,7 +35,7 @@
       </Label>
       <ImageView fitHeight="128.0" fitWidth="175.0" layoutX="392.0" layoutY="67.0">
          <image>
-            <Image url="@../pictures/Listreservationframe/hand-give-remote-car-key-to-other-flat-design-vector-22570968-removebg-preview.png />
+            <Image url="@../pictures/Listreservationframe/hand-give-remote-car-key-to-other-flat-design-vector-22570968-removebg-preview.png " />
          </image>
       </ImageView>
 	</children>

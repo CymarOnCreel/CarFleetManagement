@@ -160,7 +160,7 @@ public class MainFrameController implements Initializable {
 
 	@FXML
 	void listAllReservationOfUser(ActionEvent event) throws IOException {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/frame/ListReservationFrame.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/frame/ListReservationFramePASS.fxml"));
 		AnchorPane reservationsRoot = (AnchorPane) loader.load();
 		Scene reservationsScene = new Scene(reservationsRoot);
 		reservationsScene.getStylesheets()
