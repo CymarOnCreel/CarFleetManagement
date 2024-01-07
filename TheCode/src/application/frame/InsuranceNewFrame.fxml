@@ -39,7 +39,7 @@
       <Button fx:id="btnNewInsuranceType" layoutX="444.0" layoutY="155.0" mnemonicParsing="false" onAction="#newInsuranceType" text="+" />
       <ImageView fitHeight="102.0" fitWidth="158.0" layoutX="183.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../pictures/carfleet-removebg-preview.png" />
+            <Image url="@../pictures/Listreservationframe/hand-give-remote-car-key-to-other-flat-design-vector-22570968-removebg-preview.png" />
          </image>
          <effect>
             <InnerShadow choke="1.0" radius="68.5" width="255.0" />
