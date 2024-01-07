@@ -5,27 +5,45 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.MaintenanceNewFrameController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="555.0" styleClass="backGroundColor" stylesheets="@../util/application.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.MaintenanceNewFrameController">
    <children>
-      <Label layoutX="83.0" layoutY="110.0" text="Autó:" />
-      <Label layoutX="83.0" layoutY="153.0" text="Karbantartás típusa:" />
-      <Label layoutX="83.0" layoutY="194.0" text="Szerviz:" />
-      <Label layoutX="83.0" layoutY="238.0" text="Dátum:" />
-      <Label layoutX="83.0" layoutY="279.0" text="Kilométeróra állás:" />
-      <Label layoutX="78.0" layoutY="377.0" text="Részletek:" />
-      <Label layoutX="82.0" layoutY="322.0" text="Összeg:" />
+      <Label layoutX="83.0" layoutY="110.0" styleClass="text-white-Label" stylesheets="@../util/application.css" text="Autó:" />
+      <Label layoutX="83.0" layoutY="153.0" styleClass="text-white-Label" stylesheets="@../util/application.css" text="Karbantartás típusa:" />
+      <Label layoutX="83.0" layoutY="194.0" styleClass="text-white-Label" stylesheets="@../util/application.css" text="Szerviz:" />
+      <Label layoutX="83.0" layoutY="238.0" styleClass="text-white-Label" stylesheets="@../util/application.css" text="Dátum:" />
+      <Label layoutX="83.0" layoutY="279.0" styleClass="text-white-Label" stylesheets="@../util/application.css" text="Kilométeróra állás:" />
+      <Label layoutX="78.0" layoutY="377.0" styleClass="text-white-Label" stylesheets="@../util/application.css" text="Részletek:" />
+      <Label layoutX="82.0" layoutY="322.0" styleClass="text-white-Label" stylesheets="@../util/application.css" text="Összeg:" />
       <ComboBox fx:id="cmbLicensePlate" layoutX="255.0" layoutY="105.0" onAction="#setMileagePromptText" prefHeight="31.0" prefWidth="187.0" />
       <ComboBox fx:id="cmbMaintenanceType" layoutX="255.0" layoutY="148.0" prefHeight="31.0" prefWidth="187.0" />
       <ComboBox fx:id="cmbServiceCompany" layoutX="255.0" layoutY="189.0" prefHeight="31.0" prefWidth="187.0" />
       <DatePicker fx:id="dpDate" layoutX="255.0" layoutY="233.0" />
-      <TextField fx:id="tfMileage" layoutX="255.0" layoutY="274.0" onKeyTyped="#intTyped" />
+      <TextField fx:id="tfMileage" layoutX="255.0" layoutY="273.0" onKeyTyped="#intTyped">
+         <font>
+            <Font size="18.0" />
+         </font></TextField>
       <TextField fx:id="tfDescription" layoutX="255.0" layoutY="372.0" prefHeight="108.0" prefWidth="264.0" />
-      <TextField fx:id="tfAmount" layoutX="255.0" layoutY="317.0" onKeyTyped="#intTyped" />
-      <Button fx:id="btnNewMaintenanceType" layoutX="442.0" layoutY="148.0" mnemonicParsing="false" onAction="#newMaintenanceType" text="+" />
-      <Button fx:id="btnSave" layoutX="454.0" layoutY="513.0" mnemonicParsing="false" onAction="#saveNewMaintenance" text="Mentés" />
-      <Button fx:id="btnCancel" layoutX="255.0" layoutY="513.0" mnemonicParsing="false" onAction="#cancel" text="Mégsem" />
-      <Button fx:id="btnNewServiceCompany" layoutX="442.0" layoutY="189.0" mnemonicParsing="false" onAction="#newServiceCompany" text="+" />
+      <TextField fx:id="tfAmount" layoutX="255.0" layoutY="316.0" onKeyTyped="#intTyped">
+         <font>
+            <Font size="18.0" />
+         </font></TextField>
+      <Button fx:id="btnNewMaintenanceType" layoutX="455.0" layoutY="151.0" mnemonicParsing="false" onAction="#newMaintenanceType" text="+" />
+      <Button fx:id="btnSave" layoutX="105.0" layoutY="506.0" mnemonicParsing="false" onAction="#saveNewMaintenance" styleClass="save-update-button" stylesheets="@../util/application.css" text="Mentés" />
+      <Button fx:id="btnCancel" layoutX="391.0" layoutY="506.0" mnemonicParsing="false" onAction="#cancel" styleClass="close-button" stylesheets="@../util/application.css" text="Mégsem" />
+      <Button fx:id="btnNewServiceCompany" layoutX="455.0" layoutY="195.0" mnemonicParsing="false" onAction="#newServiceCompany" text="+" />
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="197.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../pictures/carfleet-removebg-preview.png" />
+         </image>
+         <effect>
+            <InnerShadow choke="1.0" radius="68.5" width="255.0" />
+         </effect>
+      </ImageView>
    </children>
 </AnchorPane>
