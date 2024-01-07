@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1200.0" prefWidth="1900.0" style="-fx-background-color: #1F363C;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.MainFrameController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1200.0" prefWidth="1900.0" style="-fx-background-color: #1F363C;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.MainFrameController">
 	<children>
 		<Polygon fill="#159991" layoutX="1715.0" layoutY="123.0" points="-931.0, -123.00003051757812, 185.0, 861.5, 185.0, -123.0" stroke="#159991" strokeType="INSIDE" />
 		<Polygon fill="#159991" layoutX="1788.0" layoutY="432.0" points="-720.333251953125, 551.0, 112.0, 552.5, -1004.0, -447.6666564941406" stroke="#159991" strokeType="OUTSIDE" />
@@ -48,13 +48,13 @@
 				<Font size="38.0" />
 			</font>
 		</Button>
-		<MenuButton fx:id="reservation" layoutX="996.0" layoutY="40.0" mnemonicParsing="false" prefHeight="103.0" prefWidth="353.0" style="-fx-background-color: #159991;" styleClass="custom-menu-button" stylesheets="@../../../../../../../util/application.css" text="RESERVATION" textAlignment="CENTER" textFill="WHITE">
+		<MenuButton fx:id="reservation" layoutX="996.0" layoutY="40.0" mnemonicParsing="false" prefHeight="103.0" prefWidth="353.0" style="-fx-background-color: #159991;" styleClass="custom-menu-button" stylesheets="@../../../../../../../util/application.css" text="FOGLALÁS" textAlignment="CENTER" textFill="WHITE">
 			<font>
 				<Font size="38.0" />
 			</font>
 			<items>
-				<MenuItem fx:id="newReservation" mnemonicParsing="false" onAction="#createNewCarReservation" styleClass="menu-item" text="New Reservation" />
-				<MenuItem fx:id="listUserReservation" mnemonicParsing="false" onAction="#listAllReservationOfUser" styleClass="menu-item" text="List My Reservations" />
+				<MenuItem fx:id="newReservation" mnemonicParsing="false" onAction="#createNewCarReservation" styleClass="menu-item" text="ÚJ FOGLALÁS" />
+				<MenuItem fx:id="listUserReservation" mnemonicParsing="false" onAction="#listAllReservationOfUser" styleClass="menu-item" text="FOGLALÁSAIM LISTÁJA" />
 			</items>
 		</MenuButton>
 		<MenuButton fx:id="admin" layoutX="1337.0" layoutY="40.0" mnemonicParsing="false" prefHeight="103.0" prefWidth="244.0" style="-fx-background-color: #159991;" styleClass="custom-menu-button" stylesheets="@../../../../../../../util/application.css" text="ADMIN" textFill="WHITE">
@@ -64,38 +64,38 @@
 			<items>
 				<MenuItem mnemonicParsing="false" styleClass="menu-item">
                <graphic>
-                  <SplitMenuButton fx:id="cars" mnemonicParsing="false" text="Cars">
+                  <SplitMenuButton fx:id="cars" mnemonicParsing="false" text="KOCSIK">
                     <items>
-                      <MenuItem fx:id="addNewCarToDatabase" mnemonicParsing="false" onAction="#addNewCarToDatabase" text="Add New Car" />
-                      <MenuItem fx:id="addCarMaintenance" mnemonicParsing="false" onAction="#reserveCarForMaintenance" text="Add Car Maintenance" />
-                        <MenuItem fx:id="addNewInsurance" mnemonicParsing="false" onAction="#addNewInsurance" text="Add New Insurance" />
-                        <MenuItem fx:id="nextEvent" mnemonicParsing="false" onAction="#nextEvent" text="Next Event" />
+                      <MenuItem fx:id="addNewCarToDatabase" mnemonicParsing="false" onAction="#addNewCarToDatabase" text="ÚJ KOCSI HOZZÁADÁS" />
+                      <MenuItem fx:id="addCarMaintenance" mnemonicParsing="false" onAction="#reserveCarForMaintenance" text="KOCSI KARBANTARTÁS HOZZÁADÁS" />
+                        <MenuItem fx:id="addNewInsurance" mnemonicParsing="false" onAction="#addNewInsurance" text="ÚJ BIZTOSÍTÁS HOZZÁADÁS" />
+                        <MenuItem fx:id="nextEvent" mnemonicParsing="false" onAction="#nextEvent" text="VÁRHATÓ ESEMÉNYEK" />
                     </items>
                   </SplitMenuButton>
                </graphic></MenuItem>
 				<MenuItem mnemonicParsing="false" styleClass="menu-item">
                <graphic>
-                  <SplitMenuButton fx:id="users" mnemonicParsing="false" text="Users">
+                  <SplitMenuButton fx:id="users" mnemonicParsing="false" text="FELHASZNÁLÓK">
                     <items>
-                      <MenuItem fx:id="listUsers" mnemonicParsing="false" onAction="#listUsers" text="List Users" />
-                      <MenuItem fx:id="addUser" mnemonicParsing="false" onAction="#addNewUser" text="Add User" />
+                      <MenuItem fx:id="listUsers" mnemonicParsing="false" onAction="#listUsers" text="FELHASZNÁLÓK LISTÁZÁSA" />
+                      <MenuItem fx:id="addUser" mnemonicParsing="false" onAction="#addNewUser" text="FELHASZNÁLÓ HOZZÁADÁSA" />
                     </items>
                   </SplitMenuButton>
                </graphic></MenuItem>
 			</items>
 		</MenuButton>
-		<MenuButton fx:id="profile" layoutX="1582.0" layoutY="40.0" mnemonicParsing="false" prefHeight="103.0" prefWidth="303.0" style="-fx-background-color: #000000; -fx-background-radius: 30;" styleClass="custom-menu-button" text="PROFILE" textFill="WHITE">
+		<MenuButton fx:id="profile" layoutX="1582.0" layoutY="40.0" mnemonicParsing="false" prefHeight="103.0" prefWidth="303.0" style="-fx-background-color: #000000; -fx-background-radius: 30;" styleClass="custom-menu-button" text="PROFIL" textFill="WHITE">
 			<font>
 				<Font size="38.0" />
 			</font>
 			<items>
-				<MenuItem fx:id="login" mnemonicParsing="false" onAction="#login" styleClass="menu-item" text="Login" />
-				<MenuItem fx:id="logout" mnemonicParsing="false" onAction="#logout" styleClass="menu-item" text="Logout" />
-				<MenuItem fx:id="changePassword" mnemonicParsing="false" onAction="#changeUserPassword" styleClass="menu-item" text="Change Password" />
-				<MenuItem fx:id="registration" mnemonicParsing="false" onAction="#registerNewUser" styleClass="menu-item" text="Registration" />
+				<MenuItem fx:id="login" mnemonicParsing="false" onAction="#login" styleClass="menu-item" text="BELÉPÉS" />
+				<MenuItem fx:id="logout" mnemonicParsing="false" onAction="#logout" styleClass="menu-item" text="KILÉPÉS" />
+				<MenuItem fx:id="changePassword" mnemonicParsing="false" onAction="#changeUserPassword" styleClass="menu-item" text="JELSZÓ MÓDOSITÁS" />
+				<MenuItem fx:id="registration" mnemonicParsing="false" onAction="#registerNewUser" styleClass="menu-item" text="REGISZTRÁCIÓ" />
 			</items>
 		</MenuButton>
-		<Button fx:id="search" layoutX="1388.0" layoutY="1028.0" mnemonicParsing="false" prefHeight="125.0" prefWidth="439.0" style="-fx-background-color: #000000; -fx-background-radius: 30;" text="SEARCH" textFill="WHITE">
+		<Button fx:id="aboutUs" layoutX="1388.0" layoutY="1028.0" mnemonicParsing="false" onAction="#aboutUs" prefHeight="125.0" prefWidth="439.0" style="-fx-background-color: #000000; -fx-background-radius: 30;" text="RÓLUNK" textFill="WHITE">
 			<font>
 				<Font name="System Bold" size="40.0" />
 			</font>

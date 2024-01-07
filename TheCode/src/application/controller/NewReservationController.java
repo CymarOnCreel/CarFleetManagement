@@ -444,18 +444,18 @@ public class NewReservationController implements Initializable {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void addColumnsToTable() {
 		availabelCarsTable.getColumns().clear();
-		TableColumn<CarDto, String> licencePlate = new TableColumn<>("Licence Plate");
+		TableColumn<CarDto, String> licencePlate = new TableColumn<>("Rendszám");
 		licencePlate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getLicensePlate()));
-		TableColumn<CarDto, String> make = new TableColumn<>("Car Make");
+		TableColumn<CarDto, String> make = new TableColumn<>("Gyártmány");
 		make.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMake().getNameMake()));
-		TableColumn<CarDto, String> category = new TableColumn<>("Car Category");
+		TableColumn<CarDto, String> category = new TableColumn<>("Kategória");
 		category.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCategory().getNameCategory()));
-		TableColumn<CarDto, String> transmission = new TableColumn<>("Transmission");
+		TableColumn<CarDto, String> transmission = new TableColumn<>("Váltó típusa");
 		transmission
 				.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTransmissionType()));
-		TableColumn<CarDto, String> fuelType = new TableColumn<>("Fuel");
+		TableColumn<CarDto, String> fuelType = new TableColumn<>("Üzemanyag");
 		fuelType.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFuel()));
-		TableColumn<CarDto, Integer> numberOfSeats = new TableColumn<>("Seat numbers");
+		TableColumn<CarDto, Integer> numberOfSeats = new TableColumn<>("Ülések száma");
 		numberOfSeats.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getSeats()));
 		availabelCarsTable.getColumns().addAll(licencePlate, make, category, transmission, fuelType, numberOfSeats);
 		availabelCarsTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);

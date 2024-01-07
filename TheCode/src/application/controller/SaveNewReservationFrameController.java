@@ -90,9 +90,9 @@ public class SaveNewReservationFrameController implements Initializable {
 	@FXML
 	private void saveReservation(ActionEvent event) {
 		saveReservationToDatabase(carChoosen, descriptionField.getText());
-		new AlertMessage().showConfirmationAlertMessage("Reservation succesfull",
-					"Reservation succesfull for:\n " + carChoosen.getLicensePlate() + " car \nat the interval of \n"
-							+ startDateData+ "  \n " + endDateData);
+		new AlertMessage().showConfirmationAlertMessage("Foglalás sikeres",
+					"A foglalás sikeres:\nKocsi: " + carChoosen.getLicensePlate() + "\nKezdeti Dátum: "
+							+ startDateData+ "\n Vége Dátum: " + endDateData);
 		closeSaveFrame();
 	}
 	

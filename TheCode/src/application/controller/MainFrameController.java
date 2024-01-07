@@ -9,6 +9,7 @@ import application.alert.AlertMessage;
 import application.dao.EmployeeDao;
 import application.dto.EmployeeDto;
 import application.util.UserSession;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,6 +24,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class MainFrameController implements Initializable {
 
@@ -46,8 +48,8 @@ public class MainFrameController implements Initializable {
 	private MenuItem addNewCarToDatabase;
 	@FXML
 	private MenuItem addNewInsurance;
-    @FXML
-    private MenuItem nextEvent;
+	@FXML
+	private MenuItem nextEvent;
 	@FXML
 	private SplitMenuButton users;
 	@FXML
@@ -67,15 +69,18 @@ public class MainFrameController implements Initializable {
 	private MenuItem logout;
 
 	@FXML
-	private Button search;
+	private Button aboutUs;
 	private int employeeId;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 //		setUpMenuForEmployeeRoleAdmin();
-		setUpMenuForEmployeeRoleSuperAdmin();
+//		setUpMenuForEmployeeRoleSuperAdmin();
 //		setupMenuForEmployeeRoleUser();
-//		setUpMenuForNoEmployeeLogedIn();--at start this should be run
+		Platform.runLater(() -> {
+			setUpMenuForNoEmployeeLogedIn();// --at start this should be run
+		});
+		
 
 	}
 
@@ -95,52 +100,49 @@ public class MainFrameController implements Initializable {
 			stage.getIcons().add(new Image("application/pictures/logo.png"));
 			stage.showAndWait();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 	}
 
-	 @FXML
-	private  void addNewInsurance(ActionEvent event) {
-		 FXMLLoader loader=new FXMLLoader(getClass().getResource("/application/frame/InsuranceNewFrame.fxml"));
-			AnchorPane root;
-			try {
-				root = (AnchorPane)loader.load();
-				Scene scene=new Scene(root);
-				scene.getStylesheets().add(getClass().getResource("/application/util/application.css").toExternalForm());
-				Stage stage=new Stage();
-				stage.setTitle("Biztosítás hozzáadása");
-				stage.setScene(scene);
-				stage.initModality(Modality.APPLICATION_MODAL);
-				stage.initOwner(Main.getPrimaryStage());
-				stage.showAndWait();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	 }
-	 
-	 @FXML
-	 void nextEvent(ActionEvent event) {
-		 FXMLLoader loader=new FXMLLoader(getClass().getResource("/application/frame/NextEventFrame.fxml"));
-			AnchorPane root;
-			try {
-				root = (AnchorPane)loader.load();
-				Scene scene=new Scene(root);
-				scene.getStylesheets().add(getClass().getResource("/application/util/application.css").toExternalForm());
-				Stage stage=new Stage();
-				stage.setTitle("Közeledő események");
-				stage.setScene(scene);
-				stage.initModality(Modality.APPLICATION_MODAL);
-				stage.initOwner(Main.getPrimaryStage());
-				stage.showAndWait();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	 }
-	 
+	@FXML
+	private void addNewInsurance(ActionEvent event) {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/frame/InsuranceNewFrame.fxml"));
+		AnchorPane root;
+		try {
+			root = (AnchorPane) loader.load();
+			Scene scene = new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("/application/util/application.css").toExternalForm());
+			Stage stage = new Stage();
+			stage.setTitle("Biztosítás hozzáadása");
+			stage.setScene(scene);
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.initOwner(Main.getPrimaryStage());
+			stage.showAndWait();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@FXML
+	void nextEvent(ActionEvent event) {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/frame/NextEventFrame.fxml"));
+		AnchorPane root;
+		try {
+			root = (AnchorPane) loader.load();
+			Scene scene = new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("/application/util/application.css").toExternalForm());
+			Stage stage = new Stage();
+			stage.setTitle("Közeledő események");
+			stage.setScene(scene);
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.initOwner(Main.getPrimaryStage());
+			stage.showAndWait();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	@FXML
 	void createNewCarReservation(ActionEvent event) throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/frame/NewReservationFrame.fxml"));
@@ -148,7 +150,7 @@ public class MainFrameController implements Initializable {
 		Scene scene = new Scene(root);
 		scene.getStylesheets().add(getClass().getResource("/application/util/application.css").toExternalForm());
 		Stage stage = new Stage();
-		stage.setTitle("New Reservation");
+		stage.setTitle("Új foglalás");
 		stage.getIcons().add(new Image("application/pictures/logo.png"));
 		stage.setScene(scene);
 		stage.initModality(Modality.APPLICATION_MODAL);
@@ -164,7 +166,7 @@ public class MainFrameController implements Initializable {
 		reservationsScene.getStylesheets()
 				.add(getClass().getResource("/application/util/application.css").toExternalForm());
 		Stage reservationsStage = new Stage();
-		reservationsStage.setTitle("List Reservations");
+		reservationsStage.setTitle("Foglalások listája");
 		reservationsStage.getIcons().add(new Image("application/pictures/logo.png"));
 
 		reservationsStage.setScene(reservationsScene);
@@ -186,7 +188,7 @@ public class MainFrameController implements Initializable {
 		} else if (employeeRole.equalsIgnoreCase("superadmin")) {
 			setUpMenuForEmployeeRoleSuperAdmin();
 		} else {
-			new AlertMessage().showUnknownError("Error", "An unkonown error occured,\nPlease contact support!");
+			new AlertMessage().showUnknownError("Error", "Váratlan hiba,\nVegye fel a kapcsolatot a supporttal!");
 		}
 
 	}
@@ -194,16 +196,17 @@ public class MainFrameController implements Initializable {
 	@FXML
 	void changeUserPassword(ActionEvent event) {
 		try {
-		FXMLLoader loader=new FXMLLoader(getClass().getResource("/application/frame/ChangePasswordByUserFrame.fxml"));
-		AnchorPane root=(AnchorPane) loader.load();
-		Scene scene=new Scene(root);
-		scene.getStylesheets().add(getClass().getResource("/application/util/application.css").toExternalForm());
-		Stage stage=new Stage();
-		stage.setTitle("Change My Password");
-		stage.getIcons().add(new Image("application/pictures/logo.png"));
-		stage.setScene(scene);
-		stage.initModality(Modality.APPLICATION_MODAL);
-		stage.showAndWait();
+			FXMLLoader loader = new FXMLLoader(
+					getClass().getResource("/application/frame/ChangePasswordByUserFrame.fxml"));
+			AnchorPane root = (AnchorPane) loader.load();
+			Scene scene = new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("/application/util/application.css").toExternalForm());
+			Stage stage = new Stage();
+			stage.setTitle("Jelszó módosítás");
+			stage.getIcons().add(new Image("application/pictures/logo.png"));
+			stage.setScene(scene);
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.showAndWait();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -219,14 +222,14 @@ public class MainFrameController implements Initializable {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/frame/ListUsersFrame.fxml"));
 			AnchorPane root = (AnchorPane) loader.load();
-			Scene scene=new Scene(root);
+			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("/application/util/application.css").toExternalForm());
-			Stage stage= new Stage();
-			stage.setTitle("List Of Users");
+			Stage stage = new Stage();
+			stage.setTitle("Felhasználók listája");
 			stage.setScene(scene);
 			stage.getIcons().add(new Image("application/pictures/logo.png"));
 			stage.initModality(Modality.APPLICATION_MODAL);
-			stage.showAndWait();			
+			stage.showAndWait();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -241,14 +244,17 @@ public class MainFrameController implements Initializable {
 			Scene loginsScene = new Scene(loginRoot);
 			loginsScene.getStylesheets()
 					.add(getClass().getResource("/application/util/application.css").toExternalForm());
-			Stage reservationsStage = new Stage();
-			reservationsStage.setTitle("Login");
-			reservationsStage.setScene(loginsScene);
-			reservationsStage.initModality(Modality.APPLICATION_MODAL);
-			reservationsStage.getIcons().add(new Image("application/pictures/logo.png"));
-			reservationsStage.showAndWait();
-			employeeId = UserSession.getUserId();
-			setupMenuByEmployeeRole(employeeId);
+			Stage stage = new Stage();
+			stage.setTitle("Belépés");
+			stage.setScene(loginsScene);
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.initStyle(StageStyle.UNDECORATED);
+			stage.getIcons().add(new Image("application/pictures/logo.png"));
+			stage.showAndWait();
+			if (UserSession.getUserId() != 0) {
+				employeeId = UserSession.getUserId();
+				setupMenuByEmployeeRole(employeeId);
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -258,13 +264,13 @@ public class MainFrameController implements Initializable {
 	void logout(ActionEvent event) {
 		employeeId = -1;
 		UserSession.setUserId(employeeId);
-		new AlertMessage().showConfirmationAlertMessage("Bye", "Hope you use our app soon:)");
+		new AlertMessage().showConfirmationAlertMessage("Viszlát", "Reméljük hamarosan újra találkozunk :)");
 		setUpMenuForNoEmployeeLogedIn();
 	}
 
 	@FXML
 	void registerNewUser(ActionEvent event) {
-		// To-Do create registration scene+methods to save user
+		new AlertMessage().showConfirmationAlertMessage("Regisztráció", "Hamarosan :)");
 	}
 
 	private void setupMenuForEmployeeRoleUser() {
@@ -272,27 +278,28 @@ public class MainFrameController implements Initializable {
 		newReservation.setDisable(false);
 		listUserReservation.setDisable(false);
 		admin.setDisable(true);
-//		addCarMaintenance.setDisable(false);
-//		addNewCarToDatabase.setDisable(false);
-//		addUser.setDisable(true);
-//		listUsers.setDisable(false);
 		profile.setDisable(false);
 		login.setDisable(true);
 		logout.setDisable(false);
 		changePassword.setDisable(false);
 		registration.setDisable(true);
-		search.setDisable(false);
+		aboutUs.setDisable(false);
+	}
+
+	@FXML
+	private void aboutUs() {
+		new AlertMessage().showConfirmationAlertMessage("Rólunk", "Hamarosan:)");
 	}
 
 	@FXML
 	void reserveCarForMaintenance(ActionEvent event) {
-		FXMLLoader loader=new FXMLLoader(getClass().getResource("/application/frame/MaintenanceNewFrame.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/frame/MaintenanceNewFrame.fxml"));
 		AnchorPane root;
 		try {
-			root = (AnchorPane)loader.load();
-			Scene scene=new Scene(root);
+			root = (AnchorPane) loader.load();
+			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("/application/util/application.css").toExternalForm());
-			Stage stage=new Stage();
+			Stage stage = new Stage();
 			stage.setTitle("Karbantartás hozzáadása");
 			stage.setScene(scene);
 			stage.initModality(Modality.APPLICATION_MODAL);
@@ -302,59 +309,52 @@ public class MainFrameController implements Initializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 
 	}
 
 	private void setUpMenuForNoEmployeeLogedIn() {
 		reservation.setDisable(true);
-//		newReservation.setDisable(true);
-//		listUserReservation.setDisable(true);
 		admin.setDisable(true);
-//		addCarMaintenance.setDisable(true);
-//		addNewCarToDatabase.setDisable(true);
-//		addUser.setDisable(true);
-//		listUsers.setDisable(true);
 		profile.setDisable(false);
 		login.setDisable(false);
 		logout.setDisable(true);
 		changePassword.setDisable(true);
 		registration.setDisable(false);
-		search.setDisable(true);
+		aboutUs.setDisable(false);
 	}
 
 	private void setUpMenuForEmployeeRoleAdmin() {
 		reservation.setDisable(false);
-		newReservation.setDisable(false);
-		listUserReservation.setDisable(false);
+//		newReservation.setDisable(false);
+//		listUserReservation.setDisable(false);
 		admin.setDisable(false);
 		addCarMaintenance.setDisable(false);
-		addNewCarToDatabase.setDisable(false);
+//		addNewCarToDatabase.setDisable(false);
 		addUser.setDisable(true);
-		listUsers.setDisable(false);
+//		listUsers.setDisable(false);
 		profile.setDisable(false);
 		login.setDisable(true);
 		logout.setDisable(false);
 		changePassword.setDisable(false);
 		registration.setDisable(true);
-		search.setDisable(false);
+		aboutUs.setDisable(false);
 	}
 
 	private void setUpMenuForEmployeeRoleSuperAdmin() {
 		reservation.setDisable(false);
-		newReservation.setDisable(false);
-		listUserReservation.setDisable(false);
+//		newReservation.setDisable(false);
+//		listUserReservation.setDisable(false);
 		admin.setDisable(false);
-		addCarMaintenance.setDisable(false);
-		addNewCarToDatabase.setDisable(false);
+//		addCarMaintenance.setDisable(false);
+//		addNewCarToDatabase.setDisable(false);
 		addUser.setDisable(false);
-		listUsers.setDisable(false);
+//		listUsers.setDisable(false);
 		profile.setDisable(false);
 		login.setDisable(true);
 		logout.setDisable(false);
 		changePassword.setDisable(false);
 		registration.setDisable(true);
-		search.setDisable(false);
+		aboutUs.setDisable(false);
 	}
 
 }

@@ -57,8 +57,8 @@ public class ListReservationsFrameController implements Initializable {
 		this.reservationDao = new ReservationDao();
 	}
 
-//	private Long loggedInEmployeeId = (long) UserSession.getUserId();
-	private Long loggedInEmployeeId = 1L;
+	private Long loggedInEmployeeId = (long) UserSession.getUserId();
+//	private Long loggedInEmployeeId = 1L;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -136,13 +136,13 @@ public class ListReservationsFrameController implements Initializable {
 	@SuppressWarnings("unchecked")
 	private void addColumns() {
 		reservationsTable.getColumns().clear();
-		TableColumn<ReservationDto, String> nameColumn = new TableColumn<>("Employee Name");
+		TableColumn<ReservationDto, String> nameColumn = new TableColumn<>("Felhaználó neve:");
 		nameColumn.setCellValueFactory(
 				cellData -> new SimpleStringProperty(cellData.getValue().getEmployee().getFullName()));
-		TableColumn<ReservationDto, String> plateColumn = new TableColumn<>("Car");
+		TableColumn<ReservationDto, String> plateColumn = new TableColumn<>("kocsi");
 		plateColumn.setCellValueFactory(
 				cellData -> new SimpleStringProperty(cellData.getValue().getCar().getLicensePlate()));
-		TableColumn<ReservationDto, LocalDateTime> startDateColumn = new TableColumn<>("Start Date");
+		TableColumn<ReservationDto, LocalDateTime> startDateColumn = new TableColumn<>("Foglalás kezdete");
 		startDateColumn
 				.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getStartDateTime()));
 		startDateColumn.setCellFactory(col -> new TableCell<ReservationDto, LocalDateTime>() {
@@ -157,7 +157,7 @@ public class ListReservationsFrameController implements Initializable {
 			}
 
 		});
-		TableColumn<ReservationDto, LocalDateTime> endDateColumn = new TableColumn<>("End Date");
+		TableColumn<ReservationDto, LocalDateTime> endDateColumn = new TableColumn<>("Foglalás vége");
 		endDateColumn
 				.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getEndDateTime()));
 		endDateColumn.setCellFactory(col -> new TableCell<ReservationDto, LocalDateTime>() {
@@ -172,10 +172,10 @@ public class ListReservationsFrameController implements Initializable {
 			}
 
 		});
-		TableColumn<ReservationDto, String> descriptionColumn = new TableColumn<>("Description");
+		TableColumn<ReservationDto, String> descriptionColumn = new TableColumn<>("Megjegyzés");
 		descriptionColumn
 				.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDescription()));
-		TableColumn<ReservationDto, String> statusColumn = new TableColumn<>("Status");
+		TableColumn<ReservationDto, String> statusColumn = new TableColumn<>("Státusz");
 		statusColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().isDeletedToString()));
 		reservationsTable.getColumns().addAll(nameColumn, plateColumn, startDateColumn, endDateColumn,
 				descriptionColumn, statusColumn);
@@ -262,7 +262,7 @@ public class ListReservationsFrameController implements Initializable {
 		scene.getStylesheets().add(getClass().getResource("/application/util/application.css").toExternalForm());
 		Stage detailsStage = new Stage();
 		detailsStage.setScene(scene);
-		detailsStage.setTitle("Reservation Details");
+		detailsStage.setTitle("Foglalás részletei");
 		detailsStage.initModality(Modality.APPLICATION_MODAL);
 		detailsStage.showAndWait();
 

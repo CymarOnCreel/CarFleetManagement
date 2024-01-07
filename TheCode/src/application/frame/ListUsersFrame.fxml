@@ -17,25 +17,25 @@
    <children>
       <TableView fx:id="employeeListTable" layoutX="38.0" layoutY="152.0" prefHeight="349.0" prefWidth="1200.0" tableMenuButtonVisible="true" />
       <ChoiceBox fx:id="role" layoutX="794.0" layoutY="102.0" prefHeight="38.0" prefWidth="190.0" />
-      <Button fx:id="close" layoutX="1128.0" layoutY="517.0" mnemonicParsing="false" onAction="#close" prefHeight="39.0" prefWidth="110.0" style="-fx-background-radius: 15;" styleClass="close-button" stylesheets="@../util/application.css" text="CLOSE" />
-      <Label alignment="CENTER" layoutX="521.0" layoutY="26.0" prefHeight="53.0" prefWidth="234.0" text="Users" textFill="WHITE">
+      <Button fx:id="close" layoutX="1128.0" layoutY="517.0" mnemonicParsing="false" onAction="#close" prefHeight="39.0" prefWidth="110.0" style="-fx-background-radius: 15;" styleClass="close-button" stylesheets="@../util/application.css" text="BEZÁR" />
+      <Label alignment="CENTER" layoutX="478.0" layoutY="27.0" prefHeight="53.0" prefWidth="318.0" text="FELHASZNÁLOK" textFill="WHITE">
          <font>
             <Font name="System Bold" size="36.0" />
          </font>
       </Label>
       <Group layoutX="119.0" layoutY="108.0">
          <children>
-            <RadioButton fx:id="all" mnemonicParsing="false" onAction="#getAllEmployees" text="ALL" textFill="WHITE">
+            <RadioButton fx:id="all" mnemonicParsing="false" onAction="#getAllEmployees" text="ÖSSZES" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </RadioButton>
-            <RadioButton fx:id="active" layoutX="107.0" mnemonicParsing="false" onAction="#filterActiveEmployees" text="ACTIVE" textFill="WHITE">
+            <RadioButton fx:id="active" layoutX="107.0" mnemonicParsing="false" onAction="#filterActiveEmployees" text="AKTÍV" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </RadioButton>
-            <RadioButton fx:id="inactive" layoutX="214.0" mnemonicParsing="false" onAction="#filterInactiveEmployees" text="INACTIVE" textFill="WHITE">
+            <RadioButton fx:id="inactive" layoutX="214.0" mnemonicParsing="false" onAction="#filterInactiveEmployees" text="INAKTÍV" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -50,7 +50,7 @@
             <InnerShadow choke="1.0" height="255.0" radius="127.0" width="255.0" />
          </effect>
       </ImageView>
-      <Label layoutX="824.0" layoutY="53.0" text="Select Role:" textFill="WHITE">
+      <Label layoutX="801.0" layoutY="63.0" text="JOGOSULTSÁG:" textFill="WHITE">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>

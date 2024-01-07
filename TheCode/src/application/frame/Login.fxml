@@ -27,24 +27,24 @@
       <ColumnConstraints maxWidth="188.0" minWidth="10.0" prefWidth="29.0" />
    </columnConstraints>
    <children>
-      <Label fx:id="lblEmailAdress" alignment="CENTER" contentDisplay="CENTER" lineSpacing="5.0" prefHeight="32.0" prefWidth="292.0" text="Email Address" textFill="WHITE" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
+      <Label fx:id="lblEmailAdress" alignment="CENTER" contentDisplay="CENTER" lineSpacing="5.0" prefHeight="32.0" prefWidth="292.0" text="EMAIL CÍM" textFill="WHITE" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
          <font>
             <Font name="Arial Bold" size="18.0" />
          </font>
       </Label>
       <TextField fx:id="tfEmailAddress" prefHeight="42.0" prefWidth="275.0" style="-fx-background-radius: 10;" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" />
-      <Label fx:id="lblPassword" alignment="CENTER" lineSpacing="5.0" prefHeight="39.0" prefWidth="292.0" text="Password" textFill="WHITE" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3">
+      <Label fx:id="lblPassword" alignment="CENTER" lineSpacing="5.0" prefHeight="39.0" prefWidth="292.0" text="JELSZÓ" textFill="WHITE" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
       <PasswordField fx:id="pfPassword" prefHeight="42.0" prefWidth="292.0" style="-fx-background-radius: 10;" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4" />
-      <Button fx:id="btnSignin" lineSpacing="5.0" mnemonicParsing="false" onAction="#signin" prefHeight="60.0" prefWidth="110.0" style="-fx-background-radius: 15;" text="SIGN IN" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+      <Button fx:id="btnSignin" lineSpacing="5.0" mnemonicParsing="false" onAction="#signin" prefHeight="60.0" prefWidth="136.0" style="-fx-background-radius: 15;" styleClass="save-update-button" stylesheets="@../util/application.css" text="BELÉPÉS" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="btnSignUp" lineSpacing="5.0" mnemonicParsing="false" onAction="#signUp" prefHeight="60.0" prefWidth="110.0" style="-fx-background-radius: 15;" text="SIGN UP" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+      <Button fx:id="close" lineSpacing="5.0" mnemonicParsing="false" onAction="#close" prefHeight="60.0" prefWidth="121.0" style="-fx-background-radius: 15;" styleClass="close-button" stylesheets="@../util/application.css" text="VISSZA" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
