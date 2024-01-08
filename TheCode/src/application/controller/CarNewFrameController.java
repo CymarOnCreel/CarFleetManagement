@@ -191,6 +191,7 @@ public class CarNewFrameController implements Initializable{
             		makeDao.save(newMake);
             		cmbMakeFill();
                     cmbMake.setValue(newMake);
+                    cmbMake.getSelectionModel().select(newMake);
 				}else {
 					new AlertMessage().emptyNameTextFieldAlert();
 				}
@@ -278,7 +279,7 @@ public class CarNewFrameController implements Initializable{
 
     @FXML
     void updateCategory(ActionEvent event) {
-    	if (cmbCategory.getSelectionModel().getSelectedIndex()!=-1) {
+    	if (cmbCategory.getSelectionModel().getSelectedItem()!=null) {
     		CategoryDto oldDto = cmbCategory.getValue();
         	TextInputDialog dialog = new TextInputDialog(oldDto.getNameCategory());
         	dialog.setTitle("Kategória módosítása");
@@ -309,7 +310,7 @@ public class CarNewFrameController implements Initializable{
 
     @FXML
     void updateFuel(ActionEvent event) {
-    	if (cmbFuel.getSelectionModel().getSelectedIndex()!=-1) {
+    	if (cmbFuel.getSelectionModel().getSelectedItem()!=null) {
     		String oldName = cmbFuel.getValue();
         	TextInputDialog dialog = new TextInputDialog(oldName);
         	dialog.setTitle("Üzemanyag típus módosítása");
@@ -342,7 +343,7 @@ public class CarNewFrameController implements Initializable{
 
     @FXML
     void updateMake(ActionEvent event) {
-    	if (cmbMake.getSelectionModel().getSelectedIndex()!=-1) {
+    	if (cmbMake.getSelectionModel().getSelectedItem()!=null) {
     		MakeDto oldDto = cmbMake.getValue();
         	TextInputDialog dialog = new TextInputDialog(oldDto.getNameMake());
         	dialog.setTitle("Gyártmány módosítása");
@@ -373,7 +374,7 @@ public class CarNewFrameController implements Initializable{
 
     @FXML
     void updateModel(ActionEvent event) {
-    	if (cmbModel.getSelectionModel().getSelectedIndex()!=-1) {
+    	if (cmbModel.getSelectionModel().getSelectedItem()!=null) {
     		ModelDto oldDto = cmbModel.getValue();
         	TextInputDialog dialog = new TextInputDialog(oldDto.getNameModel());
         	dialog.setTitle("Modell módosítása");
@@ -404,7 +405,7 @@ public class CarNewFrameController implements Initializable{
 
     @FXML
     void updateTransmission(ActionEvent event) {
-    	if (cmbTransmission.getSelectionModel().getSelectedIndex()!=-1) {
+    	if (cmbTransmission.getSelectionModel().getSelectedItem()!=null) {
     		String oldName = cmbTransmission.getValue();
         	TextInputDialog dialog = new TextInputDialog(oldName);
         	dialog.setTitle("Váltó típus módosítása");
@@ -504,7 +505,7 @@ public class CarNewFrameController implements Initializable{
 			}
 		}
 		cmbMake.setItems(items);
-		cmbMake.getSelectionModel().select(-1);
+		
     }
     
     @FXML
@@ -527,16 +528,20 @@ public class CarNewFrameController implements Initializable{
 			}
 		}
 		cmbModel.setItems(items);
-		cmbModel.getSelectionModel().select(-1);
     }
     
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		cmbMakeFill();
+		cmbMake.getSelectionModel().select(-1);
 		cmbCategoryFill();
+		cmbCategory.getSelectionModel().select(-1);
 		cmbFuelFill();
+		cmbFuel.getSelectionModel().select(-1);
 		cmbTransmissionFill();
+		cmbTransmission.getSelectionModel().select(-1);
 		cmbSiteFill();
+		cmbSite.getSelectionModel().select(-1);
 	}
 
 	private void cmbSiteFill() {
@@ -550,7 +555,6 @@ public class CarNewFrameController implements Initializable{
 			}
 		}
 		cmbSite.setItems(items);
-		cmbSite.getSelectionModel().select(-1);
     }
 
 	private void cmbTransmissionFill() {
@@ -564,7 +568,6 @@ public class CarNewFrameController implements Initializable{
 			}
 		}
 		cmbTransmission.setItems(items);
-		cmbTransmission.getSelectionModel().select(-1);
 	}
 
 	private void cmbFuelFill() {
@@ -578,7 +581,6 @@ public class CarNewFrameController implements Initializable{
 			}
 		}
 		cmbFuel.setItems(items);
-		cmbFuel.getSelectionModel().select(-1);
 	}
 
 	private void cmbCategoryFill() {
@@ -592,7 +594,6 @@ public class CarNewFrameController implements Initializable{
 			}
 		}
 		cmbCategory.setItems(items);
-		cmbCategory.getSelectionModel().select(-1);
 	}
 	
 	@FXML
