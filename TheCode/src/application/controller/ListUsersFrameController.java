@@ -5,10 +5,12 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+import application.alert.AlertMessage;
 import application.dao.EmployeeDao;
 import application.dao.RoleDao;
 import application.dto.EmployeeDto;
 import application.dto.RoleDto;
+import application.util.UserSession;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
@@ -31,6 +33,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 
 public class ListUsersFrameController implements Initializable {
+
 	@FXML
 	private RadioButton active;
 
@@ -53,6 +56,8 @@ public class ListUsersFrameController implements Initializable {
 	List<EmployeeDto> filteredEmployeeList;
 	private EmployeeDao employeeDao;
 	ObservableList<EmployeeDto> employeeData = FXCollections.observableArrayList();
+	private String loggedInUserRole;
+	private static final String userRoleWhoCanDeleteUsers = "superadmin";
 
 	@FXML
 	void close(ActionEvent event) {
@@ -63,7 +68,7 @@ public class ListUsersFrameController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		employeeDao=new EmployeeDao();
+		employeeDao = new EmployeeDao();
 		allEmployees = employeeDao.getAll();
 		filteredEmployeeList = allEmployees;
 		setTable();
@@ -72,6 +77,8 @@ public class ListUsersFrameController implements Initializable {
 		all.setToggleGroup(toggleGroup);
 		inactive.setToggleGroup(toggleGroup);
 		toggleGroup.selectToggle(all);
+		loggedInUserRole = employeeDao.findById(UserSession.getUserId()).getRoleName();
+		System.out.println(loggedInUserRole + " id");
 		Platform.runLater(() -> {
 			fillComboboxWithRoles();
 
@@ -180,13 +187,18 @@ public class ListUsersFrameController implements Initializable {
 				.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().isEnabledToString()));
 		TableColumn<EmployeeDto, Void> employeeDeleteOrActivate = new TableColumn<>("Státusz váltás");
 		employeeDeleteOrActivate.setCellFactory(param -> new TableCell<EmployeeDto, Void>() {
+
 			private final Button employeeDeleteOrActivate = new Button();
 
 			{
-				employeeDeleteOrActivate.setOnAction(event -> {
-					EmployeeDto employee = getTableView().getItems().get(getIndex());
-					handleAction(employee);
-				});
+				if (loggedInUserRole.equalsIgnoreCase(userRoleWhoCanDeleteUsers)) {
+					employeeDeleteOrActivate.setOnAction(event -> {
+						EmployeeDto employee = getTableView().getItems().get(getIndex());
+						handleInactivateOrActivateUser(employee);
+					});
+				} else {
+					employeeDeleteOrActivate.setDisable(true);
+				}
 			}
 
 			@Override
@@ -205,13 +217,43 @@ public class ListUsersFrameController implements Initializable {
 				}
 			}
 		});
+		TableColumn<EmployeeDto, Void> employeeUpdate = new TableColumn<>("Felhasznáűló frissítése");
+		employeeUpdate.setCellFactory(param -> new TableCell<EmployeeDto, Void>() {
+
+			private final Button employeeUpdate = new Button();
+			{
+
+				employeeUpdate.setOnAction(event -> {
+					EmployeeDto employee = getTableView().getItems().get(getIndex());
+					handleUpdate(employee);
+				});
+
+			}
+
+			@Override
+			protected void updateItem(Void item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty) {
+					setGraphic(null);
+				} else {
+					employeeUpdate.setText("UPDATE");
+				}
+				setGraphic(employeeUpdate);
+			}
+
+			private void handleUpdate(EmployeeDto employee) {
+				new AlertMessage().showConfirmationAlertMessage("Comming soon", "Comming soon");
+
+			}
+
+		});
 		employeeListTable.getColumns().addAll(employeeName, employeeRole, employeeEmail, employeeDriverLicense,
-				employeeStatus, employeeDeleteOrActivate);
+				employeeStatus, employeeUpdate,employeeDeleteOrActivate);
 		employeeListTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 	}
 
-	private void handleAction(EmployeeDto employee) {
-		employeeDao=new EmployeeDao();
+	private void handleInactivateOrActivateUser(EmployeeDto employee) {
+		employeeDao = new EmployeeDao();
 		if (employee.isEnabled()) {
 			employee.setEnabled(false);
 			employeeDao.update(employee);
