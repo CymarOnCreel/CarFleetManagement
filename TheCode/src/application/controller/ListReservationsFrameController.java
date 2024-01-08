@@ -8,6 +8,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
+
+import application.alert.AlertMessage;
 import application.dao.ReservationDao;
 import application.dto.ReservationDto;
 import application.util.UserSession;
@@ -58,7 +60,6 @@ public class ListReservationsFrameController implements Initializable {
 	}
 
 	private Long loggedInEmployeeId = (long) UserSession.getUserId();
-//	private Long loggedInEmployeeId = 1L;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -88,7 +89,6 @@ public class ListReservationsFrameController implements Initializable {
 
 	private void initializeTableView() {
 		addColumns();
-//		setupTableClickEvent();
 		setTableHeight();
 		reservationsTable.setVisible(true);
 
@@ -114,9 +114,10 @@ public class ListReservationsFrameController implements Initializable {
 	}
 
 	public List<ReservationDto> getAllReservationsOfUserBetweenDates(Long userId) {
+		reservationDao=new ReservationDao();
 		LocalDate localStartDate = intervalStartDate.getValue();
 		LocalDate localEndDate = intervalEndDate.getValue();
-		reservations = reservationDao.getReservationsByUserId(userId); 
+		reservations = reservationDao.getReservationsByUserId(userId);
 		List<ReservationDto> reservationsFilteredByDate;
 		if (localStartDate != null && localEndDate != null) {
 			LocalDateTime startDate = localStartDate.atStartOfDay();
@@ -158,8 +159,7 @@ public class ListReservationsFrameController implements Initializable {
 
 		});
 		TableColumn<ReservationDto, LocalDateTime> endDateColumn = new TableColumn<>("Foglalás vége");
-		endDateColumn
-				.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getEndDateTime()));
+		endDateColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getEndDateTime()));
 		endDateColumn.setCellFactory(col -> new TableCell<ReservationDto, LocalDateTime>() {
 			@Override
 			protected void updateItem(LocalDateTime date, boolean empty) {
@@ -176,46 +176,70 @@ public class ListReservationsFrameController implements Initializable {
 		descriptionColumn
 				.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDescription()));
 		TableColumn<ReservationDto, String> statusColumn = new TableColumn<>("Státusz");
-		TableColumn<ReservationDto, Void> reservationUpdate=new TableColumn<>("Update");
-		reservationUpdate.setCellFactory(param->new TableCell<ReservationDto, Void>(){
-			private final Button updateReservation=new Button();
+		statusColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().isDeletedToString()));
+		TableColumn<ReservationDto, Void> reservationUpdate = new TableColumn<>("Update");
+		reservationUpdate.setCellFactory(param -> new TableCell<ReservationDto, Void>() {
+			private final Button updateReservation = new Button();
 			{
 				updateReservation.setOnAction(event -> {
-					ReservationDto reservation=getTableView().getItems().get(getIndex());
+					ReservationDto reservation = getTableView().getItems().get(getIndex());
 					openDetailsView(reservation);
 				});
 			}
-			
+
 			@Override
 			protected void updateItem(Void item, boolean empty) {
 				super.updateItem(item, empty);
-				if(empty) {
+				if (empty) {
 					setGraphic(null);
 				} else {
+					  ReservationDto reservation = getTableView().getItems().get(getIndex());
 					updateReservation.setText("MÓDOSÍT");
+					  updateReservation.setDisable(reservation.isDeleted());
 				}
 				setGraphic(updateReservation);
 			}
 		});
-		statusColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().isDeletedToString()));
-		reservationsTable.getColumns().addAll(nameColumn, plateColumn, startDateColumn, endDateColumn,
-				descriptionColumn, statusColumn, reservationUpdate);
-		reservationsTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+		TableColumn<ReservationDto, Void> reservationDelete = new TableColumn<>("DELETE");
+		reservationDelete.setCellFactory(param -> new TableCell<ReservationDto, Void>() {
+			private final Button deleteReservation = new Button();
 
-	}
+			{
+				deleteReservation.setOnAction(event -> {
+					int index = getIndex();
+					if (index >= 0 && index < getTableView().getItems().size()) {
+						ReservationDto reservation = getTableView().getItems().get(index);
+						if (!reservation.isDeleted()) {
+							deleteReservation(reservation);
+							getAllReservationsOfUserBetweenDates(loggedInEmployeeId);
+							setTable();
+						}
+					}
+				});
+				updateItem(null, true);
+			}
 
-	private TableCell<ReservationDto, LocalDateTime> createDateTimeCell(DateTimeFormatter formatter) {
-		return new TableCell<ReservationDto, LocalDateTime>() {
 			@Override
-			protected void updateItem(LocalDateTime date, boolean empty) {
-				super.updateItem(date, empty);
-				if (empty || date == null) {
-					setText(null);
+			protected void updateItem(Void item, boolean empty) {
+				super.updateItem(item, empty);
+
+				if (empty) {
+					setGraphic(null);
 				} else {
-					setText(formatter.format(date));
+					int index = getIndex();
+					if (index >= 0 && index < getTableView().getItems().size()) {
+						ReservationDto reservation = getTableView().getItems().get(index);
+						deleteReservation.setText("DELETE");
+						deleteReservation.setDisable(reservation.isDeleted());
+						setGraphic(deleteReservation);
+					}
 				}
 			}
-		};
+		});
+		reservationsTable.getColumns().addAll(nameColumn, plateColumn, startDateColumn, endDateColumn,
+				descriptionColumn, statusColumn, reservationUpdate, reservationDelete);
+		reservationsTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
 	}
 
 	private String formatDate(LocalDateTime date) {
@@ -223,7 +247,7 @@ public class ListReservationsFrameController implements Initializable {
 	}
 
 	private void setTableHeight() {
-		double rowHeight = 40.0;
+		double rowHeight = 30.0;
 		double tableHeight = Math.min(reservationsTable.getItems().size() + 1, 10) * rowHeight;
 		reservationsTable.setPrefHeight(tableHeight);
 		reservationsTable.setMaxHeight(tableHeight);
@@ -256,17 +280,6 @@ public class ListReservationsFrameController implements Initializable {
 		return maxWidth + 10.0;
 	}
 
-//	private void setupTableClickEvent() {
-//		reservationsTable.setOnMouseClicked(mouseEvent -> {
-//			if (mouseEvent.getClickCount() == 1) {
-//				ReservationDto selectedReservation = reservationsTable.getSelectionModel().getSelectedItem();
-//				if (selectedReservation != null) {
-//					openDetailsView(selectedReservation);
-//				}
-//			}
-//		});
-//	}
-
 	private void openDetailsView(ReservationDto reservation) {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/frame/ReservationDetailsFrame.fxml"));
 		Parent root;
@@ -279,13 +292,21 @@ public class ListReservationsFrameController implements Initializable {
 		ReservationDetailsController detailsController = loader.getController();
 		detailsController.setReservationListController(this);
 		detailsController.initialize(reservation);
-		Scene scene=new Scene(root);
+		Scene scene = new Scene(root);
 		scene.getStylesheets().add(getClass().getResource("/application/util/application.css").toExternalForm());
 		Stage detailsStage = new Stage();
 		detailsStage.setScene(scene);
 		detailsStage.setTitle("Foglalás részletei");
 		detailsStage.initModality(Modality.APPLICATION_MODAL);
 		detailsStage.showAndWait();
+
+	}
+
+	private void deleteReservation(ReservationDto reservation) {
+		reservationDao = new ReservationDao();
+		reservationDao.deleteById(reservation.getIdReservation());
+		new AlertMessage().showConfirmationAlertMessage("Foglalás törlés", "A foglalást sikeresen törölted");
+		reservation.setDeleted(true);
 
 	}
 

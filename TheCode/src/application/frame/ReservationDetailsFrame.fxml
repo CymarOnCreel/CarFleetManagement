@@ -50,7 +50,6 @@
 	<Button fx:id="update" layoutX="34.0" layoutY="397.0" onAction="#updateReservation" styleClass="save-update-button" stylesheets="@../util/application.css" text="MENTÉS" />
 	<Button fx:id="changeCar" layoutX="195.0" layoutY="43.0" mnemonicParsing="false" onAction="#changeCar" prefHeight="51.0" prefWidth="224.0" styleClass="save-update-button" stylesheets="@../util/application.css" text="KOCSI CSERÉJE" />
 	<Button fx:id="close" layoutX="636.0" layoutY="397.0" onAction="#close" styleClass="close-button" stylesheets="@../util/application.css" text="KILÉPÉS" />
-	<Button fx:id="cancelReservation" layoutX="257.0" layoutY="397.0" onAction="#setReservationDeleted" prefHeight="51.0" prefWidth="281.0" styleClass="close-button" stylesheets="@../util/application.css" text="FOGLALÁS TÖRLÉSE" />
 	<TextField fx:id="showStartDate" disable="true" editable="false" layoutX="194.0" layoutY="176.0">
       <font>
          <Font size="18.0" />

@@ -20,8 +20,6 @@ import javafx.stage.Stage;
 
 public class ReservationDetailsController {
 
-	@FXML
-	private Button cancelReservation;
 
 	@FXML
 	private TextField carField;
@@ -64,7 +62,23 @@ public class ReservationDetailsController {
 	public ReservationDetailsController() {
 		this.reservationDao = new ReservationDao();
 	}
-
+	public void initialize(ReservationDto reservation) {
+		LocalDateTime today = LocalDateTime.now();
+		this.reservation = reservation;
+		reservationId = reservation.getIdReservation();
+		employeeNameField.setText(reservation.getEmployee().getLastName());
+		carField.setText(reservation.getCar().getLicensePlate());
+		showStartDate.setText(reservation.getStartDateTime().toLocalDate().toString());
+		showEndDate.setText(reservation.getEndDateTime().toLocalDate().toString());
+		descriptionField.setText(reservation.getDescription());
+		mileageAtStart.setText(String.valueOf(reservation.getCar().getMileage()));
+		if (reservation.isDeleted()) {
+			setAllOptionsDisabledIfReservationIsNotUpdateble();
+		} else if (reservation.getStartDateTime().isBefore(today)) {
+			setAllOptionsDisabledIfReservationIsNotUpdateble();
+		}
+		setUpListeners();
+	}
 	@FXML
 	void changeCar(ActionEvent event) {
 		showCarPickerStage(reservation);
@@ -75,17 +89,6 @@ public class ReservationDetailsController {
 		Node source = (Node) event.getSource();
 		Stage stage = (Stage) source.getScene().getWindow();
 		stage.close();
-	}
-
-	@FXML
-	void setReservationDeleted(ActionEvent event) {
-		reservationDao.deleteById(reservationId);
-		new AlertMessage().showConfirmationAlertMessage("Foglalás törlés", "A foglalást sikeresen törölted");
-		reservation.setDeleted(true);
-		Stage stage = (Stage) close.getScene().getWindow();
-		stage.close();
-		listFrameController.setTable();
-
 	}
 
 	@FXML
@@ -127,23 +130,7 @@ public class ReservationDetailsController {
 		return Integer.parseInt(mileageAtEnd.getText()) < reservation.getCar().getMileage();
 	}
 
-	public void initialize(ReservationDto reservation) {
-		LocalDateTime today = LocalDateTime.now();
-		this.reservation = reservation;
-		reservationId = reservation.getIdReservation();
-		employeeNameField.setText(reservation.getEmployee().getLastName());
-		carField.setText(reservation.getCar().getLicensePlate());
-		showStartDate.setText(reservation.getStartDateTime().toLocalDate().toString());
-		showEndDate.setText(reservation.getEndDateTime().toLocalDate().toString());
-		descriptionField.setText(reservation.getDescription());
-		mileageAtStart.setText(String.valueOf(reservation.getCar().getMileage()));
-		if (reservation.isDeleted()) {
-			setAllOptionsDisabledIfReservationIsNotUpdateble();
-		} else if (reservation.getStartDateTime().isBefore(today)) {
-			setAllOptionsDisabledIfReservationIsNotUpdateble();
-		}
-		setUpListeners();
-	}
+
 
 	private void setUpListeners() {
 		mileageAtEnd.textProperty().addListener((observable, oldaValue, newValue) -> {
@@ -158,7 +145,6 @@ public class ReservationDetailsController {
 		descriptionField.setDisable(true);
 		mileageAtEnd.setDisable(true);
 		update.setDisable(true);
-		cancelReservation.setDisable(true);
 		changeCar.setDisable(true);
 		updateMileage.setDisable(true);
 	}

@@ -248,7 +248,6 @@ public class MainFrameController implements Initializable {
 			stage.setTitle("Belépés");
 			stage.setScene(loginsScene);
 			stage.initModality(Modality.APPLICATION_MODAL);
-			stage.initStyle(StageStyle.UNDECORATED);
 			stage.getIcons().add(new Image("application/pictures/logo.png"));
 			stage.showAndWait();
 			if (UserSession.getUserId() != 0) {
