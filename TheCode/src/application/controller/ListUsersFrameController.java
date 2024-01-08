@@ -236,7 +236,7 @@ public class ListUsersFrameController implements Initializable {
 				if (empty) {
 					setGraphic(null);
 				} else {
-					employeeUpdate.setText("UPDATE");
+					employeeUpdate.setText("MÓDOSÍT");
 				}
 				setGraphic(employeeUpdate);
 			}

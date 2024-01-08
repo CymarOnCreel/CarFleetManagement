@@ -88,7 +88,7 @@ public class ListReservationsFrameController implements Initializable {
 
 	private void initializeTableView() {
 		addColumns();
-		setupTableClickEvent();
+//		setupTableClickEvent();
 		setTableHeight();
 		reservationsTable.setVisible(true);
 
@@ -176,9 +176,30 @@ public class ListReservationsFrameController implements Initializable {
 		descriptionColumn
 				.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDescription()));
 		TableColumn<ReservationDto, String> statusColumn = new TableColumn<>("Státusz");
+		TableColumn<ReservationDto, Void> reservationUpdate=new TableColumn<>("Update");
+		reservationUpdate.setCellFactory(param->new TableCell<ReservationDto, Void>(){
+			private final Button updateReservation=new Button();
+			{
+				updateReservation.setOnAction(event -> {
+					ReservationDto reservation=getTableView().getItems().get(getIndex());
+					openDetailsView(reservation);
+				});
+			}
+			
+			@Override
+			protected void updateItem(Void item, boolean empty) {
+				super.updateItem(item, empty);
+				if(empty) {
+					setGraphic(null);
+				} else {
+					updateReservation.setText("MÓDOSÍT");
+				}
+				setGraphic(updateReservation);
+			}
+		});
 		statusColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().isDeletedToString()));
 		reservationsTable.getColumns().addAll(nameColumn, plateColumn, startDateColumn, endDateColumn,
-				descriptionColumn, statusColumn);
+				descriptionColumn, statusColumn, reservationUpdate);
 		reservationsTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
 	}
@@ -202,7 +223,7 @@ public class ListReservationsFrameController implements Initializable {
 	}
 
 	private void setTableHeight() {
-		double rowHeight = 30.0;
+		double rowHeight = 40.0;
 		double tableHeight = Math.min(reservationsTable.getItems().size() + 1, 10) * rowHeight;
 		reservationsTable.setPrefHeight(tableHeight);
 		reservationsTable.setMaxHeight(tableHeight);
@@ -235,16 +256,16 @@ public class ListReservationsFrameController implements Initializable {
 		return maxWidth + 10.0;
 	}
 
-	private void setupTableClickEvent() {
-		reservationsTable.setOnMouseClicked(mouseEvent -> {
-			if (mouseEvent.getClickCount() == 1) {
-				ReservationDto selectedReservation = reservationsTable.getSelectionModel().getSelectedItem();
-				if (selectedReservation != null) {
-					openDetailsView(selectedReservation);
-				}
-			}
-		});
-	}
+//	private void setupTableClickEvent() {
+//		reservationsTable.setOnMouseClicked(mouseEvent -> {
+//			if (mouseEvent.getClickCount() == 1) {
+//				ReservationDto selectedReservation = reservationsTable.getSelectionModel().getSelectedItem();
+//				if (selectedReservation != null) {
+//					openDetailsView(selectedReservation);
+//				}
+//			}
+//		});
+//	}
 
 	private void openDetailsView(ReservationDto reservation) {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/frame/ReservationDetailsFrame.fxml"));

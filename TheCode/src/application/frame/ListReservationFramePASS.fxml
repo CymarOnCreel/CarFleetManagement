@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="649.0" prefWidth="996.0" style="-fx-background-color: #1F363C;" styleClass="backGroundColor" stylesheets="@CarFleetManagement-main%20(3)/CarFleetManagement-main/TheCode/src/application/util/application.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.ListReservationsFrameController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="663.0" prefWidth="1055.0" style="-fx-background-color: #1F363C;" styleClass="backGroundColor" stylesheets="@CarFleetManagement-main%20(3)/CarFleetManagement-main/TheCode/src/application/util/application.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.ListReservationsFrameController">
 	<children>
 		<DatePicker fx:id="intervalStartDate" layoutX="206.0" layoutY="149.0" prefHeight="35.0" prefWidth="186.0" />
 		<DatePicker fx:id="intervalEndDate" layoutX="567.0" layoutY="87.0" prefHeight="35.0" prefWidth="200.0" />
@@ -22,14 +22,14 @@
          <font>
             <Font name="System Bold" size="18.0" />
          </font></Label>
-		<Button fx:id="search" layoutX="851.0" layoutY="79.0" mnemonicParsing="false" onAction="#handleSearchButton" prefHeight="42.0" prefWidth="126.0" style="-fx-background-color: #159991;" styleClass="save-update-button" stylesheets="@CarFleetManagement-main%20(3)/CarFleetManagement-main/TheCode/src/application/util/application.css" text="KERESÉS" textFill="WHITE">
+		<Button fx:id="search" layoutX="851.0" layoutY="79.0" mnemonicParsing="false" onAction="#handleSearchButton" prefHeight="42.0" prefWidth="126.0" style="-fx-background-color: #159991;" stylesheets="@CarFleetManagement-main%20(3)/CarFleetManagement-main/TheCode/src/application/util/application.css" text="KERESÉS" textFill="WHITE">
          <font>
             <Font name="System Bold" size="16.0" />
          </font></Button>
-		<TableView fx:id="reservationsTable" layoutX="33.0" layoutY="200.0" prefHeight="381.0" prefWidth="963.0" styleClass="my-table" stylesheets="@CarFleetManagement-main%20(3)/CarFleetManagement-main/TheCode/src/application/util/application.css" visible="false">
+		<TableView fx:id="reservationsTable" layoutX="-4.0" layoutY="200.0" prefHeight="381.0" prefWidth="1000.0" styleClass="my-table" stylesheets="@CarFleetManagement-main%20(3)/CarFleetManagement-main/TheCode/src/application/util/application.css" visible="false">
    </TableView>
 
-		<Button fx:id="closeWindow" layoutX="420.0" layoutY="557.0" mnemonicParsing="false" onAction="#closeWindow" prefHeight="44.0" prefWidth="146.0" styleClass="close-button" text="BEZÁRÁS">
+		<Button fx:id="closeWindow" layoutX="423.0" layoutY="588.0" mnemonicParsing="false" onAction="#closeWindow" prefHeight="44.0" prefWidth="146.0" styleClass="close-button" text="BEZÁRÁS">
          <stylesheets>
             <URL value="@CarFleetManagement-main%20(3)/CarFleetManagement-main/TheCode/src/application/util/application.css" />
             <URL value="@../util/application.css" />
