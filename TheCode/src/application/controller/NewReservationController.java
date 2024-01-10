@@ -10,10 +10,13 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+
 import application.alert.AlertMessage;
 import application.dao.CarDao;
+import application.dao.PictureDao;
 import application.dao.ReservationDao;
 import application.dto.CarDto;
+import application.dto.PictureDto;
 import application.dto.ReservationDto;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
@@ -98,6 +101,7 @@ public class NewReservationController implements Initializable {
 	private Map<ChoiceBox<?>, Object> selectedValues = new HashMap<>();
 	private Image image = new Image("application/pictures/cancel-removebg-preview.png");
 	private ImageView imageView = new ImageView(image);
+	private final Map<String, String> imagePathCache = new HashMap<>();
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -125,8 +129,10 @@ public class NewReservationController implements Initializable {
 			listOfReservations = FXCollections.observableArrayList(reservationDao.getAll());
 			listOfCars = FXCollections.observableArrayList(carDao.getAll());
 			setUpDataForComboboxes();
+			loadAllImagePaths();
 		});
 	}
+
 	private void setCancelButtonsImage() {
 		setButtonImage(clearMakeChoiceButton);
 		setButtonImage(clearFuelChoiceButton);
@@ -134,7 +140,7 @@ public class NewReservationController implements Initializable {
 		setButtonImage(clearTransmissionChoiceButton);
 		setButtonImage(clearSeatChoiceButton);
 	}
-	
+
 	private void setUpDataForComboboxes() {
 		updateFilteredListOfReservationsBetweenDates();
 		updateCarsListOutsideOfDates();
@@ -311,14 +317,15 @@ public class NewReservationController implements Initializable {
 	}
 
 	private void updateCategoryTypeChoiceBoxData() {
-		updateChoiceBox(currentFilteredCarsList, carCategory, car->car.getCategory().getNameCategory());
+		updateChoiceBox(currentFilteredCarsList, carCategory, car -> car.getCategory().getNameCategory());
 		if (selectedValues.containsKey(carCategory) && selectedValues.get(carCategory) != null) {
 			carCategory.setValue(selectedValues.get(carCategory).toString());
 		}
 	}
 
 	private List<CarDto> filterCarsByCategory(List<CarDto> cars, String selectedCategory) {
-		return cars.stream().filter(car -> car.getCategory().getNameCategory().equals(selectedCategory)).collect(Collectors.toList());
+		return cars.stream().filter(car -> car.getCategory().getNameCategory().equals(selectedCategory))
+				.collect(Collectors.toList());
 	}
 
 	private void updateTransmissionChoiceBoxData() {
@@ -444,12 +451,24 @@ public class NewReservationController implements Initializable {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void addColumnsToTable() {
 		availabelCarsTable.getColumns().clear();
+		TableColumn<CarDto, ImageView> imageColumn = new TableColumn<>("Kocsi");
+		imageColumn.setCellValueFactory(cellData -> {
+			CarDto carDto = cellData.getValue();
+			String licensePlate = carDto.getLicensePlate();
+			String imagePath = getImagePathFromDatabase(licensePlate);
+			ImageView imageView = new ImageView(new Image(imagePath));
+			imageView.setFitWidth(50);
+			imageView.setFitHeight(50);
+
+			return new SimpleObjectProperty<>(imageView);
+		});
 		TableColumn<CarDto, String> licencePlate = new TableColumn<>("Rendszám");
 		licencePlate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getLicensePlate()));
 		TableColumn<CarDto, String> make = new TableColumn<>("Gyártmány");
 		make.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMake().getNameMake()));
 		TableColumn<CarDto, String> category = new TableColumn<>("Kategória");
-		category.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCategory().getNameCategory()));
+		category.setCellValueFactory(
+				cellData -> new SimpleStringProperty(cellData.getValue().getCategory().getNameCategory()));
 		TableColumn<CarDto, String> transmission = new TableColumn<>("Váltó típusa");
 		transmission
 				.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTransmissionType()));
@@ -457,13 +476,26 @@ public class NewReservationController implements Initializable {
 		fuelType.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFuel()));
 		TableColumn<CarDto, Integer> numberOfSeats = new TableColumn<>("Ülések száma");
 		numberOfSeats.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getSeats()));
-		availabelCarsTable.getColumns().addAll(licencePlate, make, category, transmission, fuelType, numberOfSeats);
+		availabelCarsTable.getColumns().addAll(imageColumn, licencePlate, make, category, transmission, fuelType,
+				numberOfSeats);
 		availabelCarsTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+	}
+
+	private String getImagePathFromDatabase(String licensePlate) {
+		if (imagePathCache.containsKey(licensePlate)) {
+			return imagePathCache.get(licensePlate);
+		}
+		return getDefaultImagePath();
+	}
+
+	private String getDefaultImagePath() {
+		return "application/pictures/cancel.jpg";
 	}
 
 	private void setTableHeight() {
 		double rowHeight = 30.0;
 		double tableHeight = Math.min(availabelCarsTable.getItems().size() + 1, 10) * rowHeight;
+		availabelCarsTable.setMinHeight(tableHeight);
 		availabelCarsTable.setPrefHeight(tableHeight);
 		availabelCarsTable.setMaxHeight(tableHeight);
 	}
@@ -513,7 +545,7 @@ public class NewReservationController implements Initializable {
 
 	private void updateCarsListOutsideOfDates() {
 		currentFilteredCarsList = listOfCars.stream()
-				.filter(car -> car.isEnabled() &&  !filteredReservations.stream()
+				.filter(car -> car.isEnabled() && !filteredReservations.stream()
 						.anyMatch(reservation -> reservation.getCar().getLicensePlate().equals(car.getLicensePlate())))
 				.collect(Collectors.toList());
 	}
@@ -524,18 +556,18 @@ public class NewReservationController implements Initializable {
 		selectedValues.put(fuelType, null);
 		updateCarsListWithSelectedChoices();
 		updateChoiceBox(currentFilteredCarsList, fuelType, CarDto::getFuel);
-		 if (carMake.getValue() == null) {
-		        updateMakeChoiceBoxData();
-		    }
-		    if (carCategory.getValue() == null) {
-		        updateCategoryTypeChoiceBoxData();
-		    }
-		    if (transmissionType.getValue() == null) {
-		        updateTransmissionChoiceBoxData();
-		    }
-		    if (numberOfSeats.getValue() == null) {
-		        updateSeatsChoiceBoxData();
-		    }
+		if (carMake.getValue() == null) {
+			updateMakeChoiceBoxData();
+		}
+		if (carCategory.getValue() == null) {
+			updateCategoryTypeChoiceBoxData();
+		}
+		if (transmissionType.getValue() == null) {
+			updateTransmissionChoiceBoxData();
+		}
+		if (numberOfSeats.getValue() == null) {
+			updateSeatsChoiceBoxData();
+		}
 		fuelType.setDisable(false);
 	}
 
@@ -544,19 +576,19 @@ public class NewReservationController implements Initializable {
 		carMake.setValue(null);
 		selectedValues.put(carMake, null);
 		updateCarsListWithSelectedChoices();
-		updateChoiceBox(currentFilteredCarsList, carMake,  car -> car.getMake().getNameMake());
+		updateChoiceBox(currentFilteredCarsList, carMake, car -> car.getMake().getNameMake());
 		if (carCategory.getValue() == null) {
-	        updateCategoryTypeChoiceBoxData();
-	    }
-	    if (fuelType.getValue() == null) {
-	        updateFuelTypeChoiceBoxData();
-	    }
-	    if (transmissionType.getValue() == null) {
-	        updateTransmissionChoiceBoxData();
-	    }
-	    if (numberOfSeats.getValue() == null) {
-	        updateSeatsChoiceBoxData();
-	    }
+			updateCategoryTypeChoiceBoxData();
+		}
+		if (fuelType.getValue() == null) {
+			updateFuelTypeChoiceBoxData();
+		}
+		if (transmissionType.getValue() == null) {
+			updateTransmissionChoiceBoxData();
+		}
+		if (numberOfSeats.getValue() == null) {
+			updateSeatsChoiceBoxData();
+		}
 		carMake.setDisable(false);
 	}
 
@@ -567,17 +599,17 @@ public class NewReservationController implements Initializable {
 		updateCarsListWithSelectedChoices();
 		updateChoiceBox(currentFilteredCarsList, carCategory, car -> car.getCategory().getNameCategory());
 		if (carMake.getValue() == null) {
-	        updateMakeChoiceBoxData();
-	    }
+			updateMakeChoiceBoxData();
+		}
 		if (fuelType.getValue() == null) {
-	        updateFuelTypeChoiceBoxData();
-	    }
-	    if (transmissionType.getValue() == null) {
-	        updateTransmissionChoiceBoxData();
-	    }
-	    if (numberOfSeats.getValue() == null) {
-	        updateSeatsChoiceBoxData();
-	    }
+			updateFuelTypeChoiceBoxData();
+		}
+		if (transmissionType.getValue() == null) {
+			updateTransmissionChoiceBoxData();
+		}
+		if (numberOfSeats.getValue() == null) {
+			updateSeatsChoiceBoxData();
+		}
 		carCategory.setDisable(false);
 	}
 
@@ -588,17 +620,17 @@ public class NewReservationController implements Initializable {
 		updateCarsListWithSelectedChoices();
 		updateChoiceBox(currentFilteredCarsList, numberOfSeats, CarDto::getSeats);
 		if (carMake.getValue() == null) {
-	        updateMakeChoiceBoxData();
-	    }
+			updateMakeChoiceBoxData();
+		}
 		if (carCategory.getValue() == null) {
-	        updateCategoryTypeChoiceBoxData();
-	    }
-	    if (transmissionType.getValue() == null) {
-	        updateTransmissionChoiceBoxData();
-	    }
-	    if (fuelType.getValue() == null) {
-	        updateFuelTypeChoiceBoxData();
-	    }
+			updateCategoryTypeChoiceBoxData();
+		}
+		if (transmissionType.getValue() == null) {
+			updateTransmissionChoiceBoxData();
+		}
+		if (fuelType.getValue() == null) {
+			updateFuelTypeChoiceBoxData();
+		}
 		numberOfSeats.setDisable(false);
 	}
 
@@ -610,17 +642,17 @@ public class NewReservationController implements Initializable {
 		updateChoiceBox(currentFilteredCarsList, transmissionType, CarDto::getTransmissionType);
 		transmissionType.setDisable(false);
 		if (carMake.getValue() == null) {
-	        updateMakeChoiceBoxData();
-	    }
+			updateMakeChoiceBoxData();
+		}
 		if (carCategory.getValue() == null) {
-	        updateCategoryTypeChoiceBoxData();
-	    }
-	    if (transmissionType.getValue() == null) {
-	        updateTransmissionChoiceBoxData();
-	    }
-	    if (fuelType.getValue() == null) {
-	        updateFuelTypeChoiceBoxData();
-	    }
+			updateCategoryTypeChoiceBoxData();
+		}
+		if (transmissionType.getValue() == null) {
+			updateTransmissionChoiceBoxData();
+		}
+		if (fuelType.getValue() == null) {
+			updateFuelTypeChoiceBoxData();
+		}
 	}
 
 	private void updateCarsListWithSelectedChoices() {
@@ -669,6 +701,18 @@ public class NewReservationController implements Initializable {
 			initializeTableView();
 		});
 	}
+
+	private void loadAllImagePaths() {
+		PictureDao pictureDao = new PictureDao();
+		List<PictureDto> allPictures = pictureDao.getAll();
+		allPictures.forEach(pictureDto -> {
+			String licensePlate = pictureDto.getLicensePlate();
+			String imagePath = pictureDto.getPicturePath();
+			imagePathCache.put(licensePlate, imagePath);
+		});
+
+	}
+
 	@FXML
 	void close(ActionEvent event) {
 		Node source = (Node) event.getSource();
