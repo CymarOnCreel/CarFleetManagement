@@ -42,9 +42,8 @@ public class EmployeeDto {
 	@Column(name="enabled")
 	private boolean enabled;
 
-	public EmployeeDto(int idEmployee, String lastName, String firstName, String email, String password,
+	public EmployeeDto(String lastName, String firstName, String email, String password,
 			String driverLicense, String roleName, LocalDate createdAt, LocalDate updatedAt, boolean enabled) {
-		this.idEmployee = idEmployee;
 		this.lastName = lastName;
 		this.firstName = firstName;
 		this.email = email;
@@ -55,11 +54,10 @@ public class EmployeeDto {
 		this.updatedAt = updatedAt;
 		this.enabled = enabled;
 	}
+	
 	public EmployeeDto() {
-		super();
+		
 	}
-
-
 	public int getIdEmployee() {
 		return idEmployee;
 	}
