@@ -2,7 +2,10 @@ package application.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
@@ -65,6 +68,7 @@ public class ListUsersFrameController implements Initializable {
 	ObservableList<EmployeeDto> employeeData = FXCollections.observableArrayList();
 	private String loggedInUserRole;
 	private static final String userRoleWhoCanDeleteUsers = "superadmin";
+	Map<String, List<String>> allowedTransitions = new HashMap<>();
 
 	@FXML
 	void close(ActionEvent event) {
@@ -75,10 +79,13 @@ public class ListUsersFrameController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		allowedTransitions.put("admin", Arrays.asList("user"));
+		allowedTransitions.put("superadmin", Arrays.asList("admin", "superadmin", "user"));
+
 		employeeDao = new EmployeeDao();
 		allEmployees = employeeDao.getAll();
 		filteredEmployeeList = allEmployees;
-				toggleGroup = new ToggleGroup();
+		toggleGroup = new ToggleGroup();
 		active.setToggleGroup(toggleGroup);
 		all.setToggleGroup(toggleGroup);
 		inactive.setToggleGroup(toggleGroup);
@@ -245,15 +252,33 @@ public class ListUsersFrameController implements Initializable {
 			}
 		});
 		employeeListTable.getColumns().addAll(employeeName, employeeRole, employeeEmail, employeeDriverLicense,
-				employeeStatus, employeeUpdate,employeeDeleteOrActivate);
+				employeeStatus, employeeUpdate, employeeDeleteOrActivate);
 		employeeListTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 	}
+	
 	private void handleUpdate(EmployeeDto employee) {
-		new AlertMessage().showConfirmationAlertMessage("Comming soon", "Comming soon");
+
+	    if (allowedTransitions.containsKey(loggedInUserRole)) {
+	        List<String> allowedRoles = allowedTransitions.get(loggedInUserRole);
+	        if (allowedRoles.contains(employee.getRoleName())) {
+	            openUpdateEmployeeFrame(employee);
+	        } else {
+	            new AlertMessage().showUnknownError           
+	            ("Permission Denied",
+	                    "You do not have permission to update users to the selected role.");
+	        }
+	    } else {
+	    	new AlertMessage().showUnknownError("Permission Denied", "You do not have permission to update users.");
+	    }
+	}
+	
+	private void openUpdateEmployeeFrame(EmployeeDto employee) {
 		try {
-			FXMLLoader loader=new FXMLLoader(getClass().getResource("/application/frame/UpdateEmployeeFrame.fxml"));
-			AnchorPane root=(AnchorPane) loader.load();
-			Scene scene=new Scene(root);
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/frame/UpdateEmployeeFrame.fxml"));
+			AnchorPane root = (AnchorPane) loader.load();
+			UpdateEmployeeFrameController updateController = loader.getController();
+			updateController.initialize(employee);
+			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("/application/util/application.css").toExternalForm());
 			Stage stage = new Stage();
 			stage.setTitle("Update Employee");
@@ -262,11 +287,12 @@ public class ListUsersFrameController implements Initializable {
 			stage.initOwner(Main.getPrimaryStage());
 			stage.getIcons().add(new Image("application/pictures/logo.png"));
 			stage.showAndWait();
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
+
 	private void handleInactivateOrActivateUser(EmployeeDto employee) {
 		employeeDao = new EmployeeDao();
 		if (employee.isEnabled()) {
