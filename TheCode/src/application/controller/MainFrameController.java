@@ -24,52 +24,59 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 public class MainFrameController implements Initializable {
 
 	@FXML
-	private Button home;
+    private Button aboutUs;
 
-	@FXML
-	private MenuButton reservation;
-	@FXML
-	private MenuItem newReservation;
-	@FXML
-	private MenuItem listUserReservation;
+    @FXML
+    private MenuItem addCarMaintenance;
 
-	@FXML
-	private MenuButton admin;
-	@FXML
-	private SplitMenuButton cars;
-	@FXML
-	private MenuItem addCarMaintenance;
-	@FXML
-	private MenuItem addNewCarToDatabase;
-	@FXML
-	private MenuItem addNewInsurance;
-	@FXML
-	private MenuItem nextEvent;
-	@FXML
-	private SplitMenuButton users;
-	@FXML
-	private MenuItem addUser;
-	@FXML
-	private MenuItem listUsers;
+    @FXML
+    private MenuItem addNewCarToDatabase;
 
-	@FXML
-	private MenuButton profile;
-	@FXML
-	private MenuItem login;
-	@FXML
-	private MenuItem registration;
-	@FXML
-	private MenuItem changePassword;
-	@FXML
-	private MenuItem logout;
+    @FXML
+    private MenuItem addNewInsurance;
 
-	@FXML
-	private Button aboutUs;
+    @FXML
+    private MenuItem addUser;
+
+    @FXML
+    private MenuButton admin;
+
+    @FXML
+    private MenuButton cars;
+
+    @FXML
+    private MenuItem changePassword;
+
+    @FXML
+    private MenuItem listUserReservation;
+
+    @FXML
+    private MenuItem listUsers;
+
+    @FXML
+    private MenuItem login;
+
+    @FXML
+    private MenuItem logout;
+
+    @FXML
+    private MenuItem newReservation;
+
+    @FXML
+    private MenuItem nextEvent;
+
+    @FXML
+    private MenuButton profile;
+
+    @FXML
+    private MenuItem registration;
+
+    @FXML
+    private MenuButton reservation;
 	private int employeeId;
 
 	@Override
@@ -314,24 +321,19 @@ public class MainFrameController implements Initializable {
 	private void setUpMenuForNoEmployeeLogedIn() {
 		reservation.setDisable(true);
 		admin.setDisable(true);
-		profile.setDisable(false);
 		login.setDisable(false);
 		logout.setDisable(true);
 		changePassword.setDisable(true);
 		registration.setDisable(false);
 		aboutUs.setDisable(false);
+		cars.setDisable(true);
 	}
 
 	private void setUpMenuForEmployeeRoleAdmin() {
 		reservation.setDisable(false);
-//		newReservation.setDisable(false);
-//		listUserReservation.setDisable(false);
+		cars.setDisable(false);
 		admin.setDisable(false);
-		addCarMaintenance.setDisable(false);
-//		addNewCarToDatabase.setDisable(false);
 		addUser.setDisable(true);
-//		listUsers.setDisable(false);
-		profile.setDisable(false);
 		login.setDisable(true);
 		logout.setDisable(false);
 		changePassword.setDisable(false);
@@ -341,14 +343,9 @@ public class MainFrameController implements Initializable {
 
 	private void setUpMenuForEmployeeRoleSuperAdmin() {
 		reservation.setDisable(false);
-//		newReservation.setDisable(false);
-//		listUserReservation.setDisable(false);
+		cars.setDisable(false);
 		admin.setDisable(false);
-//		addCarMaintenance.setDisable(false);
-//		addNewCarToDatabase.setDisable(false);
 		addUser.setDisable(false);
-//		listUsers.setDisable(false);
-		profile.setDisable(false);
 		login.setDisable(true);
 		logout.setDisable(false);
 		changePassword.setDisable(false);

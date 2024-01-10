@@ -3,7 +3,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -43,12 +42,7 @@
 				<Font size="24.0" />
 			</font>
 		</Text>
-		<Button fx:id="home" layoutX="831.0" layoutY="40.0" mnemonicParsing="false" prefHeight="103.0" prefWidth="164.0" style="-fx-background-color: #159991;" text="HOME" textFill="WHITE">
-			<font>
-				<Font size="38.0" />
-			</font>
-		</Button>
-		<MenuButton fx:id="reservation" layoutX="996.0" layoutY="40.0" mnemonicParsing="false" prefHeight="103.0" prefWidth="353.0" style="-fx-background-color: #159991;" styleClass="custom-menu-button" stylesheets="@../../../../../../../util/application.css" text="FOGLALÁS" textAlignment="CENTER" textFill="WHITE">
+		<MenuButton fx:id="reservation" layoutX="832.0" layoutY="40.0" mnemonicParsing="false" prefHeight="103.0" prefWidth="285.0" style="-fx-background-color: #159991;" styleClass="custom-menu-button" stylesheets="@../../../../../../../util/application.css" text="FOGLALÁS" textAlignment="CENTER" textFill="WHITE">
 			<font>
 				<Font size="38.0" />
 			</font>
@@ -62,26 +56,8 @@
 				<Font size="38.0" />
 			</font>
 			<items>
-				<MenuItem mnemonicParsing="false" styleClass="menu-item">
-               <graphic>
-                  <SplitMenuButton fx:id="cars" mnemonicParsing="false" text="KOCSIK">
-                    <items>
-                      <MenuItem fx:id="addNewCarToDatabase" mnemonicParsing="false" onAction="#addNewCarToDatabase" text="ÚJ KOCSI HOZZÁADÁS" />
-                      <MenuItem fx:id="addCarMaintenance" mnemonicParsing="false" onAction="#reserveCarForMaintenance" text="KOCSI KARBANTARTÁS HOZZÁADÁS" />
-                        <MenuItem fx:id="addNewInsurance" mnemonicParsing="false" onAction="#addNewInsurance" text="ÚJ BIZTOSÍTÁS HOZZÁADÁS" />
-                        <MenuItem fx:id="nextEvent" mnemonicParsing="false" onAction="#nextEvent" text="VÁRHATÓ ESEMÉNYEK" />
-                    </items>
-                  </SplitMenuButton>
-               </graphic></MenuItem>
-				<MenuItem mnemonicParsing="false" styleClass="menu-item">
-               <graphic>
-                  <SplitMenuButton fx:id="users" mnemonicParsing="false" text="FELHASZNÁLÓK">
-                    <items>
-                      <MenuItem fx:id="listUsers" mnemonicParsing="false" onAction="#listUsers" text="FELHASZNÁLÓK LISTÁZÁSA" />
-                      <MenuItem fx:id="addUser" mnemonicParsing="false" onAction="#addNewUser" text="FELHASZNÁLÓ HOZZÁADÁSA" />
-                    </items>
-                  </SplitMenuButton>
-               </graphic></MenuItem>
+          <MenuItem fx:id="listUsers" mnemonicParsing="false" onAction="#listUsers" text="FELHASZNÁLÓK LISTÁZÁSA" />
+          <MenuItem fx:id="addUser" mnemonicParsing="false" onAction="#addNewUser" text="FELHASZNÁLÓ HOZZÁADÁSA" />
 			</items>
 		</MenuButton>
 		<MenuButton fx:id="profile" layoutX="1582.0" layoutY="40.0" mnemonicParsing="false" prefHeight="103.0" prefWidth="303.0" style="-fx-background-color: #000000; -fx-background-radius: 30;" styleClass="custom-menu-button" text="PROFIL" textFill="WHITE">
@@ -101,5 +77,16 @@
 			</font>
 
 		</Button>
+      <MenuButton fx:id="cars" layoutX="1101.0" layoutY="40.0" mnemonicParsing="false" prefHeight="103.0" prefWidth="236.0" style="-fx-background-color: #159991;" styleClass="custom-menu-button" stylesheets="@../../../../../../../util/application.css" text="KOCSIK" textFill="WHITE">
+         <font>
+            <Font size="38.0" />
+         </font>
+         <items>
+            <MenuItem fx:id="addNewCarToDatabase" mnemonicParsing="false" onAction="#addNewCarToDatabase" text="ÚJ KOCSI HOZZÁADÁS" />
+            <MenuItem fx:id="addCarMaintenance" mnemonicParsing="false" onAction="#reserveCarForMaintenance" text="KOCSI KARBANTARTÁS HOZZÁADÁS" />
+            <MenuItem fx:id="addNewInsurance" mnemonicParsing="false" onAction="#addNewInsurance" text="ÚJ BIZTOSÍTÁS HOZZÁADÁS" />
+            <MenuItem fx:id="nextEvent" mnemonicParsing="false" onAction="#nextEvent" text="VÁRHATÓ ESEMÉNYEK" />
+         </items>
+      </MenuButton>
 	</children>
 </AnchorPane>
