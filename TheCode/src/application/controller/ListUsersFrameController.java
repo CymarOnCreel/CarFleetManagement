@@ -61,6 +61,7 @@ public class ListUsersFrameController implements Initializable {
 
 	@FXML
 	private ChoiceBox<String> role;
+
 	private ToggleGroup toggleGroup;
 	List<EmployeeDto> allEmployees;
 	List<EmployeeDto> filteredEmployeeList;
@@ -79,20 +80,12 @@ public class ListUsersFrameController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+//		setUpDao();
 		allowedTransitions.put("admin", Arrays.asList("user"));
 		allowedTransitions.put("superadmin", Arrays.asList("admin", "superadmin", "user"));
-
-		employeeDao = new EmployeeDao();
-		allEmployees = employeeDao.getAll();
-		filteredEmployeeList = allEmployees;
-		toggleGroup = new ToggleGroup();
-		active.setToggleGroup(toggleGroup);
-		all.setToggleGroup(toggleGroup);
-		inactive.setToggleGroup(toggleGroup);
-		toggleGroup.selectToggle(all);
-		loggedInUserRole = employeeDao.findById(UserSession.getUserId()).getRoleName();
-		System.out.println(loggedInUserRole + " id");
+		setupButtons();
 		setTable();
+		System.out.println(loggedInUserRole + " id");
 		Platform.runLater(() -> {
 			fillComboboxWithRoles();
 
@@ -103,6 +96,26 @@ public class ListUsersFrameController implements Initializable {
 				handleComboBoxChange(newValue);
 			}
 		});
+	}
+	public void setTable() {
+		Platform.runLater(() -> {
+			setUpDao();
+			updateTableView(filteredEmployeeList);
+		});	
+	}
+	private void setUpDao() {
+		employeeDao = new EmployeeDao();
+		allEmployees = employeeDao.getAll();
+		filteredEmployeeList = allEmployees;
+		loggedInUserRole = employeeDao.findById(UserSession.getUserId()).getRoleName();
+	}
+	
+	private void setupButtons() {
+		toggleGroup = new ToggleGroup();
+		active.setToggleGroup(toggleGroup);
+		all.setToggleGroup(toggleGroup);
+		inactive.setToggleGroup(toggleGroup);
+		toggleGroup.selectToggle(all);
 	}
 
 	private void handleComboBoxChange(String selectedRole) {
@@ -152,12 +165,7 @@ public class ListUsersFrameController implements Initializable {
 		role.getSelectionModel().selectFirst();
 	}
 
-	private void setTable() {
-		Platform.runLater(() -> {
-			clearTable();
-			updateTableView(filteredEmployeeList);
-		});
-	}
+
 
 	private void updateTableView(List<EmployeeDto> filteredEmployeees) {
 		clearTable();
@@ -230,14 +238,16 @@ public class ListUsersFrameController implements Initializable {
 				}
 			}
 		});
-		TableColumn<EmployeeDto, Void> employeeUpdate = new TableColumn<>("Felhasznáűló frissítése");
+		TableColumn<EmployeeDto, Void> employeeUpdate = new TableColumn<>("Felhasználó frissítése");
 		employeeUpdate.setCellFactory(param -> new TableCell<EmployeeDto, Void>() {
 			private final Button employeeUpdate = new Button();
 			{
+
 				employeeUpdate.setOnAction(event -> {
 					EmployeeDto employee = getTableView().getItems().get(getIndex());
 					handleUpdate(employee);
 				});
+
 			}
 
 			@Override
@@ -246,37 +256,40 @@ public class ListUsersFrameController implements Initializable {
 				if (empty) {
 					setGraphic(null);
 				} else {
+					EmployeeDto employee = getTableView().getItems().get(getIndex());
 					employeeUpdate.setText("MÓDOSÍT");
+					employeeUpdate.setDisable(!employee.isEnabled());
 				}
 				setGraphic(employeeUpdate);
+
 			}
 		});
 		employeeListTable.getColumns().addAll(employeeName, employeeRole, employeeEmail, employeeDriverLicense,
 				employeeStatus, employeeUpdate, employeeDeleteOrActivate);
 		employeeListTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 	}
-	
+
 	private void handleUpdate(EmployeeDto employee) {
 
-	    if (allowedTransitions.containsKey(loggedInUserRole)) {
-	        List<String> allowedRoles = allowedTransitions.get(loggedInUserRole);
-	        if (allowedRoles.contains(employee.getRoleName())) {
-	            openUpdateEmployeeFrame(employee);
-	        } else {
-	            new AlertMessage().showUnknownError           
-	            ("Permission Denied",
-	                    "You do not have permission to update users to the selected role.");
-	        }
-	    } else {
-	    	new AlertMessage().showUnknownError("Permission Denied", "You do not have permission to update users.");
-	    }
+		if (allowedTransitions.containsKey(loggedInUserRole)) {
+			List<String> allowedRoles = allowedTransitions.get(loggedInUserRole);
+			if (allowedRoles.contains(employee.getRoleName())) {
+				openUpdateEmployeeFrame(employee);
+			} else {
+				new AlertMessage().showUnknownError("Permission Denied",
+						"You do not have permission to update users to the selected role.");
+			}
+		} else {
+			new AlertMessage().showUnknownError("Permission Denied", "You do not have permission to update users.");
+		}
 	}
-	
+
 	private void openUpdateEmployeeFrame(EmployeeDto employee) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/frame/UpdateEmployeeFrame.fxml"));
 			AnchorPane root = (AnchorPane) loader.load();
 			UpdateEmployeeFrameController updateController = loader.getController();
+		    updateController.setListUsersController(this);
 			updateController.initialize(employee);
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("/application/util/application.css").toExternalForm());
