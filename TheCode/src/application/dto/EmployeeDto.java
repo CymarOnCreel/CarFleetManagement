@@ -157,6 +157,10 @@ public class EmployeeDto {
 		return firstName+" "+lastName;
 	}
 	
+	public String getFullNameHun() {
+		return lastName + " " + firstName;
+	}
+	
 	
 	public String isEnabledToString() {
 		return enabled ? "aktív":"törölve";

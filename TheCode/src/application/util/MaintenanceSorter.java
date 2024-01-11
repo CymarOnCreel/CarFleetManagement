@@ -114,5 +114,53 @@ public class MaintenanceSorter {
 		maintenances = entityManager.createQuery(criteriaQuery).getResultList();
 
 	}
+	
+	public List<MaintenanceDto> getAllMaintenancesForCar(CarDto carDto) {
+	    CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+	    CriteriaQuery<MaintenanceDto> criteriaQuery = criteriaBuilder.createQuery(MaintenanceDto.class);
+	    Root<MaintenanceDto> root = criteriaQuery.from(MaintenanceDto.class);
+
+	    criteriaQuery.select(root)
+	            .where(
+	                criteriaBuilder.equal(root.get("licensePlate"), carDto.getLicensePlate())
+	            )
+	            .orderBy(criteriaBuilder.desc(root.get("mileage"))); 
+
+	    List<MaintenanceDto> maintenances = entityManager.createQuery(criteriaQuery)
+	            .getResultList();
+
+	    return maintenances;
+	}
+
+
+	public MaintenanceDto getLastMandatoryMaintenanceForCar(CarDto carDto) {
+	    CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+	    CriteriaQuery<MaintenanceDto> criteriaQuery = criteriaBuilder.createQuery(MaintenanceDto.class);
+	    Root<MaintenanceDto> root = criteriaQuery.from(MaintenanceDto.class);
+
+	    Subquery<Integer> subquery = criteriaQuery.subquery(Integer.class);
+	    Root<MaintenanceDto> subqueryRoot = subquery.from(MaintenanceDto.class);
+	    subquery.select(criteriaBuilder.max(subqueryRoot.get("mileage")))
+	            .where(
+	                criteriaBuilder.equal(subqueryRoot.get("licensePlate"), root.get("licensePlate")),
+	                criteriaBuilder.equal(subqueryRoot.get("maintenanceType"), "Kötelező szerviz")
+	            )
+	            .groupBy(subqueryRoot.get("licensePlate"));
+
+	    criteriaQuery.select(root)
+	            .where(
+	                criteriaBuilder.and(
+	                    criteriaBuilder.equal(root.get("mileage"), subquery),
+	                    criteriaBuilder.equal(root.get("maintenanceType"), "Kötelező szerviz"),
+	                    criteriaBuilder.equal(root.get("licensePlate"), carDto.getLicensePlate())
+	                )
+	            )
+	            .orderBy(criteriaBuilder.desc(root.get("mileage")));
+	    List<MaintenanceDto> maintenances = entityManager.createQuery(criteriaQuery)
+	            .setMaxResults(1)
+	            .getResultList();
+
+	    return maintenances.isEmpty() ? null : maintenances.get(0);
+	}
 
 }

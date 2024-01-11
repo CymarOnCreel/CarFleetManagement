@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1200.0" prefWidth="1900.0" style="-fx-background-color: #1F363C;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.MainFrameController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1200.0" prefWidth="1900.0" style="-fx-background-color: #1F363C;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.MainFrameController">
 	<children>
 		<Polygon fill="#159991" layoutX="1715.0" layoutY="123.0" points="-931.0, -123.00003051757812, 185.0, 861.5, 185.0, -123.0" stroke="#159991" strokeType="INSIDE" />
 		<Polygon fill="#159991" layoutX="1788.0" layoutY="432.0" points="-720.333251953125, 551.0, 112.0, 552.5, -1004.0, -447.6666564941406" stroke="#159991" strokeType="OUTSIDE" />
@@ -82,6 +82,7 @@
             <Font size="38.0" />
          </font>
          <items>
+            <MenuItem fx:id="carHandler" mnemonicParsing="false" onAction="#adminCarHandler" text="KOCSIK KEZELÉSE" />
             <MenuItem fx:id="addNewCarToDatabase" mnemonicParsing="false" onAction="#addNewCarToDatabase" text="ÚJ KOCSI HOZZÁADÁS" />
             <MenuItem fx:id="addCarMaintenance" mnemonicParsing="false" onAction="#reserveCarForMaintenance" text="KOCSI KARBANTARTÁS HOZZÁADÁS" />
             <MenuItem fx:id="addNewInsurance" mnemonicParsing="false" onAction="#addNewInsurance" text="ÚJ BIZTOSÍTÁS HOZZÁADÁS" />

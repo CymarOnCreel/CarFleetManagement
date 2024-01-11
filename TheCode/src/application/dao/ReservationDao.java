@@ -1,5 +1,8 @@
 package application.dao;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -11,6 +14,7 @@ import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
 
 import application.dto.CarDto;
+import application.dto.EmployeeDto;
 import application.dto.ReservationDto;
 
 public class ReservationDao implements ICrud<ReservationDto> {
@@ -96,4 +100,46 @@ public class ReservationDao implements ICrud<ReservationDto> {
 		List<ReservationDto> reservations = entityManager.createQuery(criteriaQuery).getResultList();
 		return reservations;
 	}
+	
+	public boolean isReservedByCarLicensePlate(String licensePlate) {
+	    CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+	    CriteriaQuery<Long> criteriaQuery = criteriaBuilder.createQuery(Long.class);
+	    Root<ReservationDto> root = criteriaQuery.from(ReservationDto.class);
+
+	    criteriaQuery.select(criteriaBuilder.count(root));
+	    
+	    criteriaQuery.where(
+		        criteriaBuilder.equal(root.get("car").get("licensePlate"), licensePlate),
+		        criteriaBuilder.greaterThanOrEqualTo(root.get("endDateTime"), LocalDate.now().atStartOfDay()),
+		        criteriaBuilder.lessThanOrEqualTo(root.get("startDateTime"), LocalDate.now().atStartOfDay())
+		);
+
+	    Long reservationCount = entityManager.createQuery(criteriaQuery).getSingleResult();
+	    
+	    return reservationCount > 0;
+	}
+	
+	public EmployeeDto getEmployeeForNowReservedCar(String licensePlate) {
+	    CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+	    CriteriaQuery<EmployeeDto> criteriaQuery = criteriaBuilder.createQuery(EmployeeDto.class);
+	    Root<ReservationDto> root = criteriaQuery.from(ReservationDto.class);
+
+	    criteriaQuery.select(root.get("employee"));
+	    
+	    criteriaQuery.where(
+		        criteriaBuilder.equal(root.get("car").get("licensePlate"), licensePlate),
+		        criteriaBuilder.greaterThanOrEqualTo(root.get("endDateTime"), LocalDate.now().atStartOfDay()), 
+		        criteriaBuilder.lessThanOrEqualTo(root.get("startDateTime"), LocalDate.now().atStartOfDay())
+		);
+
+	    List<EmployeeDto> employees = entityManager.createQuery(criteriaQuery).getResultList();
+	    
+	    if (!employees.isEmpty()) {
+	        return employees.get(0); 
+	    } else {
+	        return null;
+	    }
+	}
+
+
 }
