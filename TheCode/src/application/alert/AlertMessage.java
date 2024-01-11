@@ -1,5 +1,7 @@
 package application.alert;
 
+import java.util.Optional;
+
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
@@ -75,5 +77,14 @@ public class AlertMessage {
 		Alert a = new Alert(AlertType.NONE, "A biztosítás mentese sikeresen megtörtént.", ButtonType.OK);
 		a.setTitle("Sikeres mentés");
 		a.show();
+	}
+	
+	public boolean isConfirmedDelete() {
+		Alert a = new Alert(AlertType.CONFIRMATION);
+		a.setTitle("Törlés");
+		a.setHeaderText(null);
+		a.setContentText("Biztosan törlöd?");
+		Optional<ButtonType> action = a.showAndWait();
+		return action.get() == ButtonType.OK ? true : false;
 	}
 }

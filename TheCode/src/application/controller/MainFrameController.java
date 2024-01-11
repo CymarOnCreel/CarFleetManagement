@@ -29,6 +29,9 @@ public class MainFrameController implements Initializable {
 
 	@FXML
     private Button aboutUs;
+	
+	@FXML
+    private MenuItem carHandler;
 
     @FXML
     private MenuItem addCarMaintenance;
@@ -87,8 +90,29 @@ public class MainFrameController implements Initializable {
 		Platform.runLater(() -> {
 			setUpMenuForNoEmployeeLogedIn();// --at start this should be run
 		});
-//		
+		
 
+	}
+	
+	@FXML
+	private void adminCarHandler() {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/frame/CarHandlerFrame.fxml"));
+		AnchorPane root;
+		try {
+			root = (AnchorPane) loader.load();
+			Scene scene = new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("/application/util/application.css").toExternalForm());
+			Stage stage = new Stage();
+			stage.setTitle("Admin autó lista");
+			stage.setScene(scene);
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.initOwner(Main.getPrimaryStage());
+			stage.getIcons().add(new Image("application/pictures/logo.png"));
+			stage.showAndWait();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	@FXML

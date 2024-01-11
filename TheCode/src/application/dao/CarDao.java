@@ -73,10 +73,11 @@ public class CarDao implements ICrud<CarDto> {
 		CriteriaQuery<CarDto> criteriaQuery = criteriaBuilder.createQuery(CarDto.class);
 		Root<CarDto> root = criteriaQuery.from(CarDto.class);
 		criteriaQuery.select(root);
+		criteriaQuery.where(criteriaBuilder.equal(root.get("enabled"), 1));
 		List<CarDto> cars = entityManager.createQuery(criteriaQuery).getResultList();
 		return cars;
 	}
-	
+		
 	public boolean isCarExist(String licensePlate) {
 	    CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 	    CriteriaQuery<Long> criteriaQuery = criteriaBuilder.createQuery(Long.class);
