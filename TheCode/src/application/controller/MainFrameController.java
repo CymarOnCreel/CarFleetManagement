@@ -18,7 +18,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.SplitMenuButton;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -28,58 +27,58 @@ import javafx.stage.Stage;
 public class MainFrameController implements Initializable {
 
 	@FXML
-    private Button aboutUs;
-	
+	private Button aboutUs;
+
 	@FXML
-    private MenuItem carHandler;
+	private MenuItem carHandler;
 
-    @FXML
-    private MenuItem addCarMaintenance;
+	@FXML
+	private MenuItem addCarMaintenance;
 
-    @FXML
-    private MenuItem addNewCarToDatabase;
+	@FXML
+	private MenuItem addNewCarToDatabase;
 
-    @FXML
-    private MenuItem addNewInsurance;
+	@FXML
+	private MenuItem addNewInsurance;
 
-    @FXML
-    private MenuItem addUser;
+	@FXML
+	private MenuItem addUser;
 
-    @FXML
-    private MenuButton admin;
+	@FXML
+	private MenuButton admin;
 
-    @FXML
-    private MenuButton cars;
+	@FXML
+	private MenuButton cars;
 
-    @FXML
-    private MenuItem changePassword;
+	@FXML
+	private MenuItem changePassword;
 
-    @FXML
-    private MenuItem listUserReservation;
+	@FXML
+	private MenuItem listUserReservation;
 
-    @FXML
-    private MenuItem listUsers;
+	@FXML
+	private MenuItem listUsers;
 
-    @FXML
-    private MenuItem login;
+	@FXML
+	private MenuItem login;
 
-    @FXML
-    private MenuItem logout;
+	@FXML
+	private MenuItem logout;
 
-    @FXML
-    private MenuItem newReservation;
+	@FXML
+	private MenuItem newReservation;
 
-    @FXML
-    private MenuItem nextEvent;
+	@FXML
+	private MenuItem nextEvent;
 
-    @FXML
-    private MenuButton profile;
+	@FXML
+	private MenuButton profile;
 
-    @FXML
-    private MenuItem registration;
+	@FXML
+	private MenuItem registration;
 
-    @FXML
-    private MenuButton reservation;
+	@FXML
+	private MenuButton reservation;
 	private int employeeId;
 
 	@Override
@@ -90,10 +89,9 @@ public class MainFrameController implements Initializable {
 		Platform.runLater(() -> {
 			setUpMenuForNoEmployeeLogedIn();// --at start this should be run
 		});
-		
 
 	}
-	
+
 	@FXML
 	private void adminCarHandler() {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/frame/CarHandlerFrame.fxml"));
@@ -112,7 +110,7 @@ public class MainFrameController implements Initializable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	@FXML
@@ -246,6 +244,22 @@ public class MainFrameController implements Initializable {
 	@FXML
 	void addNewUser(ActionEvent event) {
 
+		try {
+			FXMLLoader loader = new FXMLLoader(
+					getClass().getResource("/application/frame/AddNewEmployeeBySuperAdmin.fxml"));
+			AnchorPane root = (AnchorPane) loader.load();
+			Scene scene = new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("/application/util/application.css").toExternalForm());
+			Stage stage = new Stage();
+			stage.setTitle("Új felhasználó hozzáadása");
+			stage.setScene(scene);
+			stage.getIcons().add(new Image("application/pictures/logo.png"));
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.showAndWait();
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 
 	@FXML
