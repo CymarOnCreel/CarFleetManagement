@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="633.0" prefWidth="578.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.AddNewEmployeeBySuperAdmin">
+   <children>
+      <Label layoutX="105.0" layoutY="142.0" text="Vezetéknév:*" />
+      <Label layoutX="107.0" layoutY="189.0" text="Keresztnév:*" />
+      <Label layoutX="121.0" layoutY="236.0" text="Email:*" />
+      <Label layoutX="121.0" layoutY="290.0" text="Jelszó:*" />
+      <Label layoutX="86.0" layoutY="341.0" text="Jogosítvény száma:*" />
+      <ComboBox fx:id="role" layoutX="214.0" layoutY="378.0" prefWidth="150.0" />
+      <Label layoutX="104.0" layoutY="382.0" text="Jogosultság" />
+      <TextField fx:id="lastName" layoutX="215.0" layoutY="138.0" />
+      <TextField fx:id="firstName" layoutX="215.0" layoutY="185.0" />
+      <TextField fx:id="emailAdress" layoutX="215.0" layoutY="232.0" />
+      <TextField fx:id="driverLicense" layoutX="215.0" layoutY="337.0" />
+      <PasswordField fx:id="password" layoutX="215.0" layoutY="286.0" />
+      <Button fx:id="btnSave" layoutX="95.0" layoutY="496.0" mnemonicParsing="false" onAction="#saveEmployee" text="MENTÉS" />
+      <Button fx:id="btnClose" layoutX="387.0" layoutY="496.0" mnemonicParsing="false" onAction="#closeFrame" text="MÉGSE" />
+   </children>
+</AnchorPane>

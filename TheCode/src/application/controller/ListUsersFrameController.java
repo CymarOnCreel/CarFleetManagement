@@ -196,7 +196,7 @@ public class ListUsersFrameController implements Initializable {
 	private void addColumns() {
 		employeeListTable.getColumns().clear();
 		TableColumn<EmployeeDto, String> employeeName = new TableColumn<>("Felhasználó neve:");
-		employeeName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFullName()));
+		employeeName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFullNameHun()));
 		TableColumn<EmployeeDto, String> employeeRole = new TableColumn<>("Jogosultság");
 		employeeRole.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getRoleName()));
 		TableColumn<EmployeeDto, String> employeeEmail = new TableColumn<>("Email");

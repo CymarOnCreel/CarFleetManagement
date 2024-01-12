@@ -139,7 +139,7 @@ public class ListReservationsFrameController implements Initializable {
 		reservationsTable.getColumns().clear();
 		TableColumn<ReservationDto, String> nameColumn = new TableColumn<>("Felhaználó neve:");
 		nameColumn.setCellValueFactory(
-				cellData -> new SimpleStringProperty(cellData.getValue().getEmployee().getFullName()));
+				cellData -> new SimpleStringProperty(cellData.getValue().getEmployee().getFullNameHun()));
 		TableColumn<ReservationDto, String> plateColumn = new TableColumn<>("kocsi");
 		plateColumn.setCellValueFactory(
 				cellData -> new SimpleStringProperty(cellData.getValue().getCar().getLicensePlate()));
