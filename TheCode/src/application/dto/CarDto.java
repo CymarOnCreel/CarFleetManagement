@@ -183,6 +183,11 @@ public class CarDto {
 	public void setMileage(int mileage) {
 		this.mileage = mileage;
 	}
+	
+	public void setSiteName(SiteDto siteName) {
+		this.siteName = siteName;
+		updatedAt = LocalDate.now();
+	}
 	public void deleteCarDto() {
 		enabled = 0;
 		updatedAt = LocalDate.now();

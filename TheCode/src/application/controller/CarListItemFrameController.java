@@ -1,20 +1,22 @@
 package application.controller;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import application.alert.AlertMessage;
 import application.dao.CarDao;
 import application.dao.ReservationDao;
+import application.dao.SiteDao;
 import application.dto.CarDto;
 import application.dto.EmployeeDto;
+import application.dto.SiteDto;
 import application.util.MaintenanceSorter;
 import application.util.NextEvent;
-import javafx.beans.property.ObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
 
 public class CarListItemFrameController {
@@ -38,7 +40,7 @@ public class CarListItemFrameController {
 	private Label lblRemainKm;
 
 	@FXML
-	private Button btnUpdateSite;
+	private MenuButton btnUpdateSite;
 
 	@FXML
 	private Button btnDeleteCar;
@@ -73,6 +75,33 @@ public class CarListItemFrameController {
 		lblMileage.setText(car.getMileage() + "");
 		setNextEventLabels();
 		setReservedStatus();
+		fillMenuButtonUpdateSite();
+		setBtnUpdateSiteLabel();
+	}
+
+	private void fillMenuButtonUpdateSite() {
+	    btnUpdateSite.getItems().clear();
+
+	    List<SiteDto> sites = new SiteDao().getAll();
+
+	    for (SiteDto site : sites) {
+	        MenuItem menuItem = new MenuItem(site.getNameSite());
+	        menuItem.setOnAction(event -> handleSiteSelection(site));
+	        btnUpdateSite.getItems().add(menuItem);
+	    }
+	    setBtnUpdateSiteLabel();
+	}
+
+	private void handleSiteSelection(SiteDto site) {
+	    new CarDao().updateSite(car, site);
+	    setBtnUpdateSiteLabel();
+	    String newSiteMsg = "Az új telehely neve: " + site.getNameSite();
+	    new AlertMessage().requiredFieldsEmpty("Telephely módosítás sikerült!", newSiteMsg);
+	    setBtnUpdateSiteLabel();
+	}
+
+	private void setBtnUpdateSiteLabel() {
+		btnUpdateSite.setText(car.getSiteName().getNameSite());
 	}
 
 	private void setReservedStatus() {
@@ -117,10 +146,6 @@ public class CarListItemFrameController {
 		carHandlerFrameController.listItemFrameFillWithCarData();
     }
 
-    @FXML
-    void modifySite(ActionEvent event) {
-		new AlertMessage().requiredFieldsEmpty(null, "hamarosan...");
-    }
 
     @FXML
     void reserveCalendar(ActionEvent event) {

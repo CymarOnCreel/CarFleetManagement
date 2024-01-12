@@ -11,6 +11,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import application.dto.CarDto;
+import application.dto.SiteDto;
 
 
 
@@ -92,5 +93,22 @@ public class CarDao implements ICrud<CarDto> {
 
 	    return count > 0;
 	}
+	
+	public void updateSite(CarDto car, SiteDto site) {
+        try {
+            entityManager.getTransaction().begin();
+
+            car.setSiteName(site);
+            entityManager.merge(car);
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            if (entityManager.getTransaction().isActive()) {
+                entityManager.getTransaction().rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            entityManager.close();
+        }
+    }
 
 }
