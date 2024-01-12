@@ -6,21 +6,33 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="442.0" prefWidth="584.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.UpdateEmployeeFrameController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="442.0" prefWidth="467.0" style="-fx-background-color: #1F363C;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.UpdateEmployeeFrameController">
    <children>
-      <ComboBox fx:id="roleName" layoutX="243.0" layoutY="237.0" prefWidth="150.0" />
-      <Label layoutX="125.0" layoutY="108.0" prefHeight="17.0" prefWidth="91.0" text="First Name" />
-      <Label layoutX="125.0" layoutY="142.0" prefHeight="17.0" prefWidth="91.0" text="Last Name" />
-      <Label layoutX="125.0" layoutY="171.0" prefHeight="17.0" prefWidth="91.0" text="Driver Licence" />
-      <Label layoutX="125.0" layoutY="202.0" prefHeight="17.0" prefWidth="91.0" text="Password" />
-      <Label layoutX="125.0" layoutY="241.0" prefHeight="17.0" prefWidth="91.0" text="Role" />
-      <TextField fx:id="firstName" layoutX="244.0" layoutY="104.0" />
-      <TextField fx:id="lastName" layoutX="244.0" layoutY="138.0" />
-      <TextField fx:id="driverLicence" layoutX="244.0" layoutY="167.0" />
-      <Button fx:id="update" layoutX="107.0" layoutY="322.0" mnemonicParsing="false" onAction="#updateEmployee" text="FRISSITÉS" />
-      <Button fx:id="cancel" layoutX="366.0" layoutY="322.0" mnemonicParsing="false" onAction="#close" text="MÉGSE" />
-      <PasswordField fx:id="password" layoutX="244.0" layoutY="198.0" />
+      <ComboBox fx:id="roleName" layoutX="251.0" layoutY="251.0" prefHeight="30.0" prefWidth="173.0" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="82.0" layoutY="85.0" prefHeight="27.0" prefWidth="134.0" styleClass="text-white-Label" stylesheets="@../util/application.css" text="First Name" textAlignment="CENTER" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="82.0" layoutY="127.0" prefHeight="27.0" prefWidth="134.0" styleClass="text-white-Label" stylesheets="@../util/application.css" text="Last Name" textAlignment="CENTER" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="82.0" layoutY="174.0" prefHeight="27.0" prefWidth="134.0" styleClass="text-white-Label" stylesheets="@../util/application.css" text="Driver Licence" textAlignment="CENTER" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="82.0" layoutY="213.0" prefHeight="27.0" prefWidth="134.0" styleClass="text-white-Label" stylesheets="@../util/application.css" text="Password" textAlignment="CENTER" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="82.0" layoutY="252.0" prefHeight="27.0" prefWidth="134.0" styleClass="text-white-Label" stylesheets="@../util/application.css" text="Role" textAlignment="CENTER" />
+      <TextField fx:id="firstName" layoutX="251.0" layoutY="83.0">
+         <font>
+            <Font size="14.0" />
+         </font></TextField>
+      <TextField fx:id="lastName" layoutX="251.0" layoutY="125.0">
+         <font>
+            <Font size="14.0" />
+         </font></TextField>
+      <TextField fx:id="driverLicence" layoutX="250.0" layoutY="173.0">
+         <font>
+            <Font size="14.0" />
+         </font></TextField>
+      <Button fx:id="update" layoutX="78.0" layoutY="331.0" mnemonicParsing="false" onAction="#updateEmployee" styleClass="save-update-button" stylesheets="@../util/application.css" text="FRISSITÉS" />
+      <Button fx:id="cancel" layoutX="312.0" layoutY="331.0" mnemonicParsing="false" onAction="#close" styleClass="close-button" stylesheets="@../util/application.css" text="MÉGSE" />
+      <PasswordField fx:id="password" layoutX="250.0" layoutY="212.0">
+         <font>
+            <Font size="14.0" />
+         </font></PasswordField>
    </children>
 </AnchorPane>

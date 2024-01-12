@@ -6,22 +6,38 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="633.0" prefWidth="578.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.AddNewEmployeeBySuperAdmin">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="633.0" prefWidth="578.0" style="-fx-background-color: #1F363C;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.AddNewEmployeeBySuperAdmin">
    <children>
-      <Label layoutX="105.0" layoutY="142.0" text="Vezetéknév:*" />
-      <Label layoutX="107.0" layoutY="189.0" text="Keresztnév:*" />
-      <Label layoutX="121.0" layoutY="236.0" text="Email:*" />
-      <Label layoutX="121.0" layoutY="290.0" text="Jelszó:*" />
-      <Label layoutX="86.0" layoutY="341.0" text="Jogosítvény száma:*" />
-      <ComboBox fx:id="role" layoutX="214.0" layoutY="378.0" prefWidth="150.0" />
-      <Label layoutX="104.0" layoutY="382.0" text="Jogosultság" />
-      <TextField fx:id="lastName" layoutX="215.0" layoutY="138.0" />
-      <TextField fx:id="firstName" layoutX="215.0" layoutY="185.0" />
-      <TextField fx:id="emailAdress" layoutX="215.0" layoutY="232.0" />
-      <TextField fx:id="driverLicense" layoutX="215.0" layoutY="337.0" />
-      <PasswordField fx:id="password" layoutX="215.0" layoutY="286.0" />
-      <Button fx:id="btnSave" layoutX="95.0" layoutY="496.0" mnemonicParsing="false" onAction="#saveEmployee" text="MENTÉS" />
-      <Button fx:id="btnClose" layoutX="387.0" layoutY="496.0" mnemonicParsing="false" onAction="#closeFrame" text="MÉGSE" />
+      <Label layoutX="114.0" layoutY="137.0" styleClass="text-white-Label" stylesheets="@../util/application.css" text="Vezetéknév:*" />
+      <Label layoutX="112.0" layoutY="189.0" styleClass="text-white-Label" stylesheets="@../util/application.css" text="Keresztnév:*" />
+      <Label layoutX="135.0" layoutY="236.0" styleClass="text-white-Label" stylesheets="@../util/application.css" text="Email:*" />
+      <Label layoutX="124.0" layoutY="290.0" styleClass="text-white-Label" stylesheets="@../util/application.css" text="Jelszó:*" />
+      <Label layoutX="84.0" layoutY="341.0" styleClass="text-white-Label" stylesheets="@../util/application.css" text="Jogosítvány száma:*" />
+      <ComboBox fx:id="role" layoutX="275.0" layoutY="382.0" prefHeight="30.0" prefWidth="172.0" />
+      <Label layoutX="115.0" layoutY="384.0" styleClass="text-white-Label" stylesheets="@../util/application.css" text="Jogosultság" />
+      <TextField fx:id="lastName" layoutX="276.0" layoutY="138.0">
+         <font>
+            <Font size="14.0" />
+         </font></TextField>
+      <TextField fx:id="firstName" layoutX="276.0" layoutY="190.0">
+         <font>
+            <Font size="14.0" />
+         </font></TextField>
+      <TextField fx:id="emailAdress" layoutX="276.0" layoutY="237.0">
+         <font>
+            <Font size="14.0" />
+         </font></TextField>
+      <TextField fx:id="driverLicense" layoutX="276.0" layoutY="342.0">
+         <font>
+            <Font size="14.0" />
+         </font></TextField>
+      <PasswordField fx:id="password" layoutX="276.0" layoutY="291.0">
+         <font>
+            <Font size="14.0" />
+         </font></PasswordField>
+      <Button fx:id="btnSave" layoutX="107.0" layoutY="477.0" mnemonicParsing="false" onAction="#saveEmployee" styleClass="save-update-button" stylesheets="@../util/application.css" text="MENTÉS" />
+      <Button fx:id="btnClose" layoutX="369.0" layoutY="484.0" mnemonicParsing="false" onAction="#closeFrame" styleClass="close-button" stylesheets="@../util/application.css" text="MÉGSE" />
    </children>
 </AnchorPane>
