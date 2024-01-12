@@ -33,7 +33,7 @@ public class CarHandlerFrameController implements Initializable {
 		
 		for (int i = 0; i < nodes.length; i++) {
 			try {
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/frame/CarListItemFrame.fxml"));
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/frame/Carlistitemframepass.fxml"));
 		        nodes[i] = loader.load();
 		        vBoxHolder.getChildren().add(nodes[i]);
 

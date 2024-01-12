@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="392.0" prefWidth="1210.0" style="-fx-background-color: #1F363C;" styleClass="backGroundColor" stylesheets="@../../../../Downloads/CarFleetManagement-main%20(5)/CarFleetManagement-main/TheCode/src/application/util/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.CarListItemFrameController">
+   <children>
+      <ImageView fitHeight="167.0" fitWidth="157.0" layoutX="745.0" layoutY="126.0">
+         <image>
+            <Image url="@../pictures/carlistitem/7037596-removebg-preview.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="99.0" fitWidth="106.0" layoutX="1027.0" layoutY="277.0">
+         <image>
+            <Image url="@../pictures/carlistitem/db1tway-0e280582-388d-42f1-932e-b15b8410faec-removebg-preview.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="115.0" fitWidth="172.0" layoutX="989.0" layoutY="148.0">
+         <image>
+            <Image url="@../pictures/carlistitem/png-transparent-business-service-renting-house-company-rent-miscellaneous-angle-text-removebg-preview.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="ivCarPicture" fitHeight="197.0" fitWidth="267.0" layoutX="3.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../pictures/CarReservation%20képek/201895001jpg_omrzhw1x-removebg-preview.png" />
+         </image>
+      </ImageView>
+      <Separator layoutX="275.0" layoutY="-2.0" orientation="VERTICAL" prefHeight="392.0" prefWidth="0.0" />
+      <Label fx:id="lblCar" layoutX="301.0" layoutY="25.0" prefHeight="32.0" prefWidth="623.0" text="RENDSZÁM - AUTÓ MÁRKA ÉS MODEL NEVE" textFill="#f2efef">
+         <font>
+            <Font name="SansSerif Bold" size="27.0" />
+         </font>
+      </Label>
+      <Label layoutX="1150.0" layoutY="24.0" prefHeight="21.0" prefWidth="39.0" text="km" textFill="#fffdfd" />
+      <Label fx:id="lblMileage" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="1075.0" layoutY="22.0" prefWidth="70.0" text="9999999" textFill="#fffdfd">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblIsReserved" layoutX="1019.0" layoutY="128.0" prefHeight="40.0" prefWidth="112.0" text="FOGLALT" textFill="#fffdfd">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblEmployee" layoutX="1036.0" layoutY="168.0" text="Teszt Elek" textFill="#fffdfd">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <Label layoutX="942.0" layoutY="49.0" text="Következő szervizig:" textFill="#fffdfd" />
+      <Label layoutX="1150.0" layoutY="49.0" prefHeight="21.0" prefWidth="39.0" text="km" textFill="#fffdfd" />
+      <Label fx:id="lblRemainKm" alignment="TOP_RIGHT" contentDisplay="RIGHT" layoutX="1075.0" layoutY="46.0" prefWidth="70.0" text="7145" textFill="#fffdfd">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnDeleteCar" layoutX="1000.0" layoutY="350.0" mnemonicParsing="false" onAction="#deleteCar" prefHeight="32.0" prefWidth="157.0" text="Autó törlés" />
+      <Button fx:id="btnReserveDairy" layoutX="751.0" layoutY="105.0" mnemonicParsing="false" onAction="#reserveCalendar" prefHeight="32.0" prefWidth="157.0" text="Foglalási naptár" />
+      <Button fx:id="btnReserveForMaintenance" layoutX="306.0" layoutY="296.0" mnemonicParsing="false" onAction="#bookACarSevice" prefHeight="32.0" prefWidth="157.0" text="Szervizre foglalás" />
+      <Button fx:id="btnMaintenanceList" layoutX="311.0" layoutY="105.0" mnemonicParsing="false" onAction="#maintenanceList" prefHeight="32.0" prefWidth="157.0" text="Szerviz előzmények" />
+      <Label layoutX="943.0" layoutY="74.0" text="Várató dátum: " textFill="#fffdfd" />
+      <Label fx:id="lblNextMaintenanceDate" layoutX="1087.0" layoutY="71.0" text="2024.05.16." textFill="#fffdfd">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="136.0" fitWidth="157.0" layoutX="313.0" layoutY="144.0">
+         <image>
+            <Image url="@../pictures/carlistitem/images-removebg-preview%20(1).png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="184.0" fitWidth="230.0" layoutX="502.0" layoutY="146.0">
+         <image>
+            <Image url="@../pictures/carlistitem/unnamed.png" />
+         </image>
+      </ImageView>
+      <Separator layoutX="-3.0" layoutY="386.0" prefHeight="11.0" prefWidth="1218.0" />
+      <Label layoutX="942.0" layoutY="25.0" text="Kilométeróra állás:" textFill="#fffdfd" />
+      <MenuButton fx:id="btnUpdateSite" alignment="TOP_CENTER" layoutX="539.0" layoutY="106.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="157.0" text="Telephely">
+        <items>
+          <MenuItem mnemonicParsing="false" text="Action 1" />
+          <MenuItem mnemonicParsing="false" text="Action 2" />
+        </items>
+      </MenuButton>
+   </children>
+</AnchorPane>
