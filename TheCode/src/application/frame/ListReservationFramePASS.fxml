@@ -26,10 +26,10 @@
          <font>
             <Font name="System Bold" size="16.0" />
          </font></Button>
-		<TableView fx:id="reservationsTable" layoutX="-4.0" layoutY="200.0" prefHeight="381.0" prefWidth="1000.0" styleClass="my-table" stylesheets="@CarFleetManagement-main%20(3)/CarFleetManagement-main/TheCode/src/application/util/application.css" visible="false">
+		<TableView fx:id="reservationsTable" layoutX="-4.0" layoutY="200.0" prefHeight="375.0" prefWidth="1049.0" styleClass="my-table" stylesheets="@CarFleetManagement-main%20(3)/CarFleetManagement-main/TheCode/src/application/util/application.css" visible="false">
    </TableView>
 
-		<Button fx:id="closeWindow" layoutX="423.0" layoutY="588.0" mnemonicParsing="false" onAction="#closeWindow" prefHeight="44.0" prefWidth="146.0" styleClass="close-button" text="BEZÁRÁS">
+		<Button fx:id="closeWindow" layoutX="448.0" layoutY="598.0" mnemonicParsing="false" onAction="#closeWindow" prefHeight="44.0" prefWidth="146.0" styleClass="close-button" text="BEZÁRÁS">
          <stylesheets>
             <URL value="@CarFleetManagement-main%20(3)/CarFleetManagement-main/TheCode/src/application/util/application.css" />
             <URL value="@../util/application.css" />

@@ -247,8 +247,8 @@ public class ListReservationsFrameController implements Initializable {
 	}
 
 	private void setTableHeight() {
-		double rowHeight = 30.0;
-		double tableHeight = Math.min(reservationsTable.getItems().size() + 1, 10) * rowHeight;
+		double rowHeight = 35.0;
+		double tableHeight = Math.min(reservationsTable.getItems().size(), 10) * rowHeight;
 		reservationsTable.setPrefHeight(tableHeight);
 		reservationsTable.setMaxHeight(tableHeight);
 	}

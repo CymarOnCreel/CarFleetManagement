@@ -11,6 +11,7 @@ import application.dto.CarDto;
 import application.dto.EmployeeDto;
 import application.dto.PictureDto;
 import application.dto.ReservationDto;
+import application.util.UserSession;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -66,6 +67,7 @@ public class SaveNewReservationFrameController implements Initializable {
 	private LocalDateTime startDateData;
 	private ReservationDao reservationDao = new ReservationDao();
 	private LocalDateTime endDateData;
+	EmployeeDto employeeLoggedIn;
 
 	public void setMainStage(Stage mainStage) {
 		this.mainStage = mainStage;
@@ -90,23 +92,21 @@ public class SaveNewReservationFrameController implements Initializable {
 	@FXML
 	private void saveReservation(ActionEvent event) {
 		saveReservationToDatabase(carChoosen, descriptionField.getText());
-		new AlertMessage().showConfirmationAlertMessage("Foglalás sikeres",
-					"A foglalás sikeres:\nKocsi: " + carChoosen.getLicensePlate() + "\nKezdeti Dátum: "
-							+ startDateData+ "\n Vége Dátum: " + endDateData);
+		new AlertMessage().showConfirmationAlertMessage("Foglalás sikeres", "A foglalás sikeres:\nKocsi: "
+				+ carChoosen.getLicensePlate() + "\nKezdeti Dátum: " + startDateData.toLocalDate() + "\n Vége Dátum: " + endDateData.toLocalDate());
 		closeSaveFrame();
 	}
-	
-	
+
 	private void closeSaveFrame() {
 		Stage stage = (Stage) save.getScene().getWindow();
-		stage.close();	
-		
+		stage.close();
+
 	}
 
 	private void saveReservationToDatabase(CarDto carChoosen, String description) {
 		EmployeeDao empDao = new EmployeeDao();
-		EmployeeDto employee = empDao.findById(1);
-		ReservationDto reservationTosave = new ReservationDto(employee, carChoosen, startDateData, endDateData,
+		employeeLoggedIn = empDao.findById(UserSession.getUserId());
+		ReservationDto reservationTosave = new ReservationDto(employeeLoggedIn, carChoosen, startDateData, endDateData,
 				description, LocalDateTime.now(), LocalDateTime.now(), false);
 		reservationDao.save(reservationTosave);
 	}
@@ -131,17 +131,17 @@ public class SaveNewReservationFrameController implements Initializable {
 			Image image = new Image(imageOfCar.getPicturePath());
 			carImage.setImage(image);
 			carImage.setPreserveRatio(true);
-	        carImage.setFitWidth(655.0);
-	        carImage.setFitHeight(275.0);
+			carImage.setFitWidth(655.0);
+			carImage.setFitHeight(275.0);
 		} else {
 			Image image = new Image("/application/pictures/cancel.jpg");
 			carImage.setImage(image);
 			carImage.setPreserveRatio(true);
-	        carImage.setFitWidth(655.0); 
-	        carImage.setFitHeight(275.0);
+			carImage.setFitWidth(655.0);
+			carImage.setFitHeight(275.0);
 		}
-		 carImage.setSmooth(true);
-		    carImage.setCache(true);
+		carImage.setSmooth(true);
+		carImage.setCache(true);
 	}
 
 	@Override
@@ -150,7 +150,6 @@ public class SaveNewReservationFrameController implements Initializable {
 		descriptionField.textProperty().addListener((observable, oldValue, newValue) -> {
 			save.setDisable(newValue.trim().isEmpty());
 		});
-
 
 	}
 

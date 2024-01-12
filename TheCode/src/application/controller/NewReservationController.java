@@ -476,6 +476,7 @@ public class NewReservationController implements Initializable {
 		fuelType.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFuel()));
 		TableColumn<CarDto, Integer> numberOfSeats = new TableColumn<>("Ülések száma");
 		numberOfSeats.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getSeats()));
+		
 		availabelCarsTable.getColumns().addAll(imageColumn, licencePlate, make, category, transmission, fuelType,
 				numberOfSeats);
 		availabelCarsTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
@@ -493,11 +494,10 @@ public class NewReservationController implements Initializable {
 	}
 
 	private void setTableHeight() {
-		double rowHeight = 30.0;
-		double tableHeight = Math.min(availabelCarsTable.getItems().size() + 1, 10) * rowHeight;
+		double rowHeight = 55.0;
+		double tableHeight = Math.min(availabelCarsTable.getItems().size()+1, 7) * rowHeight;
 		availabelCarsTable.setMinHeight(tableHeight);
 		availabelCarsTable.setPrefHeight(tableHeight);
-		availabelCarsTable.setMaxHeight(tableHeight);
 	}
 
 	private void updateColumnWidths() {
