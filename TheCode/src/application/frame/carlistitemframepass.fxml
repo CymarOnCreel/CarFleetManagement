@@ -12,22 +12,22 @@
    <children>
       <ImageView fitHeight="167.0" fitWidth="157.0" layoutX="745.0" layoutY="126.0">
          <image>
-            <Image url="@7037596-removebg-preview.png" />
+            <Image url=""@../pictures/carlistitem/7037596-removebg-preview.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="99.0" fitWidth="106.0" layoutX="1027.0" layoutY="277.0">
          <image>
-            <Image url="@db1tway-0e280582-388d-42f1-932e-b15b8410faec-removebg-preview.png" />
+            <Image url="@../pictures/carlistitem/db1tway-0e280582-388d-42f1-932e-b15b8410faec-removebg-preview.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="115.0" fitWidth="172.0" layoutX="989.0" layoutY="121.0">
          <image>
-            <Image url="@png-transparent-business-service-renting-house-company-rent-miscellaneous-angle-text-removebg-preview.png" />
+            <Image url="@../pictures/carlistitem/png-transparent-business-service-renting-house-company-rent-miscellaneous-angle-text-removebg-preview.png" />
          </image>
       </ImageView>
       <ImageView fx:id="ivCarPicture" fitHeight="197.0" fitWidth="267.0" layoutX="3.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../Downloads/CarFleetManagement-main%20(5)/CarFleetManagement-main/TheCode/src/application/pictures/CarReservation%20képek/201895001jpg_omrzhw1x-removebg-preview.png" />
+            <Image url="@../pictures/CarReservation%20képek/201895001jpg_omrzhw1x-removebg-preview.png" />
          </image>
       </ImageView>
       <Separator layoutX="275.0" layoutY="-2.0" orientation="VERTICAL" prefHeight="392.0" prefWidth="0.0" />
@@ -71,7 +71,7 @@
       </Label>
       <ImageView fitHeight="136.0" fitWidth="157.0" layoutX="313.0" layoutY="144.0">
          <image>
-            <Image url="@images-removebg-preview%20(1).png" />
+            <Image url="@../pictures/carlistitem/images-removebg-preview%20(1).png" />
          </image>
       </ImageView>
       <ImageView fitHeight="184.0" fitWidth="230.0" layoutX="502.0" layoutY="146.0">
