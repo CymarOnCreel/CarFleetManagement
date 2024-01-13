@@ -7,9 +7,10 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="525.0" prefWidth="870.0" styleClass="backGroundColor" stylesheets="@../util/application.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.SaveNewReservationFrameController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="525.0" prefWidth="870.0" styleClass="second-background-for-popup-window" stylesheets="@../util/application.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.SaveNewReservationFrameController">
    <children>
       <ImageView fx:id="carImage" fitHeight="292.0" fitWidth="385.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
       <Label fx:id="carMake" layoutX="440.0" layoutY="31.0" prefHeight="35.0" prefWidth="426.0" text="GYÁRTMÁNY:" textFill="WHITE">
@@ -59,7 +60,10 @@
             <Image url="@../pictures/carfleet-removebg-preview.png" />
          </image>
          <effect>
-            <InnerShadow choke="1.0" radius="68.5" width="255.0" />
+            <InnerShadow choke="1.0" height="138.0" radius="97.75" width="255.0">
+               <color>
+                  <Color red="1.0" green="0.9861111044883728" blue="0.9861111044883728" />
+               </color></InnerShadow>
          </effect>
       </ImageView>
       <Label layoutX="128.0" layoutY="401.0" prefHeight="17.0" prefWidth="245.0" text="*KÖTELEZŐ MEZŐ" textFill="WHITE">

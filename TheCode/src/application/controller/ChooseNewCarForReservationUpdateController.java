@@ -18,6 +18,7 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -30,6 +31,10 @@ import javafx.stage.Stage;
 public class ChooseNewCarForReservationUpdateController implements Initializable {
 	@FXML
 	private GridPane gridPane;
+
+	@FXML
+	private ScrollPane scrollPane;
+
 	private Stage mainStage;
 
 	private List<ReservationDto> listOfReservations;
@@ -37,6 +42,7 @@ public class ChooseNewCarForReservationUpdateController implements Initializable
 	private List<ReservationDto> filteredReservations;
 	private List<CarDto> filteredCarsList;
 	private static final double CAR_IMAGE_WIDTH = 300;
+	private static final double PADDING = 3;
 	private static final double CAR_IMAGE_HEIGHT = 300;
 	private static final String DEFAULT_IMAGE_PATH = "application/pictures/suv-removebg-preview.png";
 	private static final double TEXT_BOX_HEIGHT = 50;
@@ -68,6 +74,7 @@ public class ChooseNewCarForReservationUpdateController implements Initializable
 			listOfReservations = reservationDao.getAll();
 			listOfCars = carDao.getAll();
 			filteredReservations = FXCollections.observableArrayList();
+			configureScrollPane();
 			updateFilteredListOfReservationsBetweenDates();
 			getCarsNotInReservation();
 			if (filteredCarsList != null && filteredCarsList.size() != 0) {
@@ -120,12 +127,10 @@ public class ChooseNewCarForReservationUpdateController implements Initializable
 			carInfoBox.setAlignment(Pos.CENTER);
 			carInfoBox.getChildren().add(imageView);
 			Text carInfoText = new Text(currentCar.getMake() + " " + currentCar.getModel() + "\n" + "Váltó: "
-					+ currentCar.getTransmissionType() + "\n" + "Üzemanyag: " + currentCar.getFuel() + "\n" + "ülések száma: "
-					+ currentCar.getSeats());
+					+ currentCar.getTransmissionType() + "\n" + "Üzemanyag: " + currentCar.getFuel() + "\n"
+					+ "ülések száma: " + currentCar.getSeats());
 			carInfoText.getStyleClass().add("text-center-white");
 			carInfoBox.getChildren().add(carInfoText);
-//			Bounds bounds = carInfoText.getLayoutBounds();
-//			double textBoxHeight=bounds.getHeight();
 			carInfoBox.setOnMouseClicked(event -> {
 				handleCarImageClick(currentCar);
 			});
@@ -139,22 +144,30 @@ public class ChooseNewCarForReservationUpdateController implements Initializable
 		}
 	}
 
+	private void configureScrollPane() {
+		scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+		scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+		scrollPane.setFitToWidth(true);
+		scrollPane.setFitToHeight(true);
+	}
+
 	private void setWindowSizeByFilteredCarsNumber() {
 		int totalCarsAvaileble = filteredCarsList.size();
 		if (totalCarsAvaileble < tileColumns)
 			tileColumns = totalCarsAvaileble;
 		int numberOfRows = (int) Math.ceil((double) totalCarsAvaileble / tileColumns);
-		double windowWidth = tileColumns * CAR_IMAGE_WIDTH;
-		double windowHeight = numberOfRows * (CAR_IMAGE_HEIGHT+TEXT_BOX_HEIGHT);
+		double windowWidth = tileColumns * (CAR_IMAGE_WIDTH+PADDING);
+	    double windowHeight = Screen.getPrimary().getVisualBounds().getHeight();
 		Stage stage = (Stage) gridPane.getScene().getWindow();
 		stage.setWidth(windowWidth);
 		stage.setHeight(windowHeight);
+		scrollPane.setPrefHeight(windowHeight);
 		gridPane.getRowConstraints().clear();
 		for (int i = 0; i < numberOfRows; i++) {
 			RowConstraints rowConstraints = new RowConstraints();
-			rowConstraints.setPrefHeight(CAR_IMAGE_HEIGHT);
-			rowConstraints.setMaxHeight(CAR_IMAGE_HEIGHT);
-			rowConstraints.setMinHeight(CAR_IMAGE_HEIGHT);
+			rowConstraints.setPrefHeight(CAR_IMAGE_HEIGHT+TEXT_BOX_HEIGHT);
+			rowConstraints.setMaxHeight(CAR_IMAGE_HEIGHT+TEXT_BOX_HEIGHT);
+			rowConstraints.setMinHeight(CAR_IMAGE_HEIGHT+TEXT_BOX_HEIGHT);
 			gridPane.getRowConstraints().add(rowConstraints);
 		}
 	}

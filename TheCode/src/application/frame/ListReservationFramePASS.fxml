@@ -22,11 +22,15 @@
          <font>
             <Font name="System Bold" size="18.0" />
          </font></Label>
-		<Button fx:id="search" layoutX="851.0" layoutY="79.0" mnemonicParsing="false" onAction="#handleSearchButton" prefHeight="42.0" prefWidth="126.0" style="-fx-background-color: #159991;" stylesheets="@CarFleetManagement-main%20(3)/CarFleetManagement-main/TheCode/src/application/util/application.css" text="KERESÉS" textFill="WHITE">
+		<Button fx:id="search" layoutX="851.0" layoutY="79.0" mnemonicParsing="false" onAction="#handleSearchButton" prefHeight="51.0" prefWidth="152.0" styleClass="save-update-button" text="KERESÉS" textFill="WHITE">
          <font>
             <Font name="System Bold" size="16.0" />
-         </font></Button>
-		<TableView fx:id="reservationsTable" layoutX="-4.0" layoutY="200.0" prefHeight="375.0" prefWidth="1049.0" styleClass="my-table" stylesheets="@CarFleetManagement-main%20(3)/CarFleetManagement-main/TheCode/src/application/util/application.css" visible="false">
+         </font>
+         <stylesheets>
+            <URL value="@CarFleetManagement-main%20(3)/CarFleetManagement-main/TheCode/src/application/util/application.css" />
+            <URL value="@../util/application.css" />
+         </stylesheets></Button>
+		<TableView fx:id="reservationsTable" layoutX="-4.0" layoutY="200.0" prefWidth="1049.0" styleClass="my-table" stylesheets="@CarFleetManagement-main%20(3)/CarFleetManagement-main/TheCode/src/application/util/application.css" visible="false">
    </TableView>
 
 		<Button fx:id="closeWindow" layoutX="448.0" layoutY="598.0" mnemonicParsing="false" onAction="#closeWindow" prefHeight="44.0" prefWidth="146.0" styleClass="close-button" text="BEZÁRÁS">

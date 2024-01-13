@@ -377,8 +377,8 @@ public class ListUsersFrameController implements Initializable {
 	}
 
 	private void setTableHeight() {
-		double rowHeight = 40.0;
-		double tableHeight = Math.min(employeeListTable.getItems().size() + 1, 10) * rowHeight;
+		double rowHeight = 36.0;
+		double tableHeight = Math.min(employeeListTable.getItems().size(), 10) * rowHeight;
 		employeeListTable.setMinHeight(tableHeight);
 		employeeListTable.setPrefHeight(tableHeight);
 		employeeListTable.setMaxHeight(tableHeight);

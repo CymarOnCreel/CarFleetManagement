@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.GridPane?>
 
-<AnchorPane styleClass="backGroundColor" stylesheets="@../util/application.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.ChooseNewCarForReservationUpdateController">
-   <children>
-      <GridPane fx:id="gridPane" hgap="0.0" vgap="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-   </children>
+<AnchorPane styleClass="second-background-for-popup-window" stylesheets="@../util/application.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.ChooseNewCarForReservationUpdateController">
+	<children>
+		<ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" styleClass="second-background-for-popup-window" stylesheets="@../util/application.css">
+			<content>
+				<GridPane fx:id="gridPane" hgap="0.0" styleClass="second-background-for-popup-window" stylesheets="@../util/application.css" vgap="0.0" />
+			</content>
+		</ScrollPane>
+	</children>
 </AnchorPane>

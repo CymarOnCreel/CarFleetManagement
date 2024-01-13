@@ -98,7 +98,6 @@ public class UpdateEmployeeFrameController {
 		employeToUpdate.setPassword(updatedPassword);
 		employeToUpdate.setRoleName(updatedRoleName);
 		employeToUpdate.setUpdatedAt(LocalDate.now());
-		System.out.println(employeToUpdate.toString());
 	}
 
 	public void initialize(EmployeeDto employee) {

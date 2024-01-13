@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.Polygon?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1900.0" style="-fx-background-color: #1F363C;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.CarNewFrameController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1900.0" style="-fx-background-color: #1F363C;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.CarNewFrameController">
 	<children>
 		<Polygon fill="#159991" layoutX="1715.0" layoutY="123.0" points="-931.0, -123.00003051757812, 185.0, 861.5, 185.0, -123.0" stroke="#159991" strokeType="INSIDE" />
 		<Polygon fill="#159991" layoutX="1788.0" layoutY="432.0" points="-720.333251953125, 551.0, 112.0, 552.5, -1004.0, -447.6666564941406" stroke="#159991" strokeType="OUTSIDE" />
@@ -123,7 +123,7 @@
       </Label>
       <ComboBox fx:id="cmbSite" layoutX="556.0" layoutY="910.0" prefWidth="150.0" />
       <Button fx:id="btnAddSite" layoutX="730.0" layoutY="911.0" mnemonicParsing="false" onAction="#addSite" text="+" />
-      <Button fx:id="btnSaveNewCar" layoutX="712.0" layoutY="986.0" mnemonicParsing="false" onAction="#saveNewCar" text="Mentés">
+      <Button fx:id="btnSaveNewCar" layoutX="712.0" layoutY="986.0" mnemonicParsing="false" onAction="#saveNewCar" styleClass="save-update-button" stylesheets="@../util/application.css" text="Mentés">
          <font>
             <Font size="20.0" />
          </font>
@@ -138,7 +138,7 @@
             <Image url="@../pictures/CarNewframePicture/google-maps-logo-removebg-preview.png" />
          </image>
       </ImageView>
-      <Button fx:id="btnCancel" layoutX="442.0" layoutY="986.0" mnemonicParsing="false" onAction="#cancel" text="Mégsem">
+      <Button fx:id="btnCancel" layoutX="442.0" layoutY="986.0" mnemonicParsing="false" onAction="#cancel" styleClass="close-button" stylesheets="@../util/application.css" text="Mégsem">
          <font>
             <Font size="20.0" />
          </font>

@@ -98,7 +98,7 @@ public class AddNewEmployeeBySuperAdmin implements Initializable {
 			}
 		}
 		role.setItems(roleNames);
-		role.getSelectionModel().select("user");
+		role.getSelectionModel().selectLast();
 	}
 
 	private boolean doAllFieldsContainData() {
