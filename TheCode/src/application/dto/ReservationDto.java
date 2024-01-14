@@ -172,6 +172,7 @@ public class ReservationDto {
 
 	public void setDeleted(boolean isDeleted) {
 		this.deleted = isDeleted;
+		this.updatedAt = LocalDateTime.now();
 	}
 
 

@@ -16,6 +16,7 @@ import javax.persistence.criteria.Root;
 import application.dto.CarDto;
 import application.dto.EmployeeDto;
 import application.dto.ReservationDto;
+import javafx.util.Callback;
 
 public class ReservationDao implements ICrud<ReservationDto> {
 	public void setEntityManager(EntityManager entityManager) {
@@ -81,6 +82,15 @@ public class ReservationDao implements ICrud<ReservationDto> {
 		return reservations;
 
 	}
+	
+	public List<ReservationDto> getAllWithoutDeleted() {
+		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<ReservationDto> criteriaQuery = criteriaBuilder.createQuery(ReservationDto.class);
+		Root<ReservationDto> root = criteriaQuery.from(ReservationDto.class);
+		criteriaQuery.where(criteriaBuilder.isFalse(root.get("deleted")));
+		List<ReservationDto> reservations = entityManager.createQuery(criteriaQuery).getResultList();
+		return reservations;
+	}
 
 	public List<ReservationDto> getReservationsByUserId(Long userId) {
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
@@ -96,7 +106,10 @@ public class ReservationDao implements ICrud<ReservationDto> {
 		CriteriaQuery<ReservationDto> criteriaQuery = criteriaBuilder.createQuery(ReservationDto.class);
 		Root<ReservationDto> root = criteriaQuery.from(ReservationDto.class);
 		 Join<ReservationDto, CarDto> carJoin = root.join("car");
-		criteriaQuery.where(criteriaBuilder.equal(carJoin.get("licensePlate"), licencePlate));
+		criteriaQuery.where(
+				criteriaBuilder.equal(carJoin.get("licensePlate"), licencePlate),
+				criteriaBuilder.isFalse(root.get("deleted"))
+				);
 		List<ReservationDto> reservations = entityManager.createQuery(criteriaQuery).getResultList();
 		return reservations;
 	}
@@ -111,7 +124,8 @@ public class ReservationDao implements ICrud<ReservationDto> {
 	    criteriaQuery.where(
 		        criteriaBuilder.equal(root.get("car").get("licensePlate"), licensePlate),
 		        criteriaBuilder.greaterThanOrEqualTo(root.get("endDateTime"), LocalDate.now().atStartOfDay()),
-		        criteriaBuilder.lessThanOrEqualTo(root.get("startDateTime"), LocalDate.now().atStartOfDay())
+		        criteriaBuilder.lessThanOrEqualTo(root.get("startDateTime"), LocalDate.now().atStartOfDay()),
+		        criteriaBuilder.isFalse(root.get("deleted"))
 		);
 
 	    Long reservationCount = entityManager.createQuery(criteriaQuery).getSingleResult();
@@ -129,7 +143,8 @@ public class ReservationDao implements ICrud<ReservationDto> {
 	    criteriaQuery.where(
 		        criteriaBuilder.equal(root.get("car").get("licensePlate"), licensePlate),
 		        criteriaBuilder.greaterThanOrEqualTo(root.get("endDateTime"), LocalDate.now().atStartOfDay()), 
-		        criteriaBuilder.lessThanOrEqualTo(root.get("startDateTime"), LocalDate.now().atStartOfDay())
+		        criteriaBuilder.lessThanOrEqualTo(root.get("startDateTime"), LocalDate.now().atStartOfDay()),
+		        criteriaBuilder.isFalse(root.get("deleted"))
 		);
 
 	    List<EmployeeDto> employees = entityManager.createQuery(criteriaQuery).getResultList();
@@ -140,6 +155,9 @@ public class ReservationDao implements ICrud<ReservationDto> {
 	        return null;
 	    }
 	}
+
+
+	
 
 
 }

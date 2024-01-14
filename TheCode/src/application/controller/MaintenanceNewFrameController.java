@@ -26,6 +26,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.KeyEvent;
@@ -51,7 +52,7 @@ public class MaintenanceNewFrameController implements Initializable {
     private TextField tfMileage;
 
     @FXML
-    private TextField tfDescription;
+    private TextArea tfDescription;
 
     @FXML
     private TextField tfAmount;

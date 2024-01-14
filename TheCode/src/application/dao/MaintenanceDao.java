@@ -75,4 +75,18 @@ public class MaintenanceDao implements ICrud<MaintenanceDto>{
 		List<MaintenanceDto> maintenance = entityManager.createQuery(criteriaQuery).getResultList();
 		return maintenance;
 	}
+	
+	public List<MaintenanceDto> getAllByCar(String licensePlate) {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<MaintenanceDto> criteriaQuery = criteriaBuilder.createQuery(MaintenanceDto.class);
+        Root<MaintenanceDto> root = criteriaQuery.from(MaintenanceDto.class);
+
+        criteriaQuery.select(root)
+                .where(criteriaBuilder.equal(root.get("licensePlate"), licensePlate));
+
+        List<MaintenanceDto> maintenance = entityManager.createQuery(criteriaQuery).getResultList();
+        return maintenance;
+    }
+	
+	
 }

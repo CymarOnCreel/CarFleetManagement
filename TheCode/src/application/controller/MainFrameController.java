@@ -16,6 +16,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
@@ -80,6 +81,9 @@ public class MainFrameController implements Initializable {
 	@FXML
 	private MenuButton reservation;
 	private int employeeId;
+	
+	@FXML
+	private Label loadLabel;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -94,24 +98,41 @@ public class MainFrameController implements Initializable {
 
 	@FXML
 	private void adminCarHandler() {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/frame/CarHandlerFrame.fxml"));
-		AnchorPane root;
-		try {
-			root = (AnchorPane) loader.load();
-			Scene scene = new Scene(root);
-			scene.getStylesheets().add(getClass().getResource("/application/util/application.css").toExternalForm());
-			Stage stage = new Stage();
-			stage.setTitle("Admin autó lista");
-			stage.setScene(scene);
-			stage.initModality(Modality.APPLICATION_MODAL);
-			stage.initOwner(Main.getPrimaryStage());
-			stage.getIcons().add(new Image("application/pictures/logo.png"));
-			stage.showAndWait();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
+	    loadLabel.setVisible(true);
+	    
+	    adminCarListFill();
+			    
 	}
+	
+	public void hideLoadLabel() {
+		loadLabel.setVisible(false);
+		
+	}
+	    
+	    private void adminCarListFill() {
+	    	FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/frame/CarHandlerFrame.fxml"));
+			AnchorPane root;
+			try {
+				root = (AnchorPane) loader.load();
+				CarHandlerFrameController controller = loader.getController();
+				controller.setMainFrameController(this);
+				controller.listItemFrameFillWithCarData();
+				Scene scene = new Scene(root);
+				scene.getStylesheets().add(getClass().getResource("/application/util/application.css").toExternalForm());
+				Stage stage = new Stage();
+				stage.setTitle("Admin autó lista");
+				stage.setScene(scene);
+				stage.initModality(Modality.APPLICATION_MODAL);
+				stage.initOwner(Main.getPrimaryStage());
+				stage.getIcons().add(new Image("application/pictures/logo.png"));
+				stage.showAndWait();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+
+
 
 	@FXML
 	void addNewCarToDatabase(ActionEvent event) {
@@ -390,5 +411,7 @@ public class MainFrameController implements Initializable {
 		registration.setDisable(true);
 		aboutUs.setDisable(false);
 	}
+
+	
 
 }

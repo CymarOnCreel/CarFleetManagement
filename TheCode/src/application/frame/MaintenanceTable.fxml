@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.MaintenanceTableController">
+   <children>
+      <TableView fx:id="maintenanceTable" prefHeight="800.0" prefWidth="1600.0">
+         <columns>
+            <TableColumn prefWidth="100.0" text="Date">
+               <cellValueFactory>
+                  <PropertyValueFactory property="date" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn prefWidth="100.0" text="Mileage">
+               <cellValueFactory>
+                  <PropertyValueFactory property="mileage" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn prefWidth="156.0" text="Type">
+               <cellValueFactory>
+                  <PropertyValueFactory property="maintenanceType" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn prefWidth="179.0" text="Service Company">
+               <cellValueFactory>
+                  <PropertyValueFactory property="serviceCompany" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn minWidth="0.0" prefWidth="152.0" text="Amount">
+               <cellValueFactory>
+                  <PropertyValueFactory property="amount" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn prefWidth="1000.0" text="Description">
+               <cellValueFactory>
+                  <PropertyValueFactory property="description" />
+               </cellValueFactory>
+            </TableColumn>
+         </columns>
+      </TableView>
+   </children>
+</AnchorPane>

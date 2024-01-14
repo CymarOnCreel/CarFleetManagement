@@ -47,7 +47,7 @@ public class LoginController implements Initializable {
 		if (result > 0) {
 			EmployeeDto employeLoggedIn = userDaoObj.getEmployeeByEmail(email);
 			new AlertMessage().showConfirmationAlertMessage("Belépés Sikeres",
-					"Üdvözöllek " + employeLoggedIn.getFullName());
+					"Üdvözöllek " + employeLoggedIn.getFullNameHun());
 
 			UserSession.setUserId(employeLoggedIn.getIdEmployee());
 			closePage();
