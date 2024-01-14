@@ -116,7 +116,12 @@ public class CarNewFrameController implements Initializable{
     private Button btnSaveNewCar;
     
     @FXML
+    private Button btnUpdateCar;
+    
+    @FXML
     private Button btnCancel;
+    
+    private CarHandlerFrameController carHandlerFrameController;
     
     @FXML
     void addCategory(ActionEvent event) {
@@ -612,5 +617,66 @@ public class CarNewFrameController implements Initializable{
 		cmbSite.getItems().add(newSite);
 		cmbSite.getSelectionModel().select(newSite);
 	}
+
+	public void updateCarInitialization(CarDto updateCar) {
+		tfLicensePlate.setText(updateCar.getLicensePlate());
+		tfLicensePlate.setDisable(true);
+		cmbModel.setDisable(false);
+    	btnAddModel.setDisable(false);
+    	btnUpdateModel.setDisable(false);
+    	btnUpdateCar.setVisible(true);
+    	btnSaveNewCar.setVisible(false);
+		cmbMake.getSelectionModel().select(updateCar.getMake());
+		cmbModel.getSelectionModel().select(updateCar.getModel());
+		cmbCategory.getSelectionModel().select(updateCar.getCategory());
+		cmbFuel.getSelectionModel().select(updateCar.getFuel());
+		tfDoors.setText(updateCar.getDoors()+"");
+		tfSeats.setText(updateCar.getSeats()+"");
+		cmbTransmission.getSelectionModel().select(updateCar.getTransmissionType());
+		tfMileage.setText(updateCar.getMileage()+"");
+		tfServiceInterval.setText(updateCar.getServiceInterval()+"");
+		dpInspectionExpiryDate.setValue(updateCar.getInspectionExpiryDate());
+		cmbSite.getSelectionModel().select(updateCar.getSiteName());
+		
+	}
+	
+	public void setCarHandlerFrameController(CarHandlerFrameController carHandlerFrameController) {
+		this.carHandlerFrameController = carHandlerFrameController;
+	}
+
+	@FXML
+    private void updateCar(ActionEvent event) {
+    	if (!isFieldEmpty()) {
+			try {
+				CarDto updateCar = new CarDto(tfLicensePlate.getText().toUpperCase(), 
+		    			cmbMake.getValue(),
+		    			cmbModel.getValue(),
+		    			cmbCategory.getValue(),
+		    			cmbFuel.getValue(),
+		    			Integer.parseInt(tfDoors.getText()), 
+		    			Integer.parseInt(tfSeats.getText()),
+		    			cmbTransmission.getValue(), 
+		    			Integer.parseInt(tfMileage.getText()), 
+		    			Integer.parseInt(tfServiceInterval.getText()), 
+		    			dpInspectionExpiryDate.getValue(), 
+		    			cmbSite.getValue(), "1", true);
+		    	CarDao carDao = new CarDao();
+		    	if (carDao.isCarExist(tfLicensePlate.getText())) {
+		    		carDao.update(updateCar);
+		    		new AlertMessage().requiredFieldsEmpty("Adatok frissítése", updateCar + " módosítása sikeresen megtörtént!");
+		    		cancel(null);
+		    		carHandlerFrameController.listItemFrameFillWithCarData();
+				}else {
+					new AlertMessage().carExistAlert();
+				}
+		    	
+			} catch (Exception e) {
+				new AlertMessage().saveToDatabaseAlert();
+			}
+		}else {
+			new AlertMessage().emptyTextFieldAlert();
+		}
+    	
+    }
     
 }

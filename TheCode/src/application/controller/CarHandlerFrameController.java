@@ -1,27 +1,30 @@
 package application.controller;
 
-import java.net.URL;
 import java.util.List;
-import java.util.ResourceBundle;
 
 import application.dao.CarDao;
 import application.dto.CarDto;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.layout.VBox;
 
-public class CarHandlerFrameController implements Initializable {
+public class CarHandlerFrameController {
 
 	@FXML
 	private VBox vBoxHolder = null;
+	
+	private MainFrameController mainFrameController;
+	
+//	@Override
+//	public void initialize(URL location, ResourceBundle resources) {
+//		listItemFrameFillWithCarData();
+//	}
 
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		listItemFrameFillWithCarData();
+	public void setMainFrameController(MainFrameController controller) {
+		this.mainFrameController = controller;
 	}
-
+	
 	public void listItemFrameFillWithCarData() {
 		CarDao carDao = new CarDao();
 		List<CarDto> cars = carDao.getAll();
@@ -46,6 +49,6 @@ public class CarHandlerFrameController implements Initializable {
 			}
 		}
 		
+		mainFrameController.hideLoadLabel();
 	}
-
 }

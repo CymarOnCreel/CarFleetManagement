@@ -4,6 +4,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
@@ -11,7 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="555.0" styleClass="backGroundColor" stylesheets="@../util/application.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.MaintenanceNewFrameController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="555.0" styleClass="backGroundColor" stylesheets="@../util/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.MaintenanceNewFrameController">
    <children>
       <Label layoutX="83.0" layoutY="110.0" styleClass="text-white-Label" stylesheets="@../util/application.css" text="Autó:" />
       <Label layoutX="83.0" layoutY="153.0" styleClass="text-white-Label" stylesheets="@../util/application.css" text="Karbantartás típusa:" />
@@ -28,7 +29,7 @@
          <font>
             <Font size="18.0" />
          </font></TextField>
-      <TextField fx:id="tfDescription" layoutX="255.0" layoutY="372.0" prefHeight="108.0" prefWidth="264.0" />
+      <TextArea fx:id="tfDescription" layoutX="255.0" layoutY="372.0" prefHeight="108.0" prefWidth="264.0" promptText="A karbantartás részletes leírása." wrapText="true" />
       <TextField fx:id="tfAmount" layoutX="255.0" layoutY="316.0" onKeyTyped="#intTyped">
          <font>
             <Font size="18.0" />
@@ -37,7 +38,7 @@
       <Button fx:id="btnSave" layoutX="105.0" layoutY="506.0" mnemonicParsing="false" onAction="#saveNewMaintenance" styleClass="save-update-button" stylesheets="@../util/application.css" text="Mentés" />
       <Button fx:id="btnCancel" layoutX="391.0" layoutY="506.0" mnemonicParsing="false" onAction="#cancel" styleClass="close-button" stylesheets="@../util/application.css" text="Mégsem" />
       <Button fx:id="btnNewServiceCompany" layoutX="455.0" layoutY="195.0" mnemonicParsing="false" onAction="#newServiceCompany" text="+" />
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="197.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="197.0" layoutY="-41.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../pictures/carfleet-removebg-preview.png" />
          </image>
@@ -45,5 +46,6 @@
             <InnerShadow choke="1.0" radius="68.5" width="255.0" />
          </effect>
       </ImageView>
+      <Label alignment="TOP_CENTER" layoutX="94.0" layoutY="47.0" prefHeight="51.0" prefWidth="407.0" stylesheets="@../util/application.css" text="Figyelem! A következő kötelező szerviz (olajcsere) kiszámítása a &quot;Kötelező szerviz&quot; típus alapján történik." textAlignment="CENTER" textFill="#000000c7" wrapText="true" />
    </children>
 </AnchorPane>

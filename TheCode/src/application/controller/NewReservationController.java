@@ -126,7 +126,7 @@ public class NewReservationController implements Initializable {
 		reservationDao = new ReservationDao();
 		carDao = new CarDao();
 		Platform.runLater(() -> {
-			listOfReservations = FXCollections.observableArrayList(reservationDao.getAll());
+			listOfReservations = FXCollections.observableArrayList(reservationDao.getAllWithoutDeleted());
 			listOfCars = FXCollections.observableArrayList(carDao.getAll());
 			setUpDataForComboboxes();
 			loadAllImagePaths();
@@ -690,7 +690,7 @@ public class NewReservationController implements Initializable {
 	}
 
 	public void refreshTableData() {
-		listOfReservations = FXCollections.observableArrayList(reservationDao.getAll());
+		listOfReservations = FXCollections.observableArrayList(reservationDao.getAllWithoutDeleted());
 		listOfCars = FXCollections.observableArrayList(carDao.getAll());
 		updateFilteredListOfReservationsBetweenDates();
 		updateCarsListOutsideOfDates();

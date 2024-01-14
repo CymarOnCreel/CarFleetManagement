@@ -1,9 +1,12 @@
 package application.controller;
 
+import java.io.IOException;
 import java.util.List;
 
+import application.Main;
 import application.alert.AlertMessage;
 import application.dao.CarDao;
+import application.dao.MaintenanceDao;
 import application.dao.ReservationDao;
 import application.dao.SiteDao;
 import application.dto.CarDto;
@@ -13,11 +16,17 @@ import application.util.MaintenanceSorter;
 import application.util.NextEvent;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class CarListItemFrameController {
 
@@ -44,6 +53,9 @@ public class CarListItemFrameController {
 
 	@FXML
 	private Button btnDeleteCar;
+	
+	@FXML
+	private Button btnUpdateCar;
 
 	@FXML
 	private Button btnReserveDairy;
@@ -105,8 +117,8 @@ public class CarListItemFrameController {
 	}
 
 	private void setReservedStatus() {
-		ReservationDao srvDao = new ReservationDao();
-		EmployeeDto employeeDto = srvDao.getEmployeeForNowReservedCar(car.getLicensePlate());
+		ReservationDao rsvDao = new ReservationDao();
+		EmployeeDto employeeDto = rsvDao.getEmployeeForNowReservedCar(car.getLicensePlate());
 		if (employeeDto!=null) {
 			lblIsReserved.setText("FOGLALT");
 			lblEmployee.setText(employeeDto.getFullNameHun());
@@ -126,15 +138,59 @@ public class CarListItemFrameController {
 			}
 		}
 	}
+	@FXML
+	void updateCar(ActionEvent event) {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/frame/CarNewFramePass.fxml"));
+		AnchorPane root;
+		try {
+			root = (AnchorPane) loader.load();
+			CarNewFrameController controller = loader.getController();
+			controller.updateCarInitialization(car);
+			controller.setCarHandlerFrameController(carHandlerFrameController);
+			Scene scene = new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("/application/util/application.css").toExternalForm());
+			Stage stage = new Stage();
+			stage.setTitle("New Car");
+			stage.setScene(scene);
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.initOwner(Main.getPrimaryStage());
+			stage.getIcons().add(new Image("application/pictures/logo.png"));
+			stage.showAndWait();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	@FXML
-	void maintenanceList(ActionEvent event) {
-		new AlertMessage().requiredFieldsEmpty(null, "hamarosan...");
+	void maintenanceList(ActionEvent event) throws IOException {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/frame/MaintenanceTable.fxml"));
+		AnchorPane root = (AnchorPane) loader.load();
+		MaintenanceTableController controller = loader.getController();
+		controller.setMaintenanceData(car);
+		Scene scene = new Scene(root);
+		scene.getStylesheets().add(getClass().getResource("/application/util/application.css").toExternalForm());
+		Stage stage = new Stage();
+		stage.setTitle(car + "Karbantartási lista");
+		stage.getIcons().add(new Image("application/pictures/logo.png"));
+		stage.setScene(scene);
+		stage.initModality(Modality.APPLICATION_MODAL);
+		stage.initOwner(Main.getPrimaryStage());
+		stage.showAndWait();
 	}
 	
 	@FXML
-    void bookACarSevice(ActionEvent event) {
-		new AlertMessage().requiredFieldsEmpty(null, "hamarosan...");
+    void bookACarSevice(ActionEvent event) throws IOException {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/frame/NewReservationFrame.fxml"));
+		AnchorPane root = (AnchorPane) loader.load();
+		Scene scene = new Scene(root);
+		scene.getStylesheets().add(getClass().getResource("/application/util/application.css").toExternalForm());
+		Stage stage = new Stage();
+		stage.setTitle("Új foglalás");
+		stage.getIcons().add(new Image("application/pictures/logo.png"));
+		stage.setScene(scene);
+		stage.initModality(Modality.APPLICATION_MODAL);
+		stage.initOwner(Main.getPrimaryStage());
+		stage.showAndWait();
     }
 
     @FXML
@@ -148,8 +204,20 @@ public class CarListItemFrameController {
 
 
     @FXML
-    void reserveCalendar(ActionEvent event) {
-		new AlertMessage().requiredFieldsEmpty(null, "hamarosan...");
+    void reserveCalendar(ActionEvent event) throws IOException {
+    	FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/frame/ReservationListByCar.fxml"));
+		AnchorPane root = (AnchorPane) loader.load();
+		ReservationByCarTableController controller = loader.getController();
+		controller.setReservationData(car);
+		Scene scene = new Scene(root);
+		scene.getStylesheets().add(getClass().getResource("/application/util/application.css").toExternalForm());
+		Stage stage = new Stage();
+		stage.setTitle(car + "Foglalási lista");
+		stage.getIcons().add(new Image("application/pictures/logo.png"));
+		stage.setScene(scene);
+		stage.initModality(Modality.APPLICATION_MODAL);
+		stage.initOwner(Main.getPrimaryStage());
+		stage.showAndWait();
     }
 
 
