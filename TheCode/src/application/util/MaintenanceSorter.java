@@ -19,11 +19,14 @@ import application.dto.MaintenanceDto;
 
 public class MaintenanceSorter {
 	
+
 	private List<MaintenanceDto> maintenances = new ArrayList<>();
 	private List<NextEvent> nextMaintenance = new ArrayList<>();
 	EntityManagerFactory factory = Persistence.createEntityManagerFactory("carfleet_manager");
 	EntityManager entityManager = factory.createEntityManager();
+	private String mandatoryMaintenanceName = "Kötelező szerviz";
 	
+
 	public List<NextEvent> nextMaintenanceDates() {
 		
 		lastMaintenances();
@@ -43,6 +46,15 @@ public class MaintenanceSorter {
 
 		return nextMaintenance;
 		
+	}
+	
+	public NextEvent nextMaintenanceDateByCar(CarDto car) {
+		MaintenanceDto lastMandatoryMaintenance = getLastMandatoryMaintenanceForCar(car);
+		if (lastMandatoryMaintenance!=null) {
+			return calculateExpectedDate(lastMandatoryMaintenance);
+		}else {
+			return addCarWithoutMaintenance(car);
+		}
 	}
 	
 	private NextEvent addCarWithoutMaintenance(CarDto carDto) {
@@ -99,7 +111,7 @@ public class MaintenanceSorter {
 		subquery.select(criteriaBuilder.max(subqueryRoot.get("mileage")))
 		        .where(
 		            criteriaBuilder.equal(subqueryRoot.get("licensePlate"), root.get("licensePlate")),
-		            criteriaBuilder.equal(subqueryRoot.get("maintenanceType"), "Kötelező szerviz")
+		            criteriaBuilder.equal(subqueryRoot.get("maintenanceType"), mandatoryMaintenanceName)
 		        )
 		        .groupBy(subqueryRoot.get("licensePlate"));
 
@@ -107,7 +119,7 @@ public class MaintenanceSorter {
 		        .where(
 		            criteriaBuilder.and(
 		                criteriaBuilder.equal(root.get("mileage"), subquery),
-		                criteriaBuilder.equal(root.get("maintenanceType"), "Kötelező szerviz")
+		                criteriaBuilder.equal(root.get("maintenanceType"), mandatoryMaintenanceName)
 		            )
 		        );
 
@@ -143,7 +155,7 @@ public class MaintenanceSorter {
 	    subquery.select(criteriaBuilder.max(subqueryRoot.get("mileage")))
 	            .where(
 	                criteriaBuilder.equal(subqueryRoot.get("licensePlate"), root.get("licensePlate")),
-	                criteriaBuilder.equal(subqueryRoot.get("maintenanceType"), "Kötelező szerviz")
+	                criteriaBuilder.equal(subqueryRoot.get("maintenanceType"), mandatoryMaintenanceName)
 	            )
 	            .groupBy(subqueryRoot.get("licensePlate"));
 
@@ -151,7 +163,7 @@ public class MaintenanceSorter {
 	            .where(
 	                criteriaBuilder.and(
 	                    criteriaBuilder.equal(root.get("mileage"), subquery),
-	                    criteriaBuilder.equal(root.get("maintenanceType"), "Kötelező szerviz"),
+	                    criteriaBuilder.equal(root.get("maintenanceType"), mandatoryMaintenanceName),
 	                    criteriaBuilder.equal(root.get("licensePlate"), carDto.getLicensePlate())
 	                )
 	            )

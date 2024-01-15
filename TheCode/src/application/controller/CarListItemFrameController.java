@@ -6,7 +6,6 @@ import java.util.List;
 import application.Main;
 import application.alert.AlertMessage;
 import application.dao.CarDao;
-import application.dao.MaintenanceDao;
 import application.dao.ReservationDao;
 import application.dao.SiteDao;
 import application.dto.CarDto;
@@ -130,14 +129,11 @@ public class CarListItemFrameController {
 	}
 
 	private void setNextEventLabels() {
-		List<NextEvent> nextEvents = new MaintenanceSorter().nextMaintenanceDates();
-		for (NextEvent nextEvent : nextEvents) {
-			if (nextEvent.getLicensePlate().get().equals(car.getLicensePlate())) {
-				lblNextMaintenanceDate.setText(nextEvent.getDate().getValue()+"");
-				lblRemainKm.setText(nextEvent.getRemainingDistance().get());
-			}
-		}
+		NextEvent nextEvent = new MaintenanceSorter().nextMaintenanceDateByCar(car);
+		lblNextMaintenanceDate.setText(nextEvent.getDate().getValue()+"");
+		lblRemainKm.setText(nextEvent.getRemainingDistance().get());
 	}
+	
 	@FXML
 	void updateCar(ActionEvent event) {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/frame/CarNewFramePass.fxml"));
