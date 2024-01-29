@@ -1,6 +1,7 @@
 package application.dto;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -162,6 +163,9 @@ public class CarDto {
 		return licensePlate + " - " + make;
 	}
 	
+	
+	
+	
 	public void updateCarDto(MakeDto make, ModelDto model, CategoryDto category, String fuel, int doors, int seats,
 			String transmissionType, int mileage, int serviceInterval, LocalDate inspectionExpiryDate, SiteDto siteName,
 			String status, boolean enabled) {
@@ -180,6 +184,30 @@ public class CarDto {
 		this.updatedAt = LocalDate.now();
 		this.enabled = enabled ? 1:0;
 	}
+	
+
+	public CarDto(String licensePlate, MakeDto make, ModelDto model, CategoryDto category, String fuel, int doors,
+		int seats, String transmissionType, int mileage, int serviceInterval, LocalDate inspectionExpiryDate,
+		SiteDto siteName, String status, LocalDate createdAt, LocalDate updatedAt, int enabled) {
+	super();
+	this.licensePlate = licensePlate;
+	this.make = make;
+	this.model = model;
+	this.category = category;
+	this.fuel = fuel;
+	this.doors = doors;
+	this.seats = seats;
+	this.transmissionType = transmissionType;
+	this.mileage = mileage;
+	this.serviceInterval = serviceInterval;
+	this.inspectionExpiryDate = inspectionExpiryDate;
+	this.siteName = siteName;
+	this.status = status;
+	this.createdAt = createdAt;
+	this.updatedAt = updatedAt;
+	this.enabled = enabled;
+}
+
 	public void setMileage(int mileage) {
 		this.mileage = mileage;
 	}
@@ -192,4 +220,5 @@ public class CarDto {
 		enabled = 0;
 		updatedAt = LocalDate.now();
 	}
+	
 }
