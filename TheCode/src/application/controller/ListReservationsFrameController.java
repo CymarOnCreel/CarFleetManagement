@@ -5,6 +5,9 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -29,6 +32,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
@@ -83,7 +87,6 @@ public class ListReservationsFrameController implements Initializable {
 	private void populateTableView(List<ReservationDto> reservations) {
 		reservationData.clear();
 		reservationData.addAll(reservations);
-
 		reservationsTable.setItems(reservationData);
 	}
 
@@ -114,24 +117,48 @@ public class ListReservationsFrameController implements Initializable {
 	}
 
 	public List<ReservationDto> getAllReservationsOfUserBetweenDates(Long userId) {
-		reservationDao=new ReservationDao();
+		reservationDao = new ReservationDao();
 		LocalDate localStartDate = intervalStartDate.getValue();
 		LocalDate localEndDate = intervalEndDate.getValue();
 		reservations = reservationDao.getReservationsByUserId(userId);
-		List<ReservationDto> reservationsFilteredByDate;
+		Collections.sort(reservations, (r1, r2) -> r2.getStartDateTime().compareTo(r1.getStartDateTime()));
+		List<ReservationDto> reservationsFilteredByDate = new ArrayList<>();
 		if (localStartDate != null && localEndDate != null) {
 			LocalDateTime startDate = localStartDate.atStartOfDay();
 			LocalDateTime endDate = localEndDate.atTime(23, 59, 59);
-			reservationsFilteredByDate = reservations.stream()
-					.filter(reservation -> reservation.getStartDateTime().isAfter(startDate)
-							|| reservation.getStartDateTime().isEqual(startDate))
-					.filter(reservation -> reservation.getEndDateTime().isBefore(endDate)
-							|| reservation.getEndDateTime().isEqual(endDate))
-					.collect(Collectors.toList());
-		} else {
+			reservationsFilteredByDate = getReservationsOfUserBeetweenStarAndEndDatePastIn(startDate, endDate,
+					reservations);
+		} else if (localStartDate != null) {
+			LocalDateTime startDate = localStartDate.atStartOfDay();
+			reservationsFilteredByDate = getReservationsOfUserAfterStartDatePastIn(startDate, reservations);
+		} else if (localEndDate != null) {
+			LocalDateTime endDate = localEndDate.atTime(23, 59, 59);
+			reservationsFilteredByDate = getReservationsOfUserTillEndDatePastIn(endDate, reservations);
+		} else
 			reservationsFilteredByDate = reservations;
-		}
 		return reservationsFilteredByDate;
+	}
+
+	private List<ReservationDto> getReservationsOfUserTillEndDatePastIn(LocalDateTime endDate,
+			List<ReservationDto> reservations) {
+		return reservations.stream().filter(reservation -> reservation.getEndDateTime().isBefore(endDate)
+				|| reservation.getEndDateTime().isEqual(endDate)).collect(Collectors.toList());
+	}
+
+	private List<ReservationDto> getReservationsOfUserAfterStartDatePastIn(LocalDateTime startDate,
+			List<ReservationDto> reservations) {
+		return reservations.stream().filter(reservation -> reservation.getEndDateTime().isAfter(startDate)
+				|| reservation.getEndDateTime().isEqual(startDate)).collect(Collectors.toList());
+	}
+
+	private List<ReservationDto> getReservationsOfUserBeetweenStarAndEndDatePastIn(LocalDateTime startDate,
+			LocalDateTime endDate, List<ReservationDto> reservations) {
+		return reservations.stream()
+				.filter(reservation -> reservation.getStartDateTime().isAfter(startDate)
+						|| reservation.getStartDateTime().isEqual(startDate))
+				.filter(reservation -> reservation.getEndDateTime().isBefore(endDate)
+						|| reservation.getEndDateTime().isEqual(endDate))
+				.collect(Collectors.toList());
 	}
 
 	@SuppressWarnings("unchecked")
@@ -193,9 +220,9 @@ public class ListReservationsFrameController implements Initializable {
 				if (empty) {
 					setGraphic(null);
 				} else {
-					  ReservationDto reservation = getTableView().getItems().get(getIndex());
+					ReservationDto reservation = getTableView().getItems().get(getIndex());
 					updateReservation.setText("MÓDOSÍT");
-					  updateReservation.setDisable(reservation.isDeleted());
+					updateReservation.setDisable(reservation.isDeleted());
 				}
 				setGraphic(updateReservation);
 			}
@@ -238,8 +265,30 @@ public class ListReservationsFrameController implements Initializable {
 		});
 		reservationsTable.getColumns().addAll(nameColumn, plateColumn, startDateColumn, endDateColumn,
 				descriptionColumn, statusColumn, reservationUpdate, reservationDelete);
+		paintBackgroundOffRowsWithStartDateBeforeToday();
 		reservationsTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
+	}
+
+	private void paintBackgroundOffRowsWithStartDateBeforeToday() {
+		reservationsTable.setRowFactory(tv -> new TableRow<ReservationDto>() {
+			@Override
+			protected void updateItem(ReservationDto reservation, boolean empty) {
+				super.updateItem(reservation, empty);
+				if (reservation == null || empty) {
+					setStyle("");
+				} else {
+
+					if (reservation.getStartDateTime().isBefore(LocalDateTime.now())) {
+
+						setStyle("-fx-background-color: #FFCCCC;"); 
+					} else {
+
+						setStyle("");
+					}
+				}
+			};
+		});
 	}
 
 	private String formatDate(LocalDateTime date) {
@@ -248,7 +297,7 @@ public class ListReservationsFrameController implements Initializable {
 
 	private void setTableHeight() {
 		double rowHeight = 37.0;
-		double tableHeight = Math.min(reservationsTable.getItems().size()+1, 10) * rowHeight;
+		double tableHeight = Math.min(reservationsTable.getItems().size() + 1, 10) * rowHeight;
 		reservationsTable.setPrefHeight(tableHeight);
 		reservationsTable.setMaxHeight(tableHeight);
 	}
