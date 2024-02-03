@@ -90,7 +90,7 @@ public class UpdateEmployeeFrameController {
 		String updatedFirstName = firstName.getText();
 		String updatedLastName = lastName.getText();
 		String updatedDriverLicence = driverLicence.getText();
-		String updatedPassword = DigestUtils.sha1Hex(firstName.getText());
+		String updatedPassword = DigestUtils.sha1Hex(password.getText());
 		String updatedRoleName = roleName.getSelectionModel().getSelectedItem();
 		employeToUpdate.setFirstName(updatedFirstName);
 		employeToUpdate.setLastName(updatedLastName);

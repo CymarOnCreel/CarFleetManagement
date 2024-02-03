@@ -70,6 +70,8 @@ public class ListUsersFrameController implements Initializable {
 	private String loggedInUserRole;
 	private static final String userRoleWhoCanDeleteUsers = "superadmin";
 	Map<String, List<String>> allowedTransitions = new HashMap<>();
+	
+	private final 	double TABLE_ROW_HEIGHT = 36.5;
 
 	@FXML
 	void close(ActionEvent event) {
@@ -168,10 +170,14 @@ public class ListUsersFrameController implements Initializable {
 
 
 	private void updateTableView(List<EmployeeDto> filteredEmployeees) {
+		Platform.runLater(()->{
 		clearTable();
 		populatetableView(filteredEmployeees);
+		System.out.println(filteredEmployeees.size());
 		updateColumnWidths();
 		initializeTableView();
+		System.out.println(employeeListTable.getPrefHeight()+" "+employeeListTable.getMaxHeight()+" "+employeeListTable.getMinHeight());
+		});
 	}
 
 	private void populatetableView(List<EmployeeDto> employeees) {
@@ -377,8 +383,7 @@ public class ListUsersFrameController implements Initializable {
 	}
 
 	private void setTableHeight() {
-		double rowHeight = 36.0;
-		double tableHeight = Math.min(employeeListTable.getItems().size(), 10) * rowHeight;
+			double tableHeight = Math.min(employeeListTable.getItems().size()+1, 10) * TABLE_ROW_HEIGHT;
 		employeeListTable.setMinHeight(tableHeight);
 		employeeListTable.setPrefHeight(tableHeight);
 		employeeListTable.setMaxHeight(tableHeight);
