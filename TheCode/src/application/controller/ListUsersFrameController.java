@@ -82,7 +82,6 @@ public class ListUsersFrameController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-//		setUpDao();
 		allowedTransitions.put("admin", Arrays.asList("user"));
 		allowedTransitions.put("superadmin", Arrays.asList("admin", "superadmin", "user"));
 		setupButtons();
@@ -173,10 +172,8 @@ public class ListUsersFrameController implements Initializable {
 		Platform.runLater(()->{
 		clearTable();
 		populatetableView(filteredEmployeees);
-		System.out.println(filteredEmployeees.size());
 		updateColumnWidths();
 		initializeTableView();
-		System.out.println(employeeListTable.getPrefHeight()+" "+employeeListTable.getMaxHeight()+" "+employeeListTable.getMinHeight());
 		});
 	}
 

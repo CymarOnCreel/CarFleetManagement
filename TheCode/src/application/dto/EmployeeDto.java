@@ -55,6 +55,17 @@ public class EmployeeDto {
 		this.updatedAt = updatedAt;
 		this.enabled = enabled;
 	}
+	public EmployeeDto(String lastName, String firstName, String email, String password,
+            String driverLicense, String roleName, LocalDate createdAt, boolean enabled) {
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.email = email;
+        this.password = password;
+        this.driverLicense = driverLicense;
+        this.roleName = roleName;
+        this.createdAt = createdAt;
+        this.enabled = enabled;
+    }
 	public EmployeeDto() {
 		super();
 	}

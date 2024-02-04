@@ -83,3 +83,10 @@
 .alert .dialog-pane .label {
     -fx-font-size: 16px; 
 }
+.text-field-missing-data{
+	-fx-background-color: red;
+}
+
+.text-field-data-correct{
+	-fx-background-color: #2eb82e;
+}

@@ -17,8 +17,8 @@
       <RowConstraints maxHeight="47.0" minHeight="10.0" prefHeight="47.0" />
       <RowConstraints maxHeight="67.0" minHeight="10.0" prefHeight="67.0" />
       <RowConstraints maxHeight="86.0" minHeight="0.0" prefHeight="71.0" />
-      <RowConstraints maxHeight="111.0" minHeight="10.0" prefHeight="37.0" />
-      <RowConstraints maxHeight="55.0" minHeight="10.0" prefHeight="29.0" />
+      <RowConstraints maxHeight="111.0" minHeight="10.0" prefHeight="49.0" />
+      <RowConstraints maxHeight="55.0" minHeight="10.0" prefHeight="17.0" />
    </rowConstraints>
    <columnConstraints>
       <ColumnConstraints maxWidth="95.0" minWidth="10.0" prefWidth="38.0" />
@@ -39,16 +39,21 @@
          </font>
       </Label>
       <PasswordField fx:id="pfPassword" prefHeight="42.0" prefWidth="292.0" style="-fx-background-radius: 10;" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4" />
-      <Button fx:id="btnSignin" lineSpacing="5.0" mnemonicParsing="false" onAction="#signin" prefHeight="60.0" prefWidth="136.0" style="-fx-background-radius: 15;" styleClass="save-update-button" stylesheets="@../util/application.css" text="BELÉPÉS" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+      <Button fx:id="btnSignin" lineSpacing="5.0" mnemonicParsing="false" onAction="#signin" prefHeight="60.0" prefWidth="136.0" style="-fx-background-radius: 15;" styleClass="save-update-button" stylesheets="@../util/application.css" text="BELÉPÉS" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="5" GridPane.valignment="CENTER">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="close" lineSpacing="5.0" mnemonicParsing="false" onAction="#close" prefHeight="33.0" prefWidth="144.0" style="-fx-background-radius: 0; -fx-border-color: transparent; -fx-border-width: 0; -fx-background-color: transparent;" stylesheets="@../util/application.css" text="Regisztráció" textFill="#9088ff" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="TOP">
+      <Button fx:id="registration" alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#switchToRegistration" prefHeight="53.0" prefWidth="144.0" style="-fx-background-radius: 0; -fx-border-color: transparent; -fx-border-width: 0; -fx-background-color: transparent;" stylesheets="@../util/application.css" text="Regisztráció" textAlignment="CENTER" textFill="#9088ff" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Button>
-      <Label alignment="CENTER" contentDisplay="CENTER" text="Nincs felhasználód?" textAlignment="CENTER" textFill="#fffefe" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="BOTTOM" />
+      <Label alignment="CENTER" contentDisplay="CENTER" text="Nincs felhasználód?" textAlignment="CENTER" textFill="#fffefe" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="TOP" />
+      <Button fx:id="btnClose" alignment="CENTER" contentDisplay="CENTER" lineSpacing="5.0" mnemonicParsing="false" onAction="#close" prefHeight="51.0" prefWidth="116.0" styleClass="close-button" stylesheets="@../util/application.css" text="MÉGSE" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
    </children>
 </GridPane>

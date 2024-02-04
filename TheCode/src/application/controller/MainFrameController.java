@@ -335,7 +335,23 @@ public class MainFrameController implements Initializable {
 
 	@FXML
 	void registerNewUser(ActionEvent event) {
-		new AlertMessage().showConfirmationAlertMessage("Regisztráció", "Hamarosan :)");
+		try {
+			FXMLLoader loader=new FXMLLoader(getClass().getResource("/application/frame/RegistrationFrame.fxml"));
+			AnchorPane root=(AnchorPane) loader.load();
+			Scene scene=new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("/application/util/application.css").toExternalForm());
+			Stage stage=new Stage();
+			stage.setTitle("Regisztráció");
+			stage.setScene(scene);
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.getIcons().add(new Image("application/pictures/logo.png"));
+			stage.showAndWait();
+
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 	}
 
 	private void setupMenuForEmployeeRoleUser() {

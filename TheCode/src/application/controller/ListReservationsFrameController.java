@@ -281,7 +281,7 @@ public class ListReservationsFrameController implements Initializable {
 
 					if (reservation.getStartDateTime().isBefore(LocalDateTime.now())) {
 
-						setStyle("-fx-background-color: #FFCCCC;"); 
+						setStyle("-fx-background-color: #FFDDDD;"); 
 					} else {
 
 						setStyle("");
