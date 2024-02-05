@@ -257,7 +257,7 @@ public class ListReservationsFrameController implements Initializable {
 					if (index >= 0 && index < getTableView().getItems().size()) {
 						ReservationDto reservation = getTableView().getItems().get(index);
 						deleteReservation.setText("DELETE");
-						deleteReservation.setDisable(reservation.isDeleted());
+						deleteReservation.setDisable(reservation.isDeleted()||isStartDateTodayOrBeforeToday(reservation.getStartDateTime().toLocalDate()));
 						setGraphic(deleteReservation);
 					}
 				}
@@ -357,6 +357,10 @@ public class ListReservationsFrameController implements Initializable {
 		new AlertMessage().showConfirmationAlertMessage("Foglalás törlés", "A foglalást sikeresen törölted");
 		reservation.setDeleted(true);
 
+	}
+	
+	private boolean isStartDateTodayOrBeforeToday(LocalDate startDate) {
+		return(LocalDate.now().isAfter(startDate)||LocalDate.now().isEqual(startDate));
 	}
 
 }

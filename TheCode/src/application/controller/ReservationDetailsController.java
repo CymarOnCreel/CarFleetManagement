@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 
 import application.alert.AlertMessage;
+import application.dao.CarDao;
 import application.dao.ReservationDao;
 import application.dto.CarDto;
 import application.dto.ReservationDto;
@@ -19,7 +20,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class ReservationDetailsController {
-
 
 	@FXML
 	private TextField carField;
@@ -39,7 +39,7 @@ public class ReservationDetailsController {
 
 	@FXML
 	private TextField mileageAtEnd;
-	
+
 	@FXML
 	private TextField mileageAtStart;
 	@FXML
@@ -48,8 +48,7 @@ public class ReservationDetailsController {
 	private TextField showStartDate;
 	@FXML
 	private TextField showEndDate;
-	
-	
+
 	private ReservationDao reservationDao;
 	private int reservationId;
 	private ListReservationsFrameController listFrameController;
@@ -62,6 +61,7 @@ public class ReservationDetailsController {
 	public ReservationDetailsController() {
 		this.reservationDao = new ReservationDao();
 	}
+
 	public void initialize(ReservationDto reservation) {
 		LocalDateTime today = LocalDateTime.now();
 		this.reservation = reservation;
@@ -75,10 +75,11 @@ public class ReservationDetailsController {
 		if (reservation.isDeleted()) {
 			setAllOptionsDisabledIfReservationIsNotUpdateble();
 		} else if (reservation.getStartDateTime().isBefore(today)) {
-			setAllOptionsDisabledIfReservationIsNotUpdateble();
+			setAllOptionsDisabledExceptMileage();
 		}
 		setUpListeners();
 	}
+
 	@FXML
 	void changeCar(ActionEvent event) {
 		showCarPickerStage(reservation);
@@ -102,17 +103,17 @@ public class ReservationDetailsController {
 		Node source = (Node) event.getSource();
 		Stage stage = (Stage) source.getScene().getWindow();
 		stage.close();
-		new AlertMessage().showConfirmationAlertMessage("Foglalás frissítve",
-				"A foglalás sikeresen frissítve");
+		new AlertMessage().showConfirmationAlertMessage("Foglalás frissítve", "A foglalás sikeresen frissítve");
 		listFrameController.setTable();
 	}
-	
+
 	@FXML
 	private void updateMileageAtEndOfTrip(ActionEvent event) {
-		int mileageUpdate=reservation.getCar().getMileage();
+		int mileageUpdate = reservation.getCar().getMileage();
 		if (!isMileageTextFieldEmpty()) {
 			if (isMileageLesserThenStartMileage()) {
-				new AlertMessage().showUnknownError("Hiba kilométerállás", "A végső kilométerállás nem lehet kevesebb\n mint a kezdeti kilométerállás");
+				new AlertMessage().showUnknownError("Hiba kilométerállás",
+						"A végső kilométerállás nem lehet kevesebb\n mint a kezdeti kilométerállás");
 				mileageAtEnd.getStyleClass().add("wrong-input-background");
 			} else {
 				CarDto carUpdate = reservation.getCar();
@@ -120,17 +121,25 @@ public class ReservationDetailsController {
 				carUpdate.setMileage(mileageUpdate);
 				mileageAtStart.setText(String.valueOf(mileageUpdate));
 				mileageAtEnd.getStyleClass().remove("wrong-input-background");
+				updateCar(carUpdate);
+				new AlertMessage().showConfirmationAlertMessage("Kilométer frissitve",
+						"Kilométerállás sikeresen frissitve");
 			}
 		}
 	}
+
 	private boolean isMileageTextFieldEmpty() {
 		return mileageAtEnd.getText().isEmpty();
 	}
+
 	private boolean isMileageLesserThenStartMileage() {
 		return Integer.parseInt(mileageAtEnd.getText()) < reservation.getCar().getMileage();
 	}
 
-
+	private void updateCar(CarDto carToUpdate) {
+		CarDao carDao = new CarDao();
+		carDao.update(carToUpdate);
+	}
 
 	private void setUpListeners() {
 		mileageAtEnd.textProperty().addListener((observable, oldaValue, newValue) -> {
@@ -147,6 +156,12 @@ public class ReservationDetailsController {
 		update.setDisable(true);
 		changeCar.setDisable(true);
 		updateMileage.setDisable(true);
+	}
+
+	private void setAllOptionsDisabledExceptMileage() {
+		descriptionField.setDisable(true);
+		update.setDisable(true);
+		changeCar.setDisable(true);
 	}
 
 	private void showCarPickerStage(ReservationDto reservation) {
