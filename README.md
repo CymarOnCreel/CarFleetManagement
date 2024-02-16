@@ -27,3 +27,6 @@
   <h3>Run application, and log in with the superadmin.</h3>
   <h3>Add the cars, the users, following the  <a href="CarFleet Mananger App Manual.pdf">MANUAL</a></h3>
 </div>
+<div>
+  <h3>Small teaser <a href="Final_02_16.mp4">video</a> off application</h3>
+</div>
