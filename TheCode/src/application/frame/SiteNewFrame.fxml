@@ -4,24 +4,46 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.SiteNewFrameController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="563.0" prefWidth="555.0" style="-fx-background-color: #1F363C;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.SiteNewFrameController">
    <children>
-      <Label layoutX="72.0" layoutY="83.0" text="Telephely neve:" />
-      <Label layoutX="72.0" layoutY="131.0" text="Címe:" />
-      <Label layoutX="72.0" layoutY="184.0" text="Férőhely:" />
-      <Label layoutX="72.0" layoutY="234.0" text="Kapcsolattartó neve:" />
-      <Label layoutX="72.0" layoutY="279.0" text="Kapcsolattartó email:" />
-      <Label layoutX="72.0" layoutY="335.0" text="Kapcsolattartó telefon:" />
-      <Label layoutX="72.0" layoutY="384.0" text="Megjegyzés:" />
-      <TextField fx:id="tfNameSite" layoutX="241.0" layoutY="78.0" />
-      <TextField fx:id="tfLocation" layoutX="241.0" layoutY="126.0" />
-      <TextField fx:id="tfCapacity" layoutX="241.0" layoutY="179.0" onKeyTyped="#intTyped" />
-      <TextField fx:id="tfContactPerson" layoutX="241.0" layoutY="229.0" />
-      <TextField fx:id="tfContactEmail" layoutX="241.0" layoutY="274.0" />
-      <TextField fx:id="tfContactPhone" layoutX="241.0" layoutY="330.0" />
-      <TextField fx:id="tfDescription" layoutX="241.0" layoutY="379.0" />
-      <Button fx:id="btnSave" layoutX="428.0" layoutY="494.0" mnemonicParsing="false" onAction="#saveNewSite" text="Mentés" />
-      <Button fx:id="btnCancel" layoutX="132.0" layoutY="494.0" mnemonicParsing="false" onAction="#cancel" text="Mégsem" />
+      <Label layoutX="60.0" layoutY="83.0" styleClass="text-white-Label" stylesheets="@../util/application.css" text="Telephely neve:" />
+      <Label layoutX="63.0" layoutY="131.0" styleClass="text-white-Label" stylesheets="@../util/application.css" text="Címe:" />
+      <Label layoutX="63.0" layoutY="184.0" styleClass="text-white-Label" stylesheets="@../util/application.css" text="Férőhely:" />
+      <Label layoutX="63.0" layoutY="234.0" styleClass="text-white-Label" stylesheets="@../util/application.css" text="Kapcsolattartó neve:" />
+      <Label layoutX="60.0" layoutY="287.0" styleClass="text-white-Label" stylesheets="@../util/application.css" text="Kapcsolattartó email:" />
+      <Label layoutX="62.0" layoutY="335.0" styleClass="text-white-Label" stylesheets="@../util/application.css" text="Kapcsolattartó telefon:" />
+      <Label layoutX="63.0" layoutY="384.0" styleClass="text-white-Label" stylesheets="@../util/application.css" text="Megjegyzés:" />
+      <TextField fx:id="tfNameSite" layoutX="266.0" layoutY="77.0">
+         <font>
+            <Font size="18.0" />
+         </font></TextField>
+      <TextField fx:id="tfLocation" layoutX="266.0" layoutY="125.0">
+         <font>
+            <Font size="18.0" />
+         </font></TextField>
+      <TextField fx:id="tfCapacity" layoutX="266.0" layoutY="178.0" onKeyTyped="#intTyped">
+         <font>
+            <Font size="18.0" />
+         </font></TextField>
+      <TextField fx:id="tfContactPerson" layoutX="266.0" layoutY="228.0">
+         <font>
+            <Font size="18.0" />
+         </font></TextField>
+      <TextField fx:id="tfContactEmail" layoutX="266.0" layoutY="281.0">
+         <font>
+            <Font size="18.0" />
+         </font></TextField>
+      <TextField fx:id="tfContactPhone" layoutX="266.0" layoutY="329.0">
+         <font>
+            <Font size="18.0" />
+         </font></TextField>
+      <TextField fx:id="tfDescription" layoutX="266.0" layoutY="378.0">
+         <font>
+            <Font size="18.0" />
+         </font></TextField>
+      <Button fx:id="btnSave" layoutX="68.0" layoutY="474.0" mnemonicParsing="false" onAction="#saveNewSite" styleClass="save-update-button" stylesheets="@../util/application.css" text="Mentés" />
+      <Button fx:id="btnCancel" layoutX="361.0" layoutY="474.0" mnemonicParsing="false" onAction="#cancel" styleClass="close-button" stylesheets="@../util/application.css" text="Mégsem" />
    </children>
 </AnchorPane>

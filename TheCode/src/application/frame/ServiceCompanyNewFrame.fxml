@@ -5,20 +5,19 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.ServiceCompanyNewFrameController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #1F363C;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.ServiceCompanyNewFrameController">
    <children>
-      <Label layoutX="91.0" layoutY="98.0" text="Szerviz társaság neve:" />
-      <Label layoutX="91.0" layoutY="143.0" text="Címe:" />
-      <Label layoutX="91.0" layoutY="190.0" text="Kapcsolattartó neve:" />
-      <Label layoutX="91.0" layoutY="237.0" text="Kapcsolattartó email:" />
-      <Label layoutX="91.0" layoutY="283.0" text="Kapcsolattartó telefon:" />
+      <Label layoutX="74.0" layoutY="95.0" styleClass="text-white-Label" stylesheets="@../util/application.css" text="Szerviz társaság neve:" />
+      <Label layoutX="74.0" layoutY="140.0" styleClass="text-white-Label" stylesheets="@../util/application.css" text="Címe:" />
+      <Label layoutX="74.0" layoutY="187.0" styleClass="text-white-Label" stylesheets="@../util/application.css" text="Kapcsolattartó neve:" />
+      <Label layoutX="72.0" layoutY="234.0" prefHeight="27.0" prefWidth="185.0" styleClass="text-white-Label" stylesheets="@../util/application.css" text="Kapcsolattartó email:" />
+      <Label layoutX="74.0" layoutY="280.0" styleClass="text-white-Label" stylesheets="@../util/application.css" text="Kapcsolattartó telefon:" />
       <TextField fx:id="tfNameServiceCompany" layoutX="275.0" layoutY="93.0" prefHeight="31.0" prefWidth="267.0" />
       <TextField fx:id="tfLocation" layoutX="275.0" layoutY="138.0" prefHeight="31.0" prefWidth="267.0" />
       <TextField fx:id="tfContactPerson" layoutX="275.0" layoutY="185.0" prefHeight="31.0" prefWidth="267.0" />
       <TextField fx:id="tfContactEmail" layoutX="275.0" layoutY="232.0" prefHeight="31.0" prefWidth="267.0" />
       <TextField fx:id="tfContactPhone" layoutX="275.0" layoutY="278.0" prefHeight="31.0" prefWidth="267.0" />
-      <Button fx:id="btnSave" layoutX="397.0" layoutY="381.0" mnemonicParsing="false" onAction="#saveNewServiceCompany" text="Mentés" />
-      <Button fx:id="btnCancel" layoutX="210.0" layoutY="381.0" mnemonicParsing="false" onAction="#cancel" text="Mégsem" />
+      <Button fx:id="btnSave" layoutX="74.0" layoutY="374.0" mnemonicParsing="false" onAction="#saveNewServiceCompany" styleClass="save-update-button" stylesheets="@../util/application.css" text="Mentés" />
+      <Button fx:id="btnCancel" layoutX="413.0" layoutY="374.0" mnemonicParsing="false" onAction="#cancel" styleClass="close-button" stylesheets="@../util/application.css" text="Mégsem" />
    </children>
 </AnchorPane>

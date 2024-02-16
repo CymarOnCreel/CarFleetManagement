@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="525.0" prefWidth="548.0" styleClass="backGroundColor" stylesheets="@../util/application.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.InsuranceNewFrameController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="525.0" prefWidth="548.0" style="-fx-background-color: #1F363C;" styleClass="backGroundColor" stylesheets="@../util/application.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.InsuranceNewFrameController">
    <children>
       <Label layoutX="78.0" layoutY="96.0" styleClass="text-white-Label" stylesheets="@../util/application.css" text="Autó:" />
       <Label layoutX="78.0" layoutY="152.0" styleClass="text-white-Label" stylesheets="@../util/application.css" text="Biztosítás típusa:" />
@@ -37,7 +37,7 @@
       <Button fx:id="btnSave" layoutX="78.0" layoutY="444.0" mnemonicParsing="false" onAction="#saveNewInsurance" styleClass="save-update-button" stylesheets="@../util/application.css" text="Mentés" />
       <Button fx:id="btnCancel" layoutX="380.0" layoutY="444.0" mnemonicParsing="false" onAction="#cancel" styleClass="close-button" stylesheets="@../util/application.css" text="Mégsem" />
       <Button fx:id="btnNewInsuranceType" layoutX="444.0" layoutY="155.0" mnemonicParsing="false" onAction="#newInsuranceType" text="+" />
-      <ImageView fitHeight="102.0" fitWidth="158.0" layoutX="183.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="102.0" fitWidth="158.0" layoutX="200.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../pictures/Listreservationframe/hand-give-remote-car-key-to-other-flat-design-vector-22570968-removebg-preview.png" />
          </image>

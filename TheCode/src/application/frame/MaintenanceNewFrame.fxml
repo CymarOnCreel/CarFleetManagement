@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="555.0" styleClass="backGroundColor" stylesheets="@../util/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.MaintenanceNewFrameController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="555.0" style="-fx-background-color: #1F363C;" styleClass="backGroundColor" stylesheets="@../util/application.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.MaintenanceNewFrameController">
    <children>
       <Label layoutX="83.0" layoutY="110.0" styleClass="text-white-Label" stylesheets="@../util/application.css" text="Autó:" />
       <Label layoutX="83.0" layoutY="153.0" styleClass="text-white-Label" stylesheets="@../util/application.css" text="Karbantartás típusa:" />
@@ -46,6 +46,9 @@
             <InnerShadow choke="1.0" radius="68.5" width="255.0" />
          </effect>
       </ImageView>
-      <Label alignment="TOP_CENTER" layoutX="94.0" layoutY="47.0" prefHeight="51.0" prefWidth="407.0" stylesheets="@../util/application.css" text="Figyelem! A következő kötelező szerviz (olajcsere) kiszámítása a &quot;Kötelező szerviz&quot; típus alapján történik." textAlignment="CENTER" textFill="#000000c7" wrapText="true" />
+      <Label alignment="TOP_CENTER" layoutX="84.0" layoutY="47.0" prefHeight="51.0" prefWidth="417.0" stylesheets="@../util/application.css" text="Figyelem! A következő kötelező szerviz (olajcsere) kiszámítása a &quot;Kötelező szerviz&quot; típus alapján történik." textAlignment="CENTER" textFill="#f80101c7" wrapText="true">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
    </children>
 </AnchorPane>
