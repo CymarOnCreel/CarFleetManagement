@@ -4,23 +4,26 @@
 <h1 align="center"># Team: CodeCruisers</h1>
 
 <p>
-  <h3 align="center"><a href="https://github.com/zdomiter">Zoltán Domiter</a></h3>
-  <h3 align="center"><a href="https://github.com/AlexaF89">Alexandra Fried</a></h3>
-  <h3 align="center"><a href="https://github.com/whzfake96">SzMate</a></h3>
-  <h3 align="center"><a href="https://github.com/Wwester">Werle Eszter</a></h3>
-  <h3 align="center"><a href="https://github.com/CymarOnCreel">Zoltán Tamás</a></h3>
+  <h3 align="center"><a href="https://github.com/CymarOnCreel">Zoltán Tamás - Team Leader</a></h3>
+  <h3 align="center"><a href="https://github.com/zdomiter">Zoltán Domiter - database designer, developer</a></h3>
+  <h3 align="center"><a href="https://github.com/AlexaF89">Alexandra Fried - developer</a></h3>
+  <h3 align="center"><a href="https://github.com/whzfake96">SzMate - UI designer</a></h3>
 </p>
 
-
-minden ötlet kép.fájlt tegyünk az ideas mappába akkár saját könyvtárakat létrehozva beszédes elnevezéssel<br>
-
-az ötletek szavazására excelt?<br>
-alap excel bővithető meglátások alapján.<br>
-a szavazat a megfelelő sorba a megfelelő fájlnév beirással történjen?<br>
-
-elfogadott ötlet átkerül a megfelelő mappába ahol tovább tudunk rajta dolgozni, pofozgatni<br>
-
-a véglegesen elfogadottak átkerülnek a következő mappába<br>
-
-és ha úgy döntünk lefejlesszük (amit szerintem nagyon jó lenne akkár egy referenciának is) akkor  majd ott eldöntjük mikkel ki foglalkozik kinek mi az erőssége.
-
+<div>
+  <h3>This app is created by students learning Java.</h3>
+  <h3>The Application is for managing cars and car usage by employees at a company.</h3>
+</div>
+<div>
+  <h2>App database instalation</h2>
+  <h3>Run the <a href="car_fleet_datebase_table_create.sql">SQL Script</a> to set up the database </h3>
+  <h3>Add the following roles to the Database:</h3>
+  <ul>
+    <li>USER</li>
+    <li>ADMIN</li>
+    <li>SUPERADMIN</li>
+  </ul>
+  <h3>Add a user with SuperAdmin role</h3>
+  <h3>Run application, and log in with the superadmin.</h3>
+  <h3>Add the cars, the users, following the  <a href="CarFleet Mananger App Manual.pdf">MANUAL</a></h3>
+</div>
