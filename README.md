@@ -1,5 +1,5 @@
 <h1 align="center"> CarFleetManagement </h1>
-<h2 align="center">This is company carfleet management system designing project</h2>
+
 
 <h1 align="center"># Team: CodeCruisers</h1>
 
@@ -9,7 +9,8 @@
   <h3 align="center"><a href="https://github.com/AlexaF89">Alexandra Fried - developer</a></h3>
   <h3 align="center"><a href="https://github.com/whzfake96">SzMate - UI designer</a></h3>
 </p>
-
+<img align="center" src="CarFleetManager.jpg"/>
+<h2 align="center">This is company carfleet management system designing project</h2>
 <div>
   <h3>This app is created by students learning Java.</h3>
   <h3>The Application is for managing cars and car usage by employees at a company.</h3>
